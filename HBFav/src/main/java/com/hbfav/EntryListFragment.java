@@ -15,12 +15,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class EntryListFragment extends ListFragment implements AbsListView.OnScrollListener {
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
+
+public class EntryListFragment extends ListFragment
+        implements AbsListView.OnScrollListener, PullToRefreshAttacher.OnRefreshListener {
     private TextView headerTextView;
     private View mFooterView;
     private ArrayList<String> mEntries;
     private ArrayAdapter<String> mAdapter;
     private AsyncTask mTask;
+    private PullToRefreshAttacher mPullToRefreshAttacher;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class EntryListFragment extends ListFragment implements AbsListView.OnScr
         View rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
         headerTextView = (TextView) rootView.findViewById(R.id.list_header_text);
         mFooterView = inflater.inflate(R.layout.listview_footer, null);
+        mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
         return rootView;
     }
 
@@ -45,6 +50,8 @@ public class EntryListFragment extends ListFragment implements AbsListView.OnScr
         ListView listView = getListView();
         listView.addFooterView(mFooterView);
         listView.setOnScrollListener(this);
+
+        mPullToRefreshAttacher.addRefreshableView(listView, this);
 
         mAdapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -71,6 +78,28 @@ public class EntryListFragment extends ListFragment implements AbsListView.OnScr
         if (totalItemCount == firstVisibleItem + visibleItemCount) {
             additionalReading();
         }
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+
+                mPullToRefreshAttacher.setRefreshComplete();
+            }
+        }.execute();
     }
 
     private void additionalReading() {

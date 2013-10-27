@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-;
+;import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -30,6 +30,8 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
+    private PullToRefreshAttacher mPullToRefreshAttacher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,9 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
+
+        // The attacher should always be created in the Activity's onCreate
+        mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -60,6 +65,10 @@ public class MainActivity extends Activity
                     .replace(R.id.container, fragment)
                     .commit();
         }
+    }
+
+    PullToRefreshAttacher getPullToRefreshAttacher() {
+        return mPullToRefreshAttacher;
     }
 
     public void onSectionAttached(int number) {
