@@ -98,7 +98,8 @@ public class EntryListFragment extends ListFragment
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-
+                prependListData();
+                getListView().invalidateViews();
                 mPullToRefreshAttacher.setRefreshComplete();
             }
         }.execute();
@@ -129,6 +130,13 @@ public class EntryListFragment extends ListFragment
     private void addListData() {
         for (int i = 0; i < 10; i++) {
             mEntries.add("Hello world");
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void prependListData() {
+        for (int i = 0; i < 5; i++) {
+            mEntries.add(0, "Goodbye world");
         }
         mAdapter.notifyDataSetChanged();
     }
