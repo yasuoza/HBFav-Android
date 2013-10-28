@@ -6,13 +6,16 @@ public class Entry {
     private String comment;
     private String link;
     private String permalink;
+    private String createdAt;
     private User   user;
 
 
-    public Entry(String title, String link, String permalink, User user) {
+    public Entry(String title, String comment, String link, String permalink, String createdAt, User user) {
         this.title = title;
+        this.comment = comment;
         this.link = link;
         this.permalink = permalink;
+        this.createdAt = createdAt;
         this.user = user;
     }
 
@@ -20,16 +23,24 @@ public class Entry {
         return title;
     }
 
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(final String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void setComment(final String comment) {
         this.comment = comment;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
     }
 
     public String getLink() {
