@@ -150,16 +150,9 @@ public class MainActivity extends Activity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView;
-
-            Integer section = getArguments().getInt(ARG_SECTION_NUMBER);
-            if (section <= 3) {
-                rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-                textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            } else {
-                rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
-            }
-
+            rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
 
