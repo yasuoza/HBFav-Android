@@ -1,4 +1,4 @@
-package com.hbfav;
+package com.hbfav.android;
 
 
 import android.app.ListFragment;
@@ -11,6 +11,8 @@ import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.hbfav.R;
 
 import java.util.ArrayList;
 import java.util.Random;
