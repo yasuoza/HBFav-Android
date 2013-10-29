@@ -1,16 +1,21 @@
 package com.hbfav.android.controllers;
 
+import com.loopj.android.http.*;
+
 public class BookmarksFetcher {
-    private static BookmarksFetcher ourInstance = new BookmarksFetcher();
+    private static final String BASE_URL = "http://feed.hbfav.com/";
 
-    public static BookmarksFetcher getInstance() {
-        return ourInstance;
+    private static AsyncHttpClient client = new AsyncHttpClient();
+
+    public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
+        client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    private BookmarksFetcher() {
+    public static void getImage(String url, BinaryHttpResponseHandler binaryHandler) {
+        client.get(url, binaryHandler);
     }
 
-    public static Integer fetchBookmarks(String url) {
-        return 200;
+    private static String getAbsoluteUrl(String relativeUrl) {
+        return BASE_URL + relativeUrl;
     }
 }

@@ -4,6 +4,8 @@ package com.hbfav.android;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,10 +19,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hbfav.R;
+import com.hbfav.android.controllers.BookmarksFetcher;
 import com.hbfav.android.models.Entry;
 import com.hbfav.android.models.User;
+import com.loopj.android.http.BinaryHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.w3c.dom.Text;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -91,25 +98,42 @@ public class EntryListFragment extends ListFragment
 
     @Override
     public void onRefreshStarted(View view) {
-        new AsyncTask<Void, Void, Void>() {
+        BookmarksFetcher.get("YasuOza", null, new JsonHttpResponseHandler() {
             @Override
-            protected Void doInBackground(Void... params) {
+            public void onSuccess(JSONObject jObj) {
                 try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException e) {
+                    JSONArray bookmarks = jObj.getJSONArray("bookmarks");
+                    for (int i = 0; i < bookmarks.length(); i++) {
+                        JSONObject bookmark = (JSONObject) bookmarks.get(i);
+                        String title = bookmark.getString("title");
+                        String comment = bookmark.getString("comment");
+                        String created_at = bookmark.getString("created_at");
+                        JSONObject jUser = bookmark.getJSONObject("user");
+                        String uName = jUser.getString("name");
+                        String uThumbUrl = jUser.getString("profile_image_url");
+                        User user = new User(uName, uThumbUrl);
+                        Entry entry = new Entry(
+                                title,
+                                comment,
+                                "append_entry_link",
+                                "entry_permalink",
+                                created_at,
+                                user
+                        );
+                        mEntries.add(0, entry);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return null;
             }
 
             @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                prependListData();
+            public void onFinish() {
                 getListView().invalidateViews();
                 mPullToRefreshAttacher.setRefreshComplete();
             }
-        }.execute();
+        });
     }
 
     private void additionalReading() {
@@ -143,29 +167,12 @@ public class EntryListFragment extends ListFragment
                 "entry_permalink",
                 "2 hours ago",
                 user
-        );;
+        );
         for (int i = 0; i < 10; i++) {
             mEntries.add(entry);
         }
         mAdapter.notifyDataSetChanged();
     }
-
-    private void prependListData() {
-        User user = new User("Prepend_user_name", "prepend_thumb_url");
-        Entry entry = new Entry(
-                "prepend_entry_title",
-                "This is special comment",
-                "prepend_entry_link",
-                "entry_permalink",
-                "1 hours ago",
-                user
-        );
-        for (int i = 0; i < 5; i++) {
-            mEntries.add(0, entry);
-        }
-        mAdapter.notifyDataSetChanged();
-    }
-
 
     private class EntryListAdapter extends ArrayAdapter<Entry> {
         private LayoutInflater inflater;
@@ -179,35 +186,49 @@ public class EntryListFragment extends ListFragment
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
+            final Entry entry = mEntries.get(position);
+
             if (view == null) {
                 view = this.inflater.inflate(this.layout, parent, false);
             }
 
-            Entry entry = mEntries.get(position);
-
             Drawable userThumb = entry.getUser().getProfileImage();
             if (userThumb == null) {
-                entry.getUser().setProfileImage(getResources().getDrawable(R.drawable.ic_launcher));
-                userThumb = entry.getUser().getProfileImage();
+                String[] allowedContentTypes = new String[]{"image/gif"};
+                BookmarksFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(allowedContentTypes) {
+                    @Override
+                    public void onSuccess(byte[] fileData) {
+                        Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                        entry.getUser().setProfileImage(image);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+                userThumb = getResources().getDrawable(R.drawable.ic_launcher);
             }
 
             // Assign entry data to view
             ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view))
                     .setImageDrawable(userThumb);
+
             ((TextView) view.findViewById(R.id.fragment_entry_user_name))
                     .setText(entry.getUser().getName());
+
             ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
                     .setText(entry.getCreatedAt());
-            ((TextView) view.findViewById(R.id.fragment_entry_list_entry_comment))
-                    .setText(entry.getComment());
+
+            if (entry.getComment().equals("")) {
+                view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.GONE);
+            } else {
+                view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.VISIBLE);
+                ((TextView) view.findViewById(R.id.fragment_entry_list_entry_comment))
+                        .setText(entry.getComment());
+            }
+
             ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
                     .setImageDrawable(userThumb);
+
             ((TextView) view.findViewById(R.id.fragment_entry_list_title))
                     .setText(entry.getTitle());
-
-            if (position == 2) {
-                view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.GONE);
-            }
 
             return view;
         }
