@@ -27,5 +27,6 @@ android {
 dependencies {
 	compile 'com.android.support:support-v4:+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.8'
+    compile 'com.loopj.android:android-async-http:1.4.4'
     instrumentTestCompile 'com.google.guava:guava:11.0.2'
 }
