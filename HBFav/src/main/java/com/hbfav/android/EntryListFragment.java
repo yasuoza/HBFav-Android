@@ -4,9 +4,11 @@ package com.hbfav.android;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +68,8 @@ public class EntryListFragment extends ListFragment
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        headerTextView.setText(TimelineFeedManager.get(position).getTitle());
+        Uri uri = Uri.parse(TimelineFeedManager.get(position).getLink());
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     @Override
