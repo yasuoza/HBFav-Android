@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,17 +19,12 @@ import android.widget.TextView;
 
 import com.hbfav.R;
 import com.hbfav.android.controllers.BookmarksFetcher;
+import com.hbfav.android.controllers.TimelineFeedManager;
+import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
-import com.hbfav.android.models.User;
 import com.loopj.android.http.BinaryHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
@@ -38,17 +32,10 @@ public class EntryListFragment extends ListFragment
         implements AbsListView.OnScrollListener, PullToRefreshAttacher.OnRefreshListener {
     private TextView headerTextView;
     private View mFooterView;
-    private ArrayList<Entry> mEntries;
     private EntryListAdapter mAdapter;
-    private AsyncTask mTask;
     private PullToRefreshAttacher mPullToRefreshAttacher;
+    private boolean isFetchingBookmarks = false;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        mEntries = new ArrayList<Entry>();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +60,7 @@ public class EntryListFragment extends ListFragment
         mAdapter = new EntryListAdapter(
                 getActivity(),
                 R.layout.fragment_entry_list_row,
-                mEntries
+                TimelineFeedManager.getList()
         );
         setListAdapter(mAdapter);
     }
@@ -82,7 +69,7 @@ public class EntryListFragment extends ListFragment
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        headerTextView.setText(mEntries.get(position).getTitle());
+        headerTextView.setText(TimelineFeedManager.get(position).getTitle());
     }
 
     @Override
@@ -98,38 +85,17 @@ public class EntryListFragment extends ListFragment
 
     @Override
     public void onRefreshStarted(View view) {
-        BookmarksFetcher.get("YasuOza", null, new JsonHttpResponseHandler() {
+        TimelineFeedManager.fetchFeed("YasuOza", new FeedResponseHandler() {
             @Override
-            public void onSuccess(JSONObject jObj) {
-                try {
-                    JSONArray bookmarks = jObj.getJSONArray("bookmarks");
-                    for (int i = 0; i < bookmarks.length(); i++) {
-                        JSONObject bookmark = (JSONObject) bookmarks.get(i);
-                        String title = bookmark.getString("title");
-                        String comment = bookmark.getString("comment");
-                        String created_at = bookmark.getString("created_at");
-                        JSONObject jUser = bookmark.getJSONObject("user");
-                        String uName = jUser.getString("name");
-                        String uThumbUrl = jUser.getString("profile_image_url");
-                        User user = new User(uName, uThumbUrl);
-                        Entry entry = new Entry(
-                                title,
-                                comment,
-                                "append_entry_link",
-                                "entry_permalink",
-                                created_at,
-                                user
-                        );
-                        mEntries.add(0, entry);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess() {
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFinish() {
+                if (getListView() == null) {
+                    return;
+                }
                 getListView().invalidateViews();
                 mPullToRefreshAttacher.setRefreshComplete();
             }
@@ -137,46 +103,31 @@ public class EntryListFragment extends ListFragment
     }
 
     private void additionalReading() {
-        if (mTask != null && mTask.getStatus() == AsyncTask.Status.RUNNING) {
+        if (isFetchingBookmarks) {
             return;
         }
-        mTask = new AsyncTask<Long, Void, Void>() {
+
+        isFetchingBookmarks  = true;
+        TimelineFeedManager.fetchFeed("YasuOza", new FeedResponseHandler() {
             @Override
-            protected Void doInBackground(Long[] params) {
-                try {
-                    Thread.sleep(params[0]);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            };
+            public void onSuccess() {
+                mAdapter.notifyDataSetChanged();
+            }
 
-            protected void onPostExecute(Void result) {
-                addListData();
-                getListView().invalidateViews();
-            };
-        }.execute(Math.abs(new Random(System.currentTimeMillis()).nextLong() % 3000));
+            @Override
+            public void onFinish() {
+                isFetchingBookmarks = false;
+            }
+        });
     }
 
-    private void addListData() {
-        User user = new User("Append_user_name", "prepend_thumb_url");
-        Entry entry = new Entry(
-                "append_entry_title",
-                "This is special comment",
-                "append_entry_link",
-                "entry_permalink",
-                "2 hours ago",
-                user
-        );
-        for (int i = 0; i < 10; i++) {
-            mEntries.add(entry);
-        }
-        mAdapter.notifyDataSetChanged();
-    }
+
 
     private class EntryListAdapter extends ArrayAdapter<Entry> {
+        private final String[] AllowedImageContentTypes = new String[]{"image/gif", "image/png"};
         private LayoutInflater inflater;
         private int layout;
+
 
         public EntryListAdapter(Context context, int textViewResourceId, ArrayList<Entry> entries) {
             super(context, textViewResourceId, entries);
@@ -186,7 +137,7 @@ public class EntryListFragment extends ListFragment
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            final Entry entry = mEntries.get(position);
+            final Entry entry = TimelineFeedManager.get(position);
 
             if (view == null) {
                 view = this.inflater.inflate(this.layout, parent, false);
@@ -194,8 +145,7 @@ public class EntryListFragment extends ListFragment
 
             Drawable userThumb = entry.getUser().getProfileImage();
             if (userThumb == null) {
-                String[] allowedContentTypes = new String[]{"image/gif"};
-                BookmarksFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(allowedContentTypes) {
+                BookmarksFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
                     @Override
                     public void onSuccess(byte[] fileData) {
                         Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -205,10 +155,23 @@ public class EntryListFragment extends ListFragment
                 });
                 userThumb = getResources().getDrawable(R.drawable.ic_launcher);
             }
-
-            // Assign entry data to view
             ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view))
                     .setImageDrawable(userThumb);
+
+            Drawable favicon = entry.getFavicon();
+            if (favicon == null) {
+                BookmarksFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
+                    @Override
+                    public void onSuccess(byte[] fileData) {
+                        Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                        entry.setFavicon(image);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+                favicon = getResources().getDrawable(R.drawable.ic_launcher);
+            }
+            ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
+                    .setImageDrawable(favicon);
 
             ((TextView) view.findViewById(R.id.fragment_entry_user_name))
                     .setText(entry.getUser().getName());
@@ -223,9 +186,6 @@ public class EntryListFragment extends ListFragment
                 ((TextView) view.findViewById(R.id.fragment_entry_list_entry_comment))
                         .setText(entry.getComment());
             }
-
-            ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
-                    .setImageDrawable(userThumb);
 
             ((TextView) view.findViewById(R.id.fragment_entry_list_title))
                     .setText(entry.getTitle());

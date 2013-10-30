@@ -1,18 +1,23 @@
 package com.hbfav.android.models;
 
 
+import android.graphics.drawable.Drawable;
+
 public class Entry {
     private String title;
     private String comment;
+    private String faviconUrl;
+    private Drawable favicon;
     private String link;
     private String permalink;
     private String createdAt;
     private User   user;
 
 
-    public Entry(String title, String comment, String link, String permalink, String createdAt, User user) {
+    public Entry(String title, String comment, String faviconUrl, String link, String permalink, String createdAt, User user) {
         this.title = title;
         this.comment = comment;
+        this.faviconUrl = faviconUrl;
         this.link = link;
         this.permalink = permalink;
         this.createdAt = createdAt;
@@ -41,6 +46,18 @@ public class Entry {
 
     public void setComment(final String comment) {
         this.comment = comment;
+    }
+
+    public String getFaviconUrl() {
+        return faviconUrl;
+    }
+
+    public Drawable getFavicon() {
+        return favicon;
+    }
+
+    public void setFavicon(Drawable favicon) {
+        this.favicon = favicon;
     }
 
     public String getLink() {
