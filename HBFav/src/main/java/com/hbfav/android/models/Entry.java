@@ -83,4 +83,24 @@ public class Entry {
     public void setUser(final User user) {
         this.user = user;
     }
+
+
+    @Override
+    public int hashCode() {
+        return getLink().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Entry)) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+
+        Entry entry = (Entry) obj;
+        return entry.getLink().equals(this.getLink())
+                && entry.getUser().getName().equals(this.getUser().getName());
+    }
 }

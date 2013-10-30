@@ -24,8 +24,6 @@ import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
-import java.util.ArrayList;
-
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class EntryListFragment extends ListFragment
@@ -59,8 +57,7 @@ public class EntryListFragment extends ListFragment
 
         mAdapter = new EntryListAdapter(
                 getActivity(),
-                R.layout.fragment_entry_list_row,
-                TimelineFeedManager.getList()
+                R.layout.fragment_entry_list_row
         );
         setListAdapter(mAdapter);
     }
@@ -85,7 +82,7 @@ public class EntryListFragment extends ListFragment
 
     @Override
     public void onRefreshStarted(View view) {
-        TimelineFeedManager.fetchFeed("YasuOza", new FeedResponseHandler() {
+        TimelineFeedManager.fetchFeed("YasuOza", true, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -96,7 +93,7 @@ public class EntryListFragment extends ListFragment
                 if (getListView() == null) {
                     return;
                 }
-                getListView().invalidateViews();
+                mAdapter.notifyDataSetChanged();
                 mPullToRefreshAttacher.setRefreshComplete();
             }
         });
@@ -108,7 +105,7 @@ public class EntryListFragment extends ListFragment
         }
 
         isFetchingBookmarks  = true;
-        TimelineFeedManager.fetchFeed("YasuOza", new FeedResponseHandler() {
+        TimelineFeedManager.fetchFeed("YasuOza?until=1381839812", false, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -129,10 +126,20 @@ public class EntryListFragment extends ListFragment
         private int layout;
 
 
-        public EntryListAdapter(Context context, int textViewResourceId, ArrayList<Entry> entries) {
-            super(context, textViewResourceId, entries);
+        public EntryListAdapter(Context context, int textViewResourceId) {
+            super(context, textViewResourceId);
             this.inflater = ((Activity) context).getLayoutInflater();
             this.layout = textViewResourceId;
+        }
+
+        @Override
+        public int getCount() {
+            return TimelineFeedManager.getList().size();
+        }
+
+        @Override
+        public Entry getItem(int position) {
+            return TimelineFeedManager.get(position);
         }
 
         @Override
