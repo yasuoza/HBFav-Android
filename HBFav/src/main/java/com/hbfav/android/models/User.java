@@ -3,8 +3,6 @@ package com.hbfav.android.models;
 
 import android.graphics.drawable.Drawable;
 
-import com.hbfav.R;
-
 public class User {
     private String name;
     private String profileImageUrl;

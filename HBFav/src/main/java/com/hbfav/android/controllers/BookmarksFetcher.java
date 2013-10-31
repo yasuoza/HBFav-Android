@@ -1,6 +1,9 @@
 package com.hbfav.android.controllers;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.BinaryHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class BookmarksFetcher {
     private static final String BASE_URL = "http://feed.hbfav.com/";
