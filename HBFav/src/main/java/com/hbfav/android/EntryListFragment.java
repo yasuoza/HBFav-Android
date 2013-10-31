@@ -108,7 +108,11 @@ public class EntryListFragment extends ListFragment
         }
 
         isFetchingBookmarks  = true;
-        TimelineFeedManager.fetchFeed("YasuOza?until=1381839812", false, new FeedResponseHandler() {
+        String endpoint = "YasuOza";
+        if (!TimelineFeedManager.getList().isEmpty()) {
+            endpoint += "?until=" + (TimelineFeedManager.getLastBookmarkDateTime().getMillis() / 1000l);
+        }
+        TimelineFeedManager.fetchFeed(endpoint, false, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -187,7 +191,7 @@ public class EntryListFragment extends ListFragment
                     .setText(entry.getUser().getName());
 
             ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
-                    .setText(entry.getCreatedAt());
+                    .setText(entry.getRelativeTimeSpanString());
 
             if (entry.getComment().equals("")) {
                 view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.GONE);

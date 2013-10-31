@@ -5,6 +5,8 @@ import com.hbfav.android.models.Entry;
 import com.hbfav.android.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +40,10 @@ public class TimelineFeedManager {
         return manager.bookmarks;
     }
 
+    public static DateTime getLastBookmarkDateTime() {
+        return manager.bookmarks.get(manager.bookmarks.size() - 1).getDateTime();
+    }
+
     public static void fetchFeed(String user, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
         BookmarksFetcher.get(user, null, new JsonHttpResponseHandler() {
             @Override
@@ -52,7 +58,7 @@ public class TimelineFeedManager {
                         String faviconUrl = bookmark.getString("favicon_url");
                         String link = bookmark.getString("link");
                         String permaLink = bookmark.getString("permalink");
-                        String created_at = bookmark.getString("created_at");
+                        DateTime datetime = ISODateTimeFormat.dateTimeNoMillis().parseDateTime(bookmark.getString("datetime"));
                         JSONObject jUser = bookmark.getJSONObject("user");
                         String uName = jUser.getString("name");
                         String uThumbUrl = jUser.getString("profile_image_url");
@@ -61,9 +67,9 @@ public class TimelineFeedManager {
                                 title,
                                 comment,
                                 faviconUrl,
+                                datetime,
                                 link,
                                 permaLink,
-                                created_at,
                                 user
                         );
                         entries.add(entry);

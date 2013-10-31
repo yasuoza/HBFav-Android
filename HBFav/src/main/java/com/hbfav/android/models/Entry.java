@@ -10,17 +10,17 @@ public class Entry {
     private Drawable favicon;
     private String link;
     private String permalink;
-    private String createdAt;
+    private DateTime datetime;
     private User   user;
+    private DateTimeFormatter isoTimeParser = ISODateTimeFormat.dateTimeNoMillis();
 
-
-    public Entry(String title, String comment, String faviconUrl, String link, String permalink, String createdAt, User user) {
+    public Entry(String title, String comment, String faviconUrl, DateTime datetime, String link, String permalink, User user) {
         this.title = title;
         this.comment = comment;
         this.faviconUrl = faviconUrl;
+        this.datetime = datetime;
         this.link = link;
         this.permalink = permalink;
-        this.createdAt = createdAt;
         this.user = user;
     }
 
@@ -32,12 +32,16 @@ public class Entry {
         this.title = title;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public DateTime getDateTime() {
+        return datetime;
     }
 
-    public void setCreatedAt(final String createdAt) {
-        this.createdAt = createdAt;
+    public void setDateTime(final String datetimeStr) {
+        this.datetime = isoTimeParser.parseDateTime(datetimeStr);
+    }
+
+    public CharSequence getRelativeTimeSpanString() {
+        return DateUtils.getRelativeTimeSpanString(this.datetime.getMillis());
     }
 
     public String getComment() {
