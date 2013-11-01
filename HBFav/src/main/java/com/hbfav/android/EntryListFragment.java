@@ -30,18 +30,34 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class EntryListFragment extends ListFragment
         implements AbsListView.OnScrollListener, PullToRefreshAttacher.OnRefreshListener {
-    private TextView headerTextView;
     private View mFooterView;
     private EntryListAdapter mAdapter;
     private PullToRefreshAttacher mPullToRefreshAttacher;
     private boolean isFetchingBookmarks = false;
 
+    /**
+     * Returns a new instance of this fragment for the given section
+     * number.
+     */
+    public static EntryListFragment newInstance(int sectionNumber) {
+        EntryListFragment fragment = new EntryListFragment();
+        Bundle args = new Bundle();
+        args.putInt(Constants.ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(
+                getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
-        headerTextView = (TextView) rootView.findViewById(R.id.list_header_text);
         mFooterView = inflater.inflate(R.layout.listview_footer, null);
         mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
         return rootView;

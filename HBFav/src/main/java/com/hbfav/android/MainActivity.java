@@ -12,12 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.hbfav.R;
-
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
-;
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -62,9 +59,8 @@ public class MainActivity extends Activity
                     .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                     .commit();
         } else {
-            EntryListFragment fragment = new EntryListFragment();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, fragment)
+                    .replace(R.id.container, EntryListFragment.newInstance(position + 1))
                     .commit();
         }
     }
@@ -85,7 +81,7 @@ public class MainActivity extends Activity
                 mTitle = getString(R.string.title_section3);
                 break;
             case 4:
-                mTitle = "ListView 4";
+                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -128,19 +124,13 @@ public class MainActivity extends Activity
      */
     public static class PlaceholderFragment extends Fragment {
         /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(Constants.ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
@@ -154,7 +144,7 @@ public class MainActivity extends Activity
             View rootView;
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+            textView.setText(Integer.toString(getArguments().getInt(Constants.ARG_SECTION_NUMBER)));
             return rootView;
         }
 
@@ -162,7 +152,7 @@ public class MainActivity extends Activity
         public void onAttach(Activity activity) {
             super.onAttach(activity);
             ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
+                    getArguments().getInt(Constants.ARG_SECTION_NUMBER));
         }
     }
 

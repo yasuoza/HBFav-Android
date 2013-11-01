@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><color name="light_gray_color">#999</color></resources>
+<resources>
+    <color name="light_gray_color">#999</color>
+    <color name="hatena_color">#2c6ebd</color>
+
+    <color name="white">#fff</color>
+</resources>
