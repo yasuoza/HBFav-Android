@@ -1,5 +1,6 @@
 package com.hbfav.android.controllers;
 
+import com.hbfav.android.Constants;
 import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
 import com.hbfav.android.models.User;
@@ -30,6 +31,10 @@ public class TimelineFeedManager {
     public static void prependAll(ArrayList<Entry> entries) {
         entries.addAll(manager.bookmarks);
         manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
+        // Shrink bookmarks if needed
+        if (manager.bookmarks.size() > Constants.MAX_FEED_CACHE_LENGTH) {
+            manager.bookmarks.subList(Constants.MAX_FEED_CACHE_LENGTH, manager.bookmarks.size() - 1).clear();
+        }
     }
 
     public static Entry get(Integer index) {
