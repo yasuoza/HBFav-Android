@@ -12,7 +12,6 @@ public class Entry {
     private String title;
     private String comment;
     private String faviconUrl;
-    private Drawable favicon;
     private String link;
     private String permalink;
     private DateTime datetime;
@@ -62,11 +61,11 @@ public class Entry {
     }
 
     public Drawable getFavicon() {
-        return favicon;
+        return ImageCache.getImage(faviconUrl);
     }
 
     public void setFavicon(Drawable favicon) {
-        this.favicon = favicon;
+        ImageCache.setImage(faviconUrl, favicon);
     }
 
     public String getLink() {

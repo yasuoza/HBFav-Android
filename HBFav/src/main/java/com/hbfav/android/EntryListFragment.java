@@ -183,7 +183,6 @@ public class EntryListFragment extends ListFragment
                         mAdapter.notifyDataSetChanged();
                     }
                 });
-                userThumb = getResources().getDrawable(R.drawable.ic_launcher);
             }
             ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view))
                     .setImageDrawable(userThumb);
@@ -198,7 +197,6 @@ public class EntryListFragment extends ListFragment
                         mAdapter.notifyDataSetChanged();
                     }
                 });
-                favicon = getResources().getDrawable(R.drawable.ic_launcher);
             }
             ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
                     .setImageDrawable(favicon);

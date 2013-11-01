@@ -30,10 +30,10 @@ public class User {
     }
 
     public Drawable getProfileImage() {
-        return profileImage;
+        return ImageCache.getImage(profileImageUrl);
     }
 
     public void setProfileImage(final Drawable profileImage) {
-        this.profileImage = profileImage;
+        ImageCache.setImage(profileImageUrl, profileImage);
     }
 }
