@@ -17,11 +17,7 @@ import java.util.LinkedHashSet;
 
 public class TimelineFeedManager {
     private static TimelineFeedManager manager = new TimelineFeedManager();
-    private ArrayList<Entry> bookmarks;
-
-    public TimelineFeedManager() {
-        bookmarks = new ArrayList<Entry>();
-    }
+    private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
     public static void addAll(ArrayList<Entry> entries) {
         manager.bookmarks.addAll(entries);
@@ -58,23 +54,15 @@ public class TimelineFeedManager {
                     JSONArray bookmarks = jObj.getJSONArray("bookmarks");
                     for (int i = 0; i < bookmarks.length(); i++) {
                         JSONObject bookmark = (JSONObject) bookmarks.get(i);
-                        String title = bookmark.getString("title");
-                        String comment = bookmark.getString("comment");
-                        String faviconUrl = bookmark.getString("favicon_url");
-                        String link = bookmark.getString("link");
-                        String permaLink = bookmark.getString("permalink");
-                        DateTime datetime = ISODateTimeFormat.dateTimeNoMillis().parseDateTime(bookmark.getString("datetime"));
                         JSONObject jUser = bookmark.getJSONObject("user");
-                        String uName = jUser.getString("name");
-                        String uThumbUrl = jUser.getString("profile_image_url");
-                        User user = new User(uName, uThumbUrl);
+                        User user = new User(jUser.getString("name"), jUser.getString("profile_image_url"));
                         Entry entry = new Entry(
-                                title,
-                                comment,
-                                faviconUrl,
-                                datetime,
-                                link,
-                                permaLink,
+                                bookmark.getString("title"),
+                                bookmark.getString("comment"),
+                                bookmark.getString("favicon_url"),
+                                ISODateTimeFormat.dateTimeNoMillis().parseDateTime(bookmark.getString("datetime")),
+                                bookmark.getString("link"),
+                                bookmark.getString("permalink"),
                                 user
                         );
                         entries.add(entry);
