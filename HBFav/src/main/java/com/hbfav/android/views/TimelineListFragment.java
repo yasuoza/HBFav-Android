@@ -1,4 +1,4 @@
-package com.hbfav.android;
+package com.hbfav.android.views;
 
 
 import android.app.Activity;
@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hbfav.R;
+import com.hbfav.android.Constants;
 import com.hbfav.android.controllers.BookmarksFetcher;
 import com.hbfav.android.controllers.TimelineFeedManager;
 import com.hbfav.android.interfaces.FeedResponseHandler;
@@ -28,7 +29,7 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
-public class EntryListFragment extends ListFragment
+public class TimelineListFragment extends ListFragment
         implements AbsListView.OnScrollListener, PullToRefreshAttacher.OnRefreshListener {
     private View mFooterView;
     private EntryListAdapter mAdapter;
@@ -39,8 +40,8 @@ public class EntryListFragment extends ListFragment
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static EntryListFragment newInstance(int sectionNumber) {
-        EntryListFragment fragment = new EntryListFragment();
+    public static TimelineListFragment newInstance(int sectionNumber) {
+        TimelineListFragment fragment = new TimelineListFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

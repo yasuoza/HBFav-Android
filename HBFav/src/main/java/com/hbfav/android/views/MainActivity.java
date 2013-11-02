@@ -1,4 +1,4 @@
-package com.hbfav.android;
+package com.hbfav.android.views;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.hbfav.R;
+import com.hbfav.android.Constants;
+
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 
@@ -60,7 +62,7 @@ public class MainActivity extends Activity
                     .commit();
         } else {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, EntryListFragment.newInstance(position + 1))
+                    .replace(R.id.container, TimelineListFragment.newInstance(position + 1))
                     .commit();
         }
     }

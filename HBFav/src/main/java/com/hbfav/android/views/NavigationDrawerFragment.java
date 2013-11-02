@@ -1,4 +1,4 @@
-package com.hbfav.android;
+package com.hbfav.android.views;
 
 import android.app.ActionBar;
 import android.app.Activity;
