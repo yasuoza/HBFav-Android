@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -54,8 +56,16 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
         mFooterView = inflater.inflate(R.layout.listview_footer, null);
         mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
@@ -85,9 +95,11 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
 
                 @Override
                 public void onFinish() {
-                    mFooterView.setVisibility(View.GONE);
+                    getListView().removeFooterView(mFooterView);
                 }
             });
+        } else {
+            getListView().removeFooterView(mFooterView);
         }
     }
 
@@ -97,6 +109,13 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
 
         Uri uri = Uri.parse(HotEntryFeedManager.get(position).getLink());
         startActivity(new Intent(Intent.ACTION_VIEW, uri));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.removeItem(R.id.action_settings);
+        inflater.inflate(R.menu.hotentry, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

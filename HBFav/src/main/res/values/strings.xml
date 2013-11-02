@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Global -->
+    <string name="app_name">HBFav</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
 
     <!-- Navigation title -->
     <string name="title_section1">Section 1</string>
@@ -7,10 +13,8 @@
     <string name="title_section3">HotEntry</string>
     <string name="title_section4">Timeline</string>
 
-    <string name="app_name">HBFav</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
+    <!-- Options menu -->
+    <string name="option_hotentry_section1">IT</string>
+    <string name="option_hotentry_section2">Entertainment</string>
 
 </resources>
