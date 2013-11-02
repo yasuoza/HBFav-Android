@@ -10,4 +10,9 @@
         android:title="@string/option_hotentry_section2"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/hotentry_category_3"
+        android:title="@string/option_hotentry_section3"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
 </menu>

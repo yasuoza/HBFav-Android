@@ -99,8 +99,8 @@ public class NavigationDrawerFragment extends Fragment {
         String[] menus = new String[]{
                 "Setting 1",
                 "Setting 2",
-                "Setting 3",
-                "ListView 1"
+                getString(R.string.title_section3),
+                getString(R.string.title_section4)
         };
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),

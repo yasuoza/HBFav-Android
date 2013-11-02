@@ -110,10 +110,14 @@ public class TimelineListFragment extends ListFragment
 
             @Override
             public void onFinish() {
-                if (getListView() == null) {
-                    return;
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    });
                 }
-                mAdapter.notifyDataSetChanged();
                 mPullToRefreshAttacher.setRefreshComplete();
             }
         });

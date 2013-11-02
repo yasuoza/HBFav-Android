@@ -14,7 +14,8 @@
     <string name="title_section4">Timeline</string>
 
     <!-- Options menu -->
-    <string name="option_hotentry_section1">IT</string>
-    <string name="option_hotentry_section2">Entertainment</string>
+    <string name="option_hotentry_section1">General</string>
+    <string name="option_hotentry_section2">IT</string>
+    <string name="option_hotentry_section3">Entertainment</string>
 
 </resources>

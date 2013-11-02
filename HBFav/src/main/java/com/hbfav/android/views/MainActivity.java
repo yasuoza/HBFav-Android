@@ -103,6 +103,11 @@ public class MainActivity extends Activity
         actionBar.setTitle(mTitle);
     }
 
+    public void setActionBarTitle(String title) {
+        mTitle = title;
+        restoreActionBar();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

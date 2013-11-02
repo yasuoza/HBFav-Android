@@ -21,18 +21,13 @@ public class HotEntryFeedManager {
     private static HotEntryFeedManager manager = new HotEntryFeedManager();
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
-    public static void addAll(ArrayList<Entry> entries) {
-        manager.bookmarks.addAll(entries);
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
+    public static void clearList() {
+        manager.bookmarks = null;
+        manager.bookmarks = new ArrayList<Entry>();
     }
 
-    public static void prependAll(ArrayList<Entry> entries) {
-        entries.addAll(manager.bookmarks);
+    public static void replaceAll(ArrayList<Entry> entries) {
         manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
-        // Shrink bookmarks if needed
-        if (manager.bookmarks.size() > Constants.MAX_FEED_CACHE_LENGTH) {
-            manager.bookmarks.subList(Constants.MAX_FEED_CACHE_LENGTH, manager.bookmarks.size() - 1).clear();
-        }
     }
 
     public static Entry get(Integer index) {
@@ -43,7 +38,7 @@ public class HotEntryFeedManager {
         return manager.bookmarks;
     }
 
-    public static void fetchFeed(String user, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+    public static void replaceFeed(String user, final FeedResponseHandler feedResponseHandler) {
         BookmarksFetcher.get(user, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jObj) {
@@ -66,11 +61,7 @@ public class HotEntryFeedManager {
                         entries.add(entry);
                     }
                     entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
-                    if (prepend) {
-                        prependAll(entries);
-                    } else {
-                        addAll(entries);
-                    }
+                    replaceAll(entries);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
