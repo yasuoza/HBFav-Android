@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,16 +19,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.controllers.BookmarksFetcher;
 import com.hbfav.android.controllers.HotEntryFeedManager;
-import com.hbfav.android.controllers.TimelineFeedManager;
 import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
+
+import java.util.Arrays;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
@@ -38,6 +37,11 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
     private HotEntryListAdapter mAdapter;
     private PullToRefreshAttacher mPullToRefreshAttacher;
     private LayoutInflater mInflater;
+    private final Integer[] optionIDs = {
+            R.id.hotentry_category_1,
+            R.id.hotentry_category_2,
+            R.id.hotentry_category_3
+    };
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -89,9 +93,9 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
         );
         setListAdapter(mAdapter);
 
+        restoreActionBar();
         if (HotEntryFeedManager.getList().isEmpty()) {
-            String endpoint = "hotentry";
-            HotEntryFeedManager.replaceFeed(endpoint, new FeedResponseHandler() {
+            HotEntryFeedManager.replaceFeed(new FeedResponseHandler() {
                 @Override
                 public void onSuccess() {
                     mAdapter.notifyDataSetChanged();
@@ -122,9 +126,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-
-        Uri uri = Uri.parse(HotEntryFeedManager.get(position).getLink());
-        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HotEntryFeedManager.get(position).getLink())));
     }
 
     @Override
@@ -136,78 +138,40 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        String endpoint = "hotentry";
-        ListView listView;
-        MainActivity mainActivity = (MainActivity) getActivity();
+        if (item.getItemId() == HotEntryFeedManager.getCategory()) {
+            return false;
+        }
 
-        HotEntryFeedManager.clearList();
-        mAdapter.notifyDataSetChanged();
-        listView = getListView();
+        if (!Arrays.asList(optionIDs).contains(item.getItemId())) {
+            return super.onOptionsItemSelected(item);
+        }
+
+        ListView listView = getListView();
         if (listView != null) {
             mFooterView = mInflater.inflate(R.layout.listview_footer, null);
             getListView().addFooterView(mFooterView);
         }
 
-        switch (item.getItemId()) {
-            case R.id.hotentry_category_1:
-                if (mainActivity != null) {
-                    String title = getString(R.string.title_section3);
-                    mainActivity.setActionBarTitle(title);
-                }
-                HotEntryFeedManager.replaceFeed(endpoint, new FeedResponseHandler() {
-                    @Override
-                    public void onSuccess() {
-                        mAdapter.notifyDataSetChanged();
-                    }
+        HotEntryFeedManager.setCategory(item.getItemId());
+        HotEntryFeedManager.clearList();
+        restoreActionBar();
+        HotEntryFeedManager.replaceFeed(new FeedResponseHandler() {
+            @Override
+            public void onSuccess() {
+                mAdapter.notifyDataSetChanged();
+            }
 
-                    @Override
-                    public void onFinish() {
-                        removeListFooter();
-                    }
-                });
-                return true;
-            case R.id.hotentry_category_2:
-                if (mainActivity != null) {
-                    String title = getString(R.string.title_section3) + " - " +getString(R.string.option_hotentry_section2);
-                    mainActivity.setActionBarTitle(title);
-                }
-                HotEntryFeedManager.replaceFeed(endpoint + "?category=it", new FeedResponseHandler() {
-                    @Override
-                    public void onSuccess() {
-                        mAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        removeListFooter();
-                    }
-                });
-                return true;
-            case R.id.hotentry_category_3:
-                if (mainActivity != null) {
-                    String title = getString(R.string.title_section3) + " - " +getString(R.string.option_hotentry_section3);
-                    mainActivity.setActionBarTitle(title);
-                }
-                HotEntryFeedManager.replaceFeed(endpoint +"?=category=entertainment", new FeedResponseHandler() {
-                    @Override
-                    public void onSuccess() {
-                        mAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        removeListFooter();
-                    }
-                });
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+            @Override
+            public void onFinish() {
+                removeListFooter();
+            }
+        });
+        return true;
     }
 
     @Override
     public void onRefreshStarted(View view) {
-        TimelineFeedManager.fetchFeed("hotentry", true, new FeedResponseHandler() {
+        HotEntryFeedManager.replaceFeed(new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -219,6 +183,22 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
                 mPullToRefreshAttacher.setRefreshComplete();
             }
         });
+    }
+
+    private void restoreActionBar() {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        String title = getString(R.string.title_section3);;
+        if (mainActivity != null) {
+            switch (HotEntryFeedManager.getCategory()) {
+                case R.id.hotentry_category_2:
+                    title += " - " +getString(R.string.option_hotentry_section2);
+                    break;
+                case R.id.hotentry_category_3:
+                    title += " - " +getString(R.string.option_hotentry_section3);
+                    break;
+            }
+            mainActivity.setActionBarTitle(title);
+        }
     }
 
     private void removeListFooter() {
