@@ -76,7 +76,7 @@ public class TimelineListFragment extends ListFragment
 
         mAdapter = new EntryListAdapter(
                 getActivity(),
-                R.layout.fragment_entry_list_row
+                R.layout.fragment_timeline_row
         );
         setListAdapter(mAdapter);
     }
