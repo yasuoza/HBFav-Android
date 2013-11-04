@@ -124,6 +124,12 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mPullToRefreshAttacher.setRefreshComplete();
+    }
+
+    @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(HotEntryFeedManager.get(position).getLink())));

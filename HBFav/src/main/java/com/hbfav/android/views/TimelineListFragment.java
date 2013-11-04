@@ -82,6 +82,12 @@ public class TimelineListFragment extends ListFragment
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mPullToRefreshAttacher.setRefreshComplete();
+    }
+
+    @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
