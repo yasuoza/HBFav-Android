@@ -9,18 +9,22 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 public class Entry {
-    private String title;
-    private String comment;
-    private String faviconUrl;
-    private String link;
-    private String permalink;
+    private String title = "";
+    private String comment = "";
+    private Integer count = 0;
+    private String faviconUrl = "";
+    private String link = "";
+    private String permalink = "";
+    private String category = "";
+    private String thumbnailUrl = "";
     private DateTime datetime;
     private User   user;
-    private DateTimeFormatter isoTimeParser = ISODateTimeFormat.dateTimeNoMillis();
+    private final DateTimeFormatter isoTimeParser = ISODateTimeFormat.dateTimeNoMillis();
 
-    public Entry(String title, String comment, String faviconUrl, DateTime datetime, String link, String permalink, User user) {
+    public Entry(String title, String comment, Integer count, String faviconUrl, DateTime datetime, String link, String permalink, User user) {
         this.title = title;
         this.comment = comment;
+        this.count = count;
         this.faviconUrl = faviconUrl;
         this.datetime = datetime;
         this.link = link;
@@ -56,6 +60,10 @@ public class Entry {
         this.comment = comment;
     }
 
+    public Integer getCount() {
+        return this.count;
+    }
+
     public String getFaviconUrl() {
         return faviconUrl;
     }
@@ -84,12 +92,36 @@ public class Entry {
         this.permalink = permalink;
     }
 
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(final String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public Drawable getThumbnailImage() {
+        return ImageCache.getImage(thumbnailUrl);
+    }
+
+    public void setThumbnailImage(Drawable thumbnailImage) {
+        ImageCache.setImage(thumbnailUrl, thumbnailImage);
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(final User user) {
         this.user = user;
+    }
+
+    public void setCategory(final String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return this.category;
     }
 
 

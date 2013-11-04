@@ -14,8 +14,16 @@
     <string name="title_section4">Timeline</string>
 
     <!-- Options menu -->
-    <string name="option_hotentry_section1">General</string>
-    <string name="option_hotentry_section2">IT</string>
-    <string name="option_hotentry_section3">Entertainment</string>
+    <string name="option_category_menu_general">General</string>
+    <string name="option_category_menu_social">Social</string>
+    <string name="option_category_menu_it">IT</string>
+    <string name="option_category_menu_economics">Economics</string>
+    <string name="option_category_menu_life">Life</string>
+    <string name="option_category_menu_entertainment">Entertainment</string>
+    <string name="option_category_menu_knowledge">Knowledge</string>
+    <string name="option_category_menu_game">Game</string>
+    <string name="option_category_menu_fun">Fun</string>
 
+     <!-- HotEntry -->
+    <string name="users">users</string>
 </resources>

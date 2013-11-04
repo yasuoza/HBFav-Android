@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/hotentry_category_1"
-        android:title="@string/option_hotentry_section1"
+    <item android:id="@+id/option_category_menu_general"
+        android:title="@string/option_category_menu_general"
         android:orderInCategory="100"
         android:showAsAction="never" />
 
-    <item android:id="@+id/hotentry_category_2"
-        android:title="@string/option_hotentry_section2"
+    <item android:id="@+id/option_category_menu_social"
+        android:title="@string/option_category_menu_social"
         android:orderInCategory="100"
         android:showAsAction="never" />
 
-    <item android:id="@+id/hotentry_category_3"
-        android:title="@string/option_hotentry_section3"
+    <item android:id="@+id/option_category_menu_it"
+        android:title="@string/option_category_menu_it"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/option_category_menu_economics"
+        android:title="@string/option_category_menu_economics"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/option_category_menu_life"
+        android:title="@string/option_category_menu_life"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/option_category_menu_entertainment"
+        android:title="@string/option_category_menu_entertainment"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/option_category_menu_knowledge"
+        android:title="@string/option_category_menu_knowledge"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/option_category_menu_game"
+        android:title="@string/option_category_menu_game"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item android:id="@+id/option_category_menu_fun"
+        android:title="@string/option_category_menu_fun"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
 </menu>

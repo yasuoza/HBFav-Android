@@ -59,6 +59,7 @@ public class TimelineFeedManager {
                         Entry entry = new Entry(
                                 bookmark.getString("title"),
                                 bookmark.getString("comment"),
+                                bookmark.getInt("count"),
                                 bookmark.getString("favicon_url"),
                                 ISODateTimeFormat.dateTimeNoMillis().parseDateTime(bookmark.getString("datetime")),
                                 bookmark.getString("link"),

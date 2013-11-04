@@ -16,7 +16,7 @@ import java.util.LinkedHashSet;
 
 public class HotEntryFeedManager {
     private static HotEntryFeedManager manager = new HotEntryFeedManager();
-    private int category = R.id.hotentry_category_1;
+    private int category = R.id.option_category_menu_general;
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
     public static void clearList() {
@@ -47,11 +47,29 @@ public class HotEntryFeedManager {
     public static void replaceFeed(final FeedResponseHandler feedResponseHandler) {
         String endpoint = "hotentry";
         switch (manager.category) {
-            case R.id.hotentry_category_2:
-                endpoint += "?=category=it";
+            case R.id.option_category_menu_social:
+                endpoint += "?category=social";
                 break;
-            case R.id.hotentry_category_3:
+            case R.id.option_category_menu_it:
+                endpoint += "?category=it";
+                break;
+            case R.id.option_category_menu_economics:
+                endpoint += "?category=economics";
+                break;
+            case R.id.option_category_menu_life:
+                endpoint += "?category=life";
+                break;
+            case R.id.option_category_menu_entertainment:
                 endpoint += "?category=entertainment";
+                break;
+            case R.id.option_category_menu_knowledge:
+                endpoint += "?category=knowledge";
+                break;
+            case R.id.option_category_menu_game:
+                endpoint += "?category=geme";
+                break;
+            case R.id.option_category_menu_fun:
+                endpoint += "?category=fun";
                 break;
         }
         BookmarksFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
@@ -67,12 +85,19 @@ public class HotEntryFeedManager {
                         Entry entry = new Entry(
                                 bookmark.getString("title"),
                                 bookmark.getString("comment"),
+                                bookmark.getInt("count"),
                                 bookmark.getString("favicon_url"),
                                 ISODateTimeFormat.dateTimeNoMillis().parseDateTime(bookmark.getString("datetime")),
                                 bookmark.getString("link"),
                                 bookmark.getString("permalink"),
                                 user
                         );
+                        if (bookmark.has("thumbnail_url")) {
+                            entry.setThumbnailUrl(bookmark.getString("thumbnail_url"));
+                        }
+                        if (bookmark.has("category")) {
+                            entry.setCategory(bookmark.getString("category"));
+                        }
                         entries.add(entry);
                     }
                     entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));

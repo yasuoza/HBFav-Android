@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,7 @@ import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
+import java.net.URI;
 import java.util.Arrays;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
@@ -38,9 +40,14 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
     private PullToRefreshAttacher mPullToRefreshAttacher;
     private LayoutInflater mInflater;
     private final Integer[] optionIDs = {
-            R.id.hotentry_category_1,
-            R.id.hotentry_category_2,
-            R.id.hotentry_category_3
+            R.id.option_category_menu_social,
+            R.id.option_category_menu_it,
+            R.id.option_category_menu_economics,
+            R.id.option_category_menu_life,
+            R.id.option_category_menu_entertainment,
+            R.id.option_category_menu_knowledge,
+            R.id.option_category_menu_game,
+            R.id.option_category_menu_fun
     };
 
     /**
@@ -89,7 +96,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
         mPullToRefreshAttacher.addRefreshableView(listView, this);
         mAdapter = new HotEntryListAdapter(
                 getActivity(),
-                R.layout.fragment_timeline_row
+                R.layout.fragment_entry_row
         );
         setListAdapter(mAdapter);
 
@@ -196,11 +203,29 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
         String title = getString(R.string.title_section3);;
         if (mainActivity != null) {
             switch (HotEntryFeedManager.getCategory()) {
-                case R.id.hotentry_category_2:
-                    title += " - " +getString(R.string.option_hotentry_section2);
+                case R.id.option_category_menu_social:
+                    title += " - " +getString(R.string.option_category_menu_social);
                     break;
-                case R.id.hotentry_category_3:
-                    title += " - " +getString(R.string.option_hotentry_section3);
+                case R.id.option_category_menu_it:
+                    title += " - " +getString(R.string.option_category_menu_it);
+                    break;
+                case R.id.option_category_menu_economics:
+                    title += " - " +getString(R.string.option_category_menu_economics);
+                    break;
+                case R.id.option_category_menu_life:
+                    title += " - " +getString(R.string.option_category_menu_life);
+                    break;
+                case R.id.option_category_menu_entertainment:
+                    title += " - " +getString(R.string.option_category_menu_entertainment);
+                    break;
+                case R.id.option_category_menu_knowledge:
+                    title += " - " +getString(R.string.option_category_menu_knowledge);
+                    break;
+                case R.id.option_category_menu_game:
+                    title += " - " +getString(R.string.option_category_menu_game);
+                    break;
+                case R.id.option_category_menu_fun:
+                    title += " - " +getString(R.string.option_category_menu_fun);
                     break;
             }
             mainActivity.setActionBarTitle(title);
@@ -224,7 +249,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
 
 
     private class HotEntryListAdapter extends ArrayAdapter<Entry> {
-        private final String[] AllowedImageContentTypes = new String[]{"image/gif", "image/png"};
+        private final String[] AllowedImageContentTypes = new String[]{"image/gif", "image/png", "image/jpeg"};
         private LayoutInflater inflater;
         private int layout;
 
@@ -253,19 +278,26 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
                 view = this.inflater.inflate(this.layout, parent, false);
             }
 
-            Drawable userThumb = entry.getUser().getProfileImage();
-            if (userThumb == null) {
-                BookmarksFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
-                    @Override
-                    public void onSuccess(byte[] fileData) {
-                        Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
-                        entry.getUser().setProfileImage(image);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
+            ((TextView) view.findViewById(R.id.fragment_entry_list_title))
+                    .setText(entry.getTitle());
+
+            if (entry.getThumbnailUrl().isEmpty()) {
+                view.findViewById(R.id.fragment_entry_thumb_image_view).setVisibility(View.GONE);
+            } else {
+                Drawable thumb = entry.getThumbnailImage();
+                if (thumb == null) {
+                    BookmarksFetcher.getImage(entry.getThumbnailUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
+                        @Override
+                        public void onSuccess(byte[] fileData) {
+                            Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                            entry.setThumbnailImage(image);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+                view.findViewById(R.id.fragment_entry_thumb_image_view).setVisibility(View.VISIBLE);
+                ((ImageView) view.findViewById(R.id.fragment_entry_thumb_image_view)).setImageDrawable(thumb);
             }
-            ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view))
-                    .setImageDrawable(userThumb);
 
             Drawable favicon = entry.getFavicon();
             if (favicon == null) {
@@ -281,16 +313,18 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
             ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
                     .setImageDrawable(favicon);
 
-            ((TextView) view.findViewById(R.id.fragment_entry_user_name))
-                    .setText(entry.getUser().getName());
+            ((TextView) view.findViewById(R.id.fragment_entry_list_url))
+                    .setText(Uri.parse(entry.getLink()).getHost());
+
+            ((TextView) view.findViewById(R.id.fragment_entry_list_entry_count))
+                    .setText(entry.getCount() + " " + getString(R.string.users));
+
+            ((TextView) view.findViewById(R.id.fragment_entry_list_entry_category))
+                    .setText(entry.getCategory());
 
             ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
                     .setText(entry.getRelativeTimeSpanString());
 
-            view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.GONE);
-
-            ((TextView) view.findViewById(R.id.fragment_entry_list_title))
-                    .setText(entry.getTitle());
 
             return view;
         }
