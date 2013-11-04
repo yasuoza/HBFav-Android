@@ -69,7 +69,7 @@ public class TimelineListFragment extends ListFragment
         super.onActivityCreated(savedInstanceState);
 
         ListView listView = getListView();
-        listView.addFooterView(mFooterView);
+        listView.addFooterView(mFooterView, null, false);
         listView.setOnScrollListener(this);
 
         mPullToRefreshAttacher.addRefreshableView(listView, this);

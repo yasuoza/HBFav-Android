@@ -85,7 +85,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
         super.onActivityCreated(savedInstanceState);
 
         ListView listView = getListView();
-        listView.addFooterView(mFooterView);
+        listView.addFooterView(mFooterView, null, false);
         mPullToRefreshAttacher.addRefreshableView(listView, this);
         mAdapter = new HotEntryListAdapter(
                 getActivity(),
@@ -155,7 +155,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
         ListView listView = getListView();
         if (listView != null) {
             mFooterView = mInflater.inflate(R.layout.listview_footer, null);
-            getListView().addFooterView(mFooterView);
+            getListView().addFooterView(mFooterView, null, false);
         }
 
         HotEntryFeedManager.setCategory(item.getItemId());
