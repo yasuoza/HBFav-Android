@@ -200,7 +200,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
 
     private void restoreActionBar() {
         MainActivity mainActivity = (MainActivity) getActivity();
-        String title = getString(R.string.title_section3);;
+        String title = getString(R.string.title_section3);
         if (mainActivity != null) {
             switch (HotEntryFeedManager.getCategory()) {
                 case R.id.option_category_menu_social:
