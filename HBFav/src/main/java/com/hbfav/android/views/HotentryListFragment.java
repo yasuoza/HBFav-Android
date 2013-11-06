@@ -40,6 +40,7 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
     private PullToRefreshAttacher mPullToRefreshAttacher;
     private LayoutInflater mInflater;
     private final Integer[] optionIDs = {
+            R.id.option_category_menu_general,
             R.id.option_category_menu_social,
             R.id.option_category_menu_it,
             R.id.option_category_menu_economics,
