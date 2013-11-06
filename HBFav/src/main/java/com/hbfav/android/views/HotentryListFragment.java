@@ -161,10 +161,16 @@ public class HotentryListFragment extends ListFragment implements PullToRefreshA
         }
 
         ListView listView = getListView();
-        if (listView != null) {
-            mFooterView = mInflater.inflate(R.layout.listview_footer, null);
-            getListView().addFooterView(mFooterView, null, false);
+        if (listView == null) {
+            return false;
         }
+
+        if (listView.getFooterViewsCount() == 0) {
+            mFooterView = mInflater.inflate(R.layout.listview_footer, null);
+            listView.addFooterView(mFooterView, null, false);
+        }
+
+        mPullToRefreshAttacher.setRefreshComplete();
 
         HotEntryFeedManager.setCategory(item.getItemId());
         HotEntryFeedManager.clearList();
