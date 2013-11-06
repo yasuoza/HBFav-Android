@@ -51,21 +51,9 @@ public class TimelineFeedManager {
             public void onSuccess(JSONObject jObj) {
                 try {
                     ArrayList<Entry> entries = new ArrayList<Entry>();
-                    JSONArray bookmarks = jObj.getJSONArray("bookmarks");
-                    for (int i = 0; i < bookmarks.length(); i++) {
-                        JSONObject bookmark = (JSONObject) bookmarks.get(i);
-                        JSONObject jUser = bookmark.getJSONObject("user");
-                        User user = new User(jUser.getString("name"), jUser.getString("profile_image_url"));
-                        Entry entry = new Entry(
-                                bookmark.getString("title"),
-                                bookmark.getString("comment"),
-                                bookmark.getInt("count"),
-                                bookmark.getString("favicon_url"),
-                                ISODateTimeFormat.dateTimeNoMillis().parseDateTime(bookmark.getString("datetime")),
-                                bookmark.getString("link"),
-                                bookmark.getString("permalink"),
-                                user
-                        );
+                    JSONArray bookmarkJsons = jObj.getJSONArray("bookmarks");
+                    for (int i = 0; i < bookmarkJsons.length(); i++) {
+                        Entry entry = new Entry((JSONObject) bookmarkJsons.get(i));
                         entries.add(entry);
                     }
                     entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));

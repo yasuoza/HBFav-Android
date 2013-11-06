@@ -7,6 +7,8 @@ import android.text.format.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Entry {
     private String title = "";
@@ -21,15 +23,27 @@ public class Entry {
     private User   user;
     private final DateTimeFormatter isoTimeParser = ISODateTimeFormat.dateTimeNoMillis();
 
-    public Entry(String title, String comment, Integer count, String faviconUrl, DateTime datetime, String link, String permalink, User user) {
-        this.title = title;
-        this.comment = comment;
-        this.count = count;
-        this.faviconUrl = faviconUrl;
-        this.datetime = datetime;
-        this.link = link;
-        this.permalink = permalink;
-        this.user = user;
+    public Entry(JSONObject json) {
+        try {
+            JSONObject jUser = json.getJSONObject("user");
+            User user = new User(jUser.getString("name"), jUser.getString("profile_image_url"));
+            this.title = json.getString("title");
+            this.comment = json.getString("comment");
+            this.count = json.getInt("count");
+            this.faviconUrl = json.getString("favicon_url");
+            this.datetime = ISODateTimeFormat.dateTimeNoMillis().parseDateTime(json.getString("datetime"));
+            this.link = json.getString("link");
+            this.permalink = json.getString("permalink");
+            this.user = user;
+            if (json.has("thumbnail_url")) {
+                this.thumbnailUrl = json.getString("thumbnail_url");
+            }
+            if (json.has("category")) {
+                this.category = json.getString("category");
+            }
+        } catch(JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTitle() {
