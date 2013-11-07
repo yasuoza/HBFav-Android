@@ -97,8 +97,8 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
         String[] menus = new String[]{
-                "Setting 1",
-                "Setting 2",
+                getString(R.string.title_section1),
+                getString(R.string.title_section2),
                 getString(R.string.title_section3),
                 getString(R.string.title_section4)
         };

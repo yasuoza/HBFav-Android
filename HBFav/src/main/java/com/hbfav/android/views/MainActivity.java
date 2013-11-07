@@ -57,9 +57,13 @@ public class MainActivity extends Activity
         FragmentManager fragmentManager = getFragmentManager();
         switch (position) {
             case 0:
-            case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, EntryListFragment.newInstance(position + 1))
                         .commit();
                 break;
             case 2:
