@@ -12,39 +12,54 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-public class EntryListFeedManager {
-    private static EntryListFeedManager manager = new EntryListFeedManager();
+public class EntryListFeedManager extends BaseListFeedManager {
+    private static EntryListFeedManager instance;
     private int category = R.id.option_category_menu_general;
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
-    public static void clearList() {
-        manager.bookmarks = null;
-        manager.bookmarks = new ArrayList<Entry>();
+
+    public static EntryListFeedManager getInstance() {
+        if(instance == null) {
+            instance = new EntryListFeedManager();
+        }
+        return instance;
     }
 
-    public static void replaceAll(ArrayList<Entry> entries) {
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
+    @Override
+    public void clearList() {
+        bookmarks = null;
+        bookmarks = new ArrayList<Entry>();
     }
 
-    public static Entry get(Integer index) {
-        return manager.bookmarks.get(index);
+    @Override
+    protected void replaceAll(ArrayList<Entry> entries) {
+        bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
     }
 
-    public static ArrayList<Entry> getList() {
-        return manager.bookmarks;
+    @Override
+    public Entry get(Integer index) {
+        return bookmarks.get(index);
     }
 
-    public static void setCategory(int category) {
-        manager.category = category;
+    @Override
+    public ArrayList<Entry> getList() {
+        return bookmarks;
     }
 
-    public static int getCategory() {
-        return manager.category;
+    @Override
+    public void setCategory(int category) {
+        this.category = category;
     }
 
-    public static void replaceFeed(final FeedResponseHandler feedResponseHandler) {
+    @Override
+    public int getCategory() {
+        return category;
+    }
+
+    @Override
+    public void replaceFeed(final FeedResponseHandler feedResponseHandler) {
         String endpoint = "entrylist";
-        switch (manager.category) {
+        switch (category) {
             case R.id.option_category_menu_social:
                 endpoint += "?category=social";
                 break;
