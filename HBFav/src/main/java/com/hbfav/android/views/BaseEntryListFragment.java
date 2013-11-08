@@ -25,7 +25,6 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public abstract class BaseEntryListFragment extends ListFragment implements PullToRefreshAttacher.OnRefreshListener {
     private View mFooterView;
-    protected EntryListAdapter mAdapter;
     private PullToRefreshAttacher mPullToRefreshAttacher;
     private LayoutInflater mInflater;
     private final Integer[] optionIDs = {
@@ -40,12 +39,21 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
             R.id.option_category_menu_fun
     };
 
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
     public static BaseEntryListFragment newInstance(int sectionNumber) {
-        EntryListFragment fragment = new EntryListFragment();
+        BaseEntryListFragment fragment;
+        switch (sectionNumber) {
+            case 2:
+                fragment = new EntryListFragment();
+                break;
+            default:
+                fragment = new HotentryListFragment();
+                break;
+        }
         Bundle args = new Bundle();
         args.putInt(Constants.ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -56,6 +64,10 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
     /**
      * Abstract methods
      */
+    protected abstract void initAdapter();
+
+    protected abstract EntryListAdapter getAdapter();
+
     protected abstract void reloadListData();
 
     protected abstract String getSectionBaseTitle();
@@ -101,12 +113,8 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
         }
         listView.addFooterView(mFooterView, null, false);
         mPullToRefreshAttacher.addRefreshableView(listView, this);
-        mAdapter = new EntryListAdapter(
-                getActivity(),
-                R.layout.fragment_entry_row,
-                getManager().getList()
-        );
-        setListAdapter(mAdapter);
+        initAdapter();
+        setListAdapter(getAdapter());
 
         restoreActionBar();
         if (getManager().getList().isEmpty()) {
