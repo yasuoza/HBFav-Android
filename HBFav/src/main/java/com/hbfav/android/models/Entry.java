@@ -18,6 +18,7 @@ public class Entry {
     private String permalink = "";
     private String category = "";
     private String thumbnailUrl = "";
+    private boolean isPlaceholder = false;
     private DateTime datetime;
     private User   user;
 
@@ -86,6 +87,14 @@ public class Entry {
 
     public String getThumbnailUrl() {
         return thumbnailUrl;
+    }
+
+    public void setPlaceholder(boolean flag) {
+        this.isPlaceholder = flag;
+    }
+
+    public boolean getIsPlaceholder() {
+        return this.isPlaceholder;
     }
 
     public Drawable getThumbnailImage() {
