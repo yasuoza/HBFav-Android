@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +20,6 @@ public class Entry {
     private String thumbnailUrl = "";
     private DateTime datetime;
     private User   user;
-    private final DateTimeFormatter isoTimeParser = ISODateTimeFormat.dateTimeNoMillis();
 
     public Entry(JSONObject json) {
         try {
@@ -58,20 +56,12 @@ public class Entry {
         return datetime;
     }
 
-    public void setDateTime(final String datetimeStr) {
-        this.datetime = isoTimeParser.parseDateTime(datetimeStr);
-    }
-
     public CharSequence getRelativeTimeSpanString() {
         return DateUtils.getRelativeTimeSpanString(this.datetime.getMillis());
     }
 
     public String getComment() {
         return comment;
-    }
-
-    public void setComment(final String comment) {
-        this.comment = comment;
     }
 
     public Integer getCount() {
@@ -94,24 +84,8 @@ public class Entry {
         return link;
     }
 
-    public void setLink(final String link) {
-        this.link = link;
-    }
-
-    public String getPermalink() {
-        return permalink;
-    }
-
-    public void setPermalink(final String permalink) {
-        this.permalink = permalink;
-    }
-
     public String getThumbnailUrl() {
         return thumbnailUrl;
-    }
-
-    public void setThumbnailUrl(final String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
     }
 
     public Drawable getThumbnailImage() {
@@ -124,14 +98,6 @@ public class Entry {
 
     public User getUser() {
         return user;
-    }
-
-    public void setUser(final User user) {
-        this.user = user;
-    }
-
-    public void setCategory(final String category) {
-        this.category = category;
     }
 
     public String getCategory() {
