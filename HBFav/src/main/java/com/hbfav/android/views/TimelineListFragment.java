@@ -91,7 +91,12 @@ public class TimelineListFragment extends ListFragment
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        Uri uri = Uri.parse(TimelineFeedManager.get(position).getLink());
+        Entry entry = TimelineFeedManager.get(position);
+        if (entry.getIsPlaceholder()) {
+            return;
+        }
+
+        Uri uri = Uri.parse(entry.getLink());
         startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
@@ -183,6 +188,15 @@ public class TimelineListFragment extends ListFragment
             if (view == null) {
                 view = this.inflater.inflate(this.layout, parent, false);
             }
+
+            if (entry.getIsPlaceholder()) {
+                view.findViewById(R.id.fragment_timeline_row_entry).setVisibility(View.GONE);
+                view.findViewById(R.id.fragment_timeline_row_placeholder).setVisibility(View.VISIBLE);
+                return view;
+            }
+
+            view.findViewById(R.id.fragment_timeline_row_entry).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.fragment_timeline_row_placeholder).setVisibility(View.GONE);
 
             Drawable userThumb = entry.getUser().getProfileImage();
             if (userThumb == null) {
