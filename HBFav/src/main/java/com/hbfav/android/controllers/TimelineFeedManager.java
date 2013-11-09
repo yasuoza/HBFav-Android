@@ -1,13 +1,10 @@
 package com.hbfav.android.controllers;
 
-import com.hbfav.android.Constants;
 import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
-import com.hbfav.android.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +23,31 @@ public class TimelineFeedManager {
 
     public static void prependAll(ArrayList<Entry> entries) {
         entries.addAll(manager.bookmarks);
+        Integer boundary = entries.size();
         manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
-        // Shrink bookmarks if needed
-        if (manager.bookmarks.size() > Constants.MAX_FEED_CACHE_LENGTH) {
-            manager.bookmarks.subList(Constants.MAX_FEED_CACHE_LENGTH, manager.bookmarks.size() - 1).clear();
+
+        // 配列の長さが同じ
+        // => 重複がない
+        // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
+        if (boundary == manager.bookmarks.size()) {
+            manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
+        }
+
+        // To test, uncomment this line
+        manager.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
+    }
+
+    public static void insertAll(int position, ArrayList<Entry> entries) {
+        Integer boundary = entries.size();
+        manager.bookmarks.remove(position);
+        manager.bookmarks.addAll(position, entries);
+        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
+
+        // 配列の長さが同じ
+        // => 重複がない
+        // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
+        if (boundary == manager.bookmarks.size()) {
+            manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
         }
     }
 
@@ -41,12 +59,16 @@ public class TimelineFeedManager {
         return manager.bookmarks;
     }
 
-    public static DateTime getLastBookmarkDateTime() {
-        return manager.bookmarks.get(manager.bookmarks.size() - 1).getDateTime();
+    public static String getAppendUrlFrom(DateTime dateTime) {
+        return getAppendUrl() + "?until=" + dateTime.getMillis() / 1000l;
     }
 
-    public static void fetchFeed(String user, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
-        BookmarksFetcher.get(user, null, new JsonHttpResponseHandler() {
+    public static String getAppendUrl() {
+        return "YasuOza";
+    }
+
+    public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+        BookmarksFetcher.get(getAppendUrl(), null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jObj) {
                 try {
@@ -62,6 +84,33 @@ public class TimelineFeedManager {
                     } else {
                         addAll(entries);
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                feedResponseHandler.onSuccess();
+            }
+
+            @Override
+            public void onFinish() {
+                feedResponseHandler.onFinish();
+            }
+        });
+    }
+
+    public static void fetchFeed(final Integer position, final FeedResponseHandler feedResponseHandler) {
+        BookmarksFetcher.get(getAppendUrlFrom(get(position).getDateTime()), null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject jObj) {
+                try {
+                    ArrayList<Entry> entries = new ArrayList<Entry>();
+                    JSONArray bookmarkJsons = jObj.getJSONArray("bookmarks");
+                    for (int i = 0; i < bookmarkJsons.length(); i++) {
+                        Entry entry = new Entry((JSONObject) bookmarkJsons.get(i));
+                        entries.add(entry);
+                    }
+                    entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
+                    insertAll(position, entries);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

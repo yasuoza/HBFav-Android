@@ -22,11 +22,12 @@ public class Entry {
     private DateTime datetime;
     private User   user;
 
-    public static Entry newPlaceholder() {
+    public static Entry newPlaceholder(DateTime dateTime) {
         Entry entry = new Entry();
         entry.title = "__placeholder_title__";
         entry.link  = "__placeholder_link__";
         entry.isPlaceholder = true;
+        entry.datetime = dateTime;
         return entry;
     }
 

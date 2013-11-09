@@ -92,7 +92,26 @@ public class TimelineListFragment extends ListFragment
         super.onListItemClick(listView, view, position, id);
 
         Entry entry = TimelineFeedManager.get(position);
+
         if (entry.getIsPlaceholder()) {
+            TimelineFeedManager.fetchFeed(position, new FeedResponseHandler() {
+                @Override
+                public void onSuccess() {
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFinish() {
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+            });
             return;
         }
 
@@ -113,7 +132,7 @@ public class TimelineListFragment extends ListFragment
 
     @Override
     public void onRefreshStarted(View view) {
-        TimelineFeedManager.fetchFeed("YasuOza", true, new FeedResponseHandler() {
+        TimelineFeedManager.fetchFeed(true, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -140,11 +159,7 @@ public class TimelineListFragment extends ListFragment
         }
 
         isFetchingBookmarks  = true;
-        String endpoint = "YasuOza";
-        if (!TimelineFeedManager.getList().isEmpty()) {
-            endpoint += "?until=" + (TimelineFeedManager.getLastBookmarkDateTime().getMillis() / 1000l);
-        }
-        TimelineFeedManager.fetchFeed(endpoint, false, new FeedResponseHandler() {
+        TimelineFeedManager.fetchFeed(false, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
