@@ -22,6 +22,17 @@ public class Entry {
     private DateTime datetime;
     private User   user;
 
+    public static Entry newPlaceholder() {
+        Entry entry = new Entry();
+        entry.title = "__placeholder_title__";
+        entry.link  = "__placeholder_link__";
+        entry.isPlaceholder = true;
+        return entry;
+    }
+
+
+    private Entry() { }
+
     public Entry(JSONObject json) {
         try {
             JSONObject jUser = json.getJSONObject("user");
@@ -87,10 +98,6 @@ public class Entry {
 
     public String getThumbnailUrl() {
         return thumbnailUrl;
-    }
-
-    public void setPlaceholder(boolean flag) {
-        this.isPlaceholder = flag;
     }
 
     public boolean getIsPlaceholder() {
