@@ -1,16 +1,7 @@
 package com.hbfav.android.controllers;
 
 import com.hbfav.R;
-import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.models.Entry;
-import com.hbfav.android.models.User;
-import com.hbfav.android.views.BaseEntryListFragment;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.joda.time.format.ISODateTimeFormat;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
