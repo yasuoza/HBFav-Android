@@ -8,10 +8,10 @@
     <string name="action_settings">Settings</string>
 
     <!-- Navigation title -->
-    <string name="title_section1">Section 1</string>
+    <string name="title_section1">Timeline</string>
     <string name="title_section2">Entrylist</string>
     <string name="title_section3">HotEntry</string>
-    <string name="title_section4">Timeline</string>
+    <string name="title_section4">Settings</string>
 
     <!-- Options menu -->
     <string name="option_category_menu_general">General</string>
