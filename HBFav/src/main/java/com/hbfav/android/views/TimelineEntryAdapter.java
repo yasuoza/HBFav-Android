@@ -19,7 +19,6 @@ import com.hbfav.android.models.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
 public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
-    private final String[] AllowedImageContentTypes = new String[]{"image/gif", "image/png"};
     private LayoutInflater inflater;
     private int layout;
 
@@ -61,7 +60,7 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
 
         Drawable userThumb = entry.getUser().getProfileImage();
         if (userThumb == null) {
-            BookmarksFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
+            BookmarksFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(BookmarksFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -75,7 +74,7 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
 
         Drawable favicon = entry.getFavicon();
         if (favicon == null) {
-            BookmarksFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
+            BookmarksFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(BookmarksFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -93,7 +92,7 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
         ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
                 .setText(entry.getRelativeTimeSpanString());
 
-        if (entry.getComment().equals("")) {
+        if (entry.getComment().isEmpty()) {
             view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.GONE);
         } else {
             view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.VISIBLE);

@@ -22,7 +22,6 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 import java.util.ArrayList;
 
 public class EntryListAdapter extends ArrayAdapter<Entry> {
-    private final String[] AllowedImageContentTypes = new String[]{"image/gif", "image/png", "image/jpeg"};
     private LayoutInflater inflater;
     private int layout;
     private ArrayList<Entry> mEntries;
@@ -60,7 +59,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
         } else {
             Drawable thumb = entry.getThumbnailImage();
             if (thumb == null) {
-                BookmarksFetcher.getImage(entry.getThumbnailUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
+                BookmarksFetcher.getImage(entry.getThumbnailUrl(), new BinaryHttpResponseHandler(BookmarksFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                     @Override
                     public void onSuccess(byte[] fileData) {
                         Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -75,7 +74,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
 
         Drawable favicon = entry.getFavicon();
         if (favicon == null) {
-            BookmarksFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(AllowedImageContentTypes) {
+            BookmarksFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(BookmarksFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));

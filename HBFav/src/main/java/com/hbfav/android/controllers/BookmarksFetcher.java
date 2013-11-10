@@ -6,9 +6,10 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class BookmarksFetcher {
+    public static final String[] ALLOWED_IMAGE_CONTENT_TYPE = new String[]{"image/gif", "image/png", "image/jpeg"};
     private static final String BASE_URL = "http://feed.hbfav.com/";
-
     private static AsyncHttpClient client = new AsyncHttpClient();
+
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
