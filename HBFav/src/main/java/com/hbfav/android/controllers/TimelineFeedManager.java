@@ -34,7 +34,7 @@ public class TimelineFeedManager {
         }
 
         // To test, uncomment this line
-        manager.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
+        // manager.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
     }
 
     public static void insertAll(int position, ArrayList<Entry> entries) {
@@ -114,7 +114,6 @@ public class TimelineFeedManager {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 feedResponseHandler.onSuccess();
             }
 

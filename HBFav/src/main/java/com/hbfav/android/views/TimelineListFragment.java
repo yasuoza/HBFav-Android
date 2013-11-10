@@ -94,22 +94,12 @@ public class TimelineListFragment extends ListFragment
         Entry entry = TimelineFeedManager.get(position);
 
         if (entry.getIsPlaceholder()) {
+            view.findViewById(R.id.fragment_timeline_row_placeholder_text).setVisibility(View.GONE);
+            view.findViewById(R.id.fragment_timeline_row_placeholder_progressbar).setVisibility(View.VISIBLE);
             TimelineFeedManager.fetchFeed(position, new FeedResponseHandler() {
                 @Override
                 public void onSuccess() {
                     mAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFinish() {
-                    if (getActivity() != null) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mAdapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
                 }
             });
             return;
@@ -207,6 +197,8 @@ public class TimelineListFragment extends ListFragment
             if (entry.getIsPlaceholder()) {
                 view.findViewById(R.id.fragment_timeline_row_entry).setVisibility(View.GONE);
                 view.findViewById(R.id.fragment_timeline_row_placeholder).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.fragment_timeline_row_placeholder_text).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.fragment_timeline_row_placeholder_progressbar).setVisibility(View.GONE);
                 return view;
             }
 

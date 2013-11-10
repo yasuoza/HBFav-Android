@@ -88,7 +88,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_width="wrap_content"
         android:id="@+id/fragment_timeline_row_placeholder"
         android:visibility="gone"
@@ -97,9 +97,15 @@
         android:layout_gravity="center">
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="Tap to load more entries."
+            android:id="@+id/fragment_timeline_row_placeholder_text"
             android:layout_gravity="top|left" />
+        <ProgressBar
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:id="@+id/fragment_timeline_row_placeholder_progressbar"/>
     </LinearLayout>
 
 </LinearLayout>
