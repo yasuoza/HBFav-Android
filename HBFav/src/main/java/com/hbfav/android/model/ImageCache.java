@@ -1,4 +1,4 @@
-package com.hbfav.android.models;
+package com.hbfav.android.model;
 
 import android.graphics.drawable.Drawable;
 

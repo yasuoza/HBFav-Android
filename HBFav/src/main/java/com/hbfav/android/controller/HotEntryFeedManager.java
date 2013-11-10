@@ -1,20 +1,20 @@
-package com.hbfav.android.controllers;
+package com.hbfav.android.controller;
 
 import com.hbfav.R;
-import com.hbfav.android.models.Entry;
+import com.hbfav.android.model.Entry;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
-public class EntryListFeedManager extends BaseListFeedManager {
-    private static EntryListFeedManager instance;
+public class HotEntryFeedManager extends BaseListFeedManager {
+    private static HotEntryFeedManager instance;
     private int category = R.id.option_category_menu_general;
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
 
-    public static EntryListFeedManager getInstance() {
+    public static HotEntryFeedManager getInstance() {
         if(instance == null) {
-            instance = new EntryListFeedManager();
+            instance = new HotEntryFeedManager();
         }
         return instance;
     }
@@ -41,6 +41,6 @@ public class EntryListFeedManager extends BaseListFeedManager {
 
     @Override
     protected String getEndPoint() {
-        return "entrylist";
+        return "hotentry";
     }
 }

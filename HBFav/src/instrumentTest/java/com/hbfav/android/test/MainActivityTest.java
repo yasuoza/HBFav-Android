@@ -4,7 +4,7 @@ package com.hbfav.android.test;
 import android.app.ActionBar;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.hbfav.android.views.MainActivity;
+import com.hbfav.android.ui.MainActivity;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     private MainActivity mActivity;

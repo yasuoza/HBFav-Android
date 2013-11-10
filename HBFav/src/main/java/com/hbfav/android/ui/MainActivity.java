@@ -1,19 +1,18 @@
-package com.hbfav.android.views;
+package com.hbfav.android.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+
 import com.hbfav.R;
-import com.hbfav.android.Constants;
+import com.hbfav.android.ui.EntryListFragment;
+import com.hbfav.android.ui.HotentryListFragment;
+import com.hbfav.android.ui.NavigationDrawerFragment;
+import com.hbfav.android.ui.TimelineListFragment;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 

@@ -1,8 +1,8 @@
-package com.hbfav.android.views;
+package com.hbfav.android.ui;
 
 import com.hbfav.R;
-import com.hbfav.android.controllers.BaseListFeedManager;
-import com.hbfav.android.controllers.EntryListFeedManager;
+import com.hbfav.android.controller.BaseListFeedManager;
+import com.hbfav.android.controller.EntryListFeedManager;
 
 public class EntryListFragment extends BaseEntryListFragment {
     private EntryListAdapter mAdapter;

@@ -1,7 +1,7 @@
 package com.hbfav.android.test.controllers;
 
 
-import com.hbfav.android.controllers.BookmarksFetcher;
+import com.hbfav.android.controller.BookmarksFetcher;
 
 import junit.framework.TestCase;
 

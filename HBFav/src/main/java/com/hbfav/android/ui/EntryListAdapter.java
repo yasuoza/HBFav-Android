@@ -1,8 +1,7 @@
-package com.hbfav.android.views;
+package com.hbfav.android.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -15,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbfav.R;
-import com.hbfav.android.controllers.BookmarksFetcher;
-import com.hbfav.android.models.Entry;
+import com.hbfav.android.controller.BookmarksFetcher;
+import com.hbfav.android.model.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
 import java.util.ArrayList;

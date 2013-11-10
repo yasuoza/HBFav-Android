@@ -1,4 +1,4 @@
-package com.hbfav.android.views;
+package com.hbfav.android.ui;
 
 
 import android.app.Activity;
@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
-import com.hbfav.android.controllers.BaseListFeedManager;
+import com.hbfav.android.controller.BaseListFeedManager;
 import com.hbfav.android.interfaces.FeedResponseHandler;
 
 import java.util.Arrays;
