@@ -1,7 +1,6 @@
-package com.hbfav.android.controller;
+package com.hbfav.android.core;
 
 import com.hbfav.R;
-import com.hbfav.android.interfaces.FeedResponseHandler;
 import com.hbfav.android.model.Entry;
 import com.loopj.android.http.JsonHttpResponseHandler;
 

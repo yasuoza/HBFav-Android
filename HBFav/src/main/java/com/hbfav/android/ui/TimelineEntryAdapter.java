@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbfav.R;
-import com.hbfav.android.controller.BookmarksFetcher;
-import com.hbfav.android.controller.TimelineFeedManager;
+import com.hbfav.android.core.BookmarksFetcher;
+import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.model.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 

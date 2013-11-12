@@ -1,4 +1,4 @@
-package com.hbfav.android.controller;
+package com.hbfav.android.core;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;

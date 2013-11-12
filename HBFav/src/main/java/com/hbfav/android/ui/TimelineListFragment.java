@@ -14,8 +14,8 @@ import android.widget.ListView;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
-import com.hbfav.android.controller.TimelineFeedManager;
-import com.hbfav.android.interfaces.FeedResponseHandler;
+import com.hbfav.android.core.TimelineFeedManager;
+import com.hbfav.android.core.FeedResponseHandler;
 import com.hbfav.android.model.Entry;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;

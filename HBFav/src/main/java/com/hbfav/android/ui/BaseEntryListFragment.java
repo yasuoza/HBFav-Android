@@ -16,8 +16,8 @@ import android.widget.ListView;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
-import com.hbfav.android.controller.BaseListFeedManager;
-import com.hbfav.android.interfaces.FeedResponseHandler;
+import com.hbfav.android.core.BaseListFeedManager;
+import com.hbfav.android.core.FeedResponseHandler;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.hbfav.android.interfaces;
+package com.hbfav.android.core;
 
 
 public abstract class FeedResponseHandler {
