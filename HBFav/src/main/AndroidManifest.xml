@@ -25,6 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".android.ui.setting.UserRegistrationActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:hardwareAccelerated="true" >
+            <intent-filter>
+                <action android:name="com.hbfav.android.setting.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 

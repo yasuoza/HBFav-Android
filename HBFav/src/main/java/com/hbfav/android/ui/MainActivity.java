@@ -9,10 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.hbfav.R;
-import com.hbfav.android.ui.EntryListFragment;
-import com.hbfav.android.ui.HotentryListFragment;
-import com.hbfav.android.ui.NavigationDrawerFragment;
-import com.hbfav.android.ui.TimelineListFragment;
+import com.hbfav.android.ui.setting.SettingFragment;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
@@ -70,6 +67,11 @@ public class MainActivity extends Activity
                         .replace(R.id.container, HotentryListFragment.newInstance(position + 1))
                         .commit();
                 break;
+            case 3:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, SettingFragment.newInstance(position + 1))
+                        .commit();
+                break;
         }
     }
 
@@ -87,6 +89,9 @@ public class MainActivity extends Activity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
                 break;
         }
     }

@@ -26,4 +26,8 @@
 
      <!-- HotEntry -->
     <string name="users">users</string>
+
+    <!-- Setting -->
+    <string name="setting_settings">SETTINGS</string>
+    <string name="setting_account">Hatena account</string>
 </resources>
