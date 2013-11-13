@@ -97,7 +97,6 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
         ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
                 .setText(entry.getRelativeTimeSpanString());
 
-
         return view;
     }
 
