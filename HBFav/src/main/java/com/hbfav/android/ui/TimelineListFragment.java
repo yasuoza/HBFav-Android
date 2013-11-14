@@ -6,6 +6,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import android.widget.ListView;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
-import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.core.FeedResponseHandler;
+import com.hbfav.android.core.TimelineFeedManager;
+import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
+import com.hbfav.android.ui.setting.UserRegistrationActivity;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
@@ -70,6 +73,15 @@ public class TimelineListFragment extends ListFragment
                 R.layout.fragment_timeline_row
         );
         setListAdapter(mAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (UserInfoManager.getUserName().isEmpty()) {
+            startActivity(new Intent(getActivity(), UserRegistrationActivity.class));
+        }
     }
 
     @Override
@@ -135,7 +147,8 @@ public class TimelineListFragment extends ListFragment
     }
 
     private void additionalReading() {
-        if (isFetchingBookmarks) {
+        if (isFetchingBookmarks
+                || UserInfoManager.getUserName().isEmpty()) {
             return;
         }
 

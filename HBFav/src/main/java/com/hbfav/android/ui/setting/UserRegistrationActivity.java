@@ -2,7 +2,6 @@ package com.hbfav.android.ui.setting;
 
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -11,9 +10,10 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.hbfav.R;
+import com.hbfav.android.Constants;
+import com.hbfav.android.core.UserInfoManager;
 
 public class UserRegistrationActivity extends Activity {
-    private final String PREF_USER_NAME = "hatena_bookmark_user_name";
     private EditText mEditTextUserName;
 
     @Override
@@ -22,7 +22,7 @@ public class UserRegistrationActivity extends Activity {
         setContentView(R.layout.activity_user_regstrasion);
 
         mEditTextUserName =  (EditText) findViewById(R.id.edit_text_user_name);
-        mEditTextUserName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_USER_NAME, ""));
+        mEditTextUserName.setText(UserInfoManager.getUserName());
     }
 
     @Override
@@ -37,8 +37,7 @@ public class UserRegistrationActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.action_save:
                 String userName = mEditTextUserName.getText().toString();
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-                sp.edit().putString(PREF_USER_NAME, userName).apply();
+                UserInfoManager.setUserName(userName);
                 this.finish();
                 return true;
             default:

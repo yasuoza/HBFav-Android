@@ -1,6 +1,7 @@
 package com.hbfav.android.core;
 
 import com.hbfav.android.model.Entry;
+import com.hbfav.android.ui.MainActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.joda.time.DateTime;
@@ -14,6 +15,7 @@ import java.util.LinkedHashSet;
 public class TimelineFeedManager {
     private static TimelineFeedManager manager = new TimelineFeedManager();
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
+
 
     public static void addAll(ArrayList<Entry> entries) {
         manager.bookmarks.addAll(entries);
@@ -59,7 +61,7 @@ public class TimelineFeedManager {
     }
 
     public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
-        String endpoint = prepend ? getUser() : getAppendUrl();
+        String endpoint = prepend ? UserInfoManager.getUserName() : getAppendUrl();
         BookmarksFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jObj) {
@@ -118,19 +120,15 @@ public class TimelineFeedManager {
 
 
     private static String getAppendUrlFrom(final DateTime dateTime) {
-        return  getUser() + "?until=" + dateTime.getMillis() / 1000l;
+        return  UserInfoManager.getUserName() + "?until=" + dateTime.getMillis() / 1000l;
     }
 
     private static String getAppendUrl() {
         final ArrayList<Entry> entries = getList();
-        String user = getUser();
+        String user = UserInfoManager.getUserName();
         if (entries.size() > 0) {
             return getAppendUrlFrom(entries.get(entries.size() - 1).getDateTime());
         }
         return user;
-    }
-
-    private static String getUser() {
-        return "YasuOza";
     }
 }
