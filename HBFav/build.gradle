@@ -22,6 +22,18 @@ android {
         testPackageName "com.hbfav.android"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
+
+    buildTypes {
+        debug {
+            debuggable true
+            runProguard false
+        }
+        release {
+            debuggable false
+            runProguard true
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+        }
+    }
 }
 
 dependencies {
