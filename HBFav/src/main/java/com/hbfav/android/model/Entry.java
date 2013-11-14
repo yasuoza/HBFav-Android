@@ -137,6 +137,9 @@ public class Entry {
         }
 
         Entry entry = (Entry) obj;
+        if (entry.isPlaceholder || this.isPlaceholder) {
+            return true;
+        }
         return entry.getLink().equals(this.getLink())
                 && entry.getUser().getName().equals(this.getUser().getName());
     }
