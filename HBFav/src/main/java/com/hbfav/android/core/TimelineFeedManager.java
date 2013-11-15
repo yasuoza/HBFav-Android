@@ -1,7 +1,6 @@
 package com.hbfav.android.core;
 
 import com.hbfav.android.model.Entry;
-import com.hbfav.android.ui.MainActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.joda.time.DateTime;
@@ -23,14 +22,14 @@ public class TimelineFeedManager {
     }
 
     public static void prependAll(ArrayList<Entry> entries) {
-        entries.addAll(manager.bookmarks);
         Integer boundary = entries.size();
+        entries.addAll(manager.bookmarks);
         manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
 
         // 配列の長さが同じ
         // => 重複がない
         // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
-        if (boundary == manager.bookmarks.size()) {
+        if (entries.size() == manager.bookmarks.size()) {
             manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
         }
 
@@ -39,16 +38,16 @@ public class TimelineFeedManager {
     }
 
     public static void insertAll(int position, ArrayList<Entry> entries) {
-        Integer boundary = entries.size();
         manager.bookmarks.remove(position);
         manager.bookmarks.addAll(position, entries);
+        Integer boundary = manager.bookmarks.size();
         manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
 
         // 配列の長さが同じ
         // => 重複がない
         // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
         if (boundary == manager.bookmarks.size()) {
-            manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
+            manager.bookmarks.add(position + entries.size(), Entry.newPlaceholder(entries.get(entries.size() - 1).getDateTime()));
         }
     }
 
