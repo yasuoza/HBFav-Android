@@ -3,11 +3,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp">
 
-    <EditText
-        android:id="@+id/edit_text_user_name"
-        android:layout_height="40sp"
+    <LinearLayout
+        android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:inputType="text" />
+        android:orientation="vertical"
+        android:id="@+id/username_linear_layout"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:textSize="20sp"
+            android:text="@string/setting_account" />
+
+        <TextView
+            android:id="@+id/text_view_account"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:textSize="20sp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_marginRight="8dp" />
+
+        <!-- horizontal divider -->
+        <View
+            android:background="?android:attr/listDivider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"/>
+
+    </LinearLayout>
+
 </LinearLayout>
