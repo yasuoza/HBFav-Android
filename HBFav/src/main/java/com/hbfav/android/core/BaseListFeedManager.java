@@ -73,6 +73,7 @@ public abstract class BaseListFeedManager {
                     setList(entries);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    return;
                 }
                 feedResponseHandler.onSuccess();
             }

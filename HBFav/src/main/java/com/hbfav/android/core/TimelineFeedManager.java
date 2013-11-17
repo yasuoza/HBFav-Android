@@ -79,8 +79,8 @@ public class TimelineFeedManager {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    return;
                 }
-
                 feedResponseHandler.onSuccess();
             }
 
