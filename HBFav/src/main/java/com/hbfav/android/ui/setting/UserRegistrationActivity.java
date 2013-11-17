@@ -34,6 +34,8 @@ public class UserRegistrationActivity extends Activity {
 
 
     private void showInputUserNamePopUp() {
+        final UserRegistrationActivity activity = this;
+
         View promptsView = LayoutInflater.from(this).inflate(R.layout.prompt_edit_username, null);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(getString(R.string.setting_account));
@@ -47,6 +49,9 @@ public class UserRegistrationActivity extends Activity {
                 }
                 UserInfoManager.setUserName(input.getText().toString());
                 mTextViewAccount.setText(UserInfoManager.getUserName());
+                if (!input.getText().toString().isEmpty()) {
+                    activity.finish();
+                }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
