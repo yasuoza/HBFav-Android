@@ -23,9 +23,34 @@
         android:layout_width="fill_parent"
         android:layout_height="5dp" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_height="match_parent"
-        android:layout_width="fill_parent" />
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:id="@+id/username_linear_layout"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:textSize="20sp"
+            android:text="@string/setting_account" />
+
+        <TextView
+            android:id="@+id/text_view_account"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:textSize="20sp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_marginRight="8dp" />
+
+        <!-- horizontal divider -->
+        <View
+            android:background="?android:attr/listDivider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"/>
+
+    </LinearLayout>
 
 </LinearLayout>
