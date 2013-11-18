@@ -15,6 +15,9 @@ public class TimelineFeedManager {
     private static TimelineFeedManager manager = new TimelineFeedManager();
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
+    public static void clearAll() {
+        manager.bookmarks = new ArrayList<Entry>();
+    }
 
     public static void addAll(ArrayList<Entry> entries) {
         manager.bookmarks.addAll(entries);

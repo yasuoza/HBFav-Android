@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
+import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.MainActivity;
 
@@ -70,6 +71,10 @@ public class SettingFragment extends Fragment {
                 if (input.getText() == null) {
                     return;
                 }
+                if (UserInfoManager.getUserName().equals(input.getText().toString())) {
+                    return;
+                }
+                TimelineFeedManager.clearAll();
                 UserInfoManager.setUserName(input.getText().toString());
                 mTextViewAccount.setText(UserInfoManager.getUserName());
             }
