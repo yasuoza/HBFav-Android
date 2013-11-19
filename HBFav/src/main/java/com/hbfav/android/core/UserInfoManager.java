@@ -37,6 +37,6 @@ public class UserInfoManager {
     }
 
     private static String thumbUrl() {
-        return "http://www.st-hatena.com/users/" + getUserName() + "/profile.gif";
+        return Constants.BASE_THUMBNAIL_URL + getUserName() + "/profile.gif";
     }
 }
