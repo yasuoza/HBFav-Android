@@ -18,9 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hbfav.R;
+import com.hbfav.android.core.UserInfoManager;
 
 ;
 
@@ -108,8 +111,21 @@ public class NavigationDrawerFragment extends Fragment {
                 menus
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+        // Disable header view click listener
         rootView.findViewById(R.id.navigation_drawer_header).setOnClickListener(null);
+
+        // Cache user profile thumbnail
+        ((ImageView) rootView.findViewById(R.id.navigation_drawer_header_user_thumb)).setImageDrawable(UserInfoManager.getUserThumb());
+
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        updateDrawerHeaderView();
     }
 
     public boolean isDrawerOpen() {
@@ -169,6 +185,7 @@ public class NavigationDrawerFragment extends Fragment {
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
+                updateDrawerHeaderView();
                 getActivity().invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
         };
@@ -264,6 +281,14 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return getActivity().getActionBar();
+    }
+
+    private void updateDrawerHeaderView() {
+        if (getActivity() == null) {
+            return;
+        }
+        ((TextView) getActivity().findViewById(R.id.navigation_drawer_header_username)).setText(UserInfoManager.getUserName());
+        ((ImageView) getActivity().findViewById(R.id.navigation_drawer_header_user_thumb)).setImageDrawable(UserInfoManager.getUserThumb());
     }
 
     /**
