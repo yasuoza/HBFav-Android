@@ -13,8 +13,8 @@
         android:layout_margin="10dp" >
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:visibility="visible"
             android:id="@+id/fragment_entry_list_user_thumb_image_view"
             android:layout_gravity="center_horizontal|top" />
@@ -55,7 +55,8 @@
                     android:layout_below="@id/fragment_entry_user_name"
                     android:id="@+id/fragment_entry_list_entry_comment"
                     android:layout_gravity="bottom|left|right"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
