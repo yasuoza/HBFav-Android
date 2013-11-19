@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hbfav.R;
-import com.hbfav.android.core.BookmarksFetcher;
+import com.hbfav.android.core.HBFavFetcher;
 import com.hbfav.android.model.Entry;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
@@ -58,7 +58,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
         } else {
             Drawable thumb = entry.getThumbnailImage();
             if (thumb == null) {
-                BookmarksFetcher.getImage(entry.getThumbnailUrl(), new BinaryHttpResponseHandler(BookmarksFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
+                HBFavFetcher.getImage(entry.getThumbnailUrl(), new BinaryHttpResponseHandler(HBFavFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                     @Override
                     public void onSuccess(byte[] fileData) {
                         Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -73,7 +73,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
 
         Drawable favicon = entry.getFavicon();
         if (favicon == null) {
-            BookmarksFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(BookmarksFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
+            HBFavFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(HBFavFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));

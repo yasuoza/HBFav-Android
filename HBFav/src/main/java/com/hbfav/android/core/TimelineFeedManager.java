@@ -64,7 +64,7 @@ public class TimelineFeedManager {
 
     public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
         String endpoint = prepend ? UserInfoManager.getUserName() : getAppendUrl();
-        BookmarksFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
+        HBFavFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jObj) {
                 try {
@@ -95,7 +95,7 @@ public class TimelineFeedManager {
     }
 
     public static void fetchFeed(final Integer position, final FeedResponseHandler feedResponseHandler) {
-        BookmarksFetcher.get(getAppendUrlFrom(get(position).getDateTime()), null, new JsonHttpResponseHandler() {
+        HBFavFetcher.get(getAppendUrlFrom(get(position).getDateTime()), null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jObj) {
                 try {

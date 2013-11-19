@@ -59,7 +59,7 @@ public abstract class BaseListFeedManager {
                 endpoint += "?category=fun";
                 break;
         }
-        BookmarksFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
+        HBFavFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(JSONObject jObj) {
                 try {
