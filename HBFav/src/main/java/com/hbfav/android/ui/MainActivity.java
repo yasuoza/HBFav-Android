@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -67,22 +68,22 @@ public class MainActivity extends Activity
         switch (position) {
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, TimelineListFragment.newInstance(position + 1))
+                        .replace(R.id.container, SettingFragment.newInstance(position))
                         .commit();
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, EntryListFragment.newInstance(position + 1))
+                        .replace(R.id.container, TimelineListFragment.newInstance(position))
                         .commit();
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, HotentryListFragment.newInstance(position + 1))
+                        .replace(R.id.container, EntryListFragment.newInstance(position))
                         .commit();
                 break;
             case 3:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, SettingFragment.newInstance(position + 1))
+                        .replace(R.id.container, HotentryListFragment.newInstance(position))
                         .commit();
                 break;
         }
@@ -94,6 +95,9 @@ public class MainActivity extends Activity
 
     public void onSectionAttached(int number) {
         switch (number) {
+            case 0:
+                mTitle = getString(R.string.title_section0);
+                break;
             case 1:
                 mTitle = getString(R.string.title_section1);
                 break;
@@ -102,9 +106,6 @@ public class MainActivity extends Activity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
                 break;
         }
     }

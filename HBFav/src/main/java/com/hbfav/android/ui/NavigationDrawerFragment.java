@@ -59,7 +59,7 @@ public class NavigationDrawerFragment extends Fragment {
     private ListView mDrawerListView;
     private View mFragmentContainerView;
 
-    private int mCurrentSelectedPosition = 0;
+    private int mCurrentSelectedPosition = 1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
@@ -101,9 +101,12 @@ public class NavigationDrawerFragment extends Fragment {
         String[] menus = new String[]{
                 getString(R.string.title_section1),
                 getString(R.string.title_section2),
-                getString(R.string.title_section3),
-                getString(R.string.title_section4)
+                getString(R.string.title_section3)
         };
+
+        View headerView = inflater.inflate(R.layout.navigation_drawer_header, container, false);
+        mDrawerListView.addHeaderView(headerView);
+
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 R.layout.navigation_list_item_activated,
@@ -112,11 +115,7 @@ public class NavigationDrawerFragment extends Fragment {
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
-        // Disable header view click listener
-        rootView.findViewById(R.id.navigation_drawer_header).setOnClickListener(null);
-
-        // Cache user profile thumbnail
-        ((ImageView) rootView.findViewById(R.id.navigation_drawer_header_user_thumb)).setImageDrawable(UserInfoManager.getUserThumb());
+        ((ImageView) headerView.findViewById(R.id.navigation_drawer_header_user_thumb)).setImageDrawable(UserInfoManager.getUserThumb());
 
         return rootView;
     }
