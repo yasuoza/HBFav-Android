@@ -27,6 +27,6 @@ public class HBFavFetcher {
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {
-        return Constants.BASE_URL + relativeUrl;
+        return Constants.HBFAV_BASE_URL + relativeUrl;
     }
 }
