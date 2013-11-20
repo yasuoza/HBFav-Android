@@ -36,6 +36,7 @@ proguard_logs/
 *.iml
 *.ipr
 *.iws
-.idea/
+.idea/*
+!.idea/codeStyleSettings.xml
 
 adt-bundle-windows-x86_64/
