@@ -14,8 +14,13 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 public class UserInfoManager {
 
     public static void setUserName(final String userName) {
+        if (userName.equals(getUserName())) {
+            return;
+        }
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
         sp.edit().putString(Constants.PREF_USER_NAME, userName).apply();
+        // Download new user thumbnail
+        getUserThumb();
     }
 
     public static String getUserName() {
