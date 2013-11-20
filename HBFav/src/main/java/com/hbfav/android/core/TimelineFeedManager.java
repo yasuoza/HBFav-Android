@@ -14,14 +14,20 @@ import java.util.LinkedHashSet;
 public class TimelineFeedManager {
     private static TimelineFeedManager manager = new TimelineFeedManager();
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
+    private boolean appendingBookmarks = false;
+    private boolean loadedAllBookmarks = false;
 
     public static void clearAll() {
         manager.bookmarks = new ArrayList<Entry>();
     }
 
     public static void addAll(ArrayList<Entry> entries) {
+        Integer beforeCount = manager.bookmarks.size();
         manager.bookmarks.addAll(entries);
         manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
+        if (beforeCount == manager.bookmarks.size()) {
+            manager.loadedAllBookmarks = true;
+        }
     }
 
     public static void prependAll(ArrayList<Entry> entries) {
@@ -63,6 +69,7 @@ public class TimelineFeedManager {
     }
 
     public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+        manager.appendingBookmarks = !prepend;
         String endpoint = prepend ? UserInfoManager.getUserName() : getAppendUrl();
         HBFavFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
             @Override
@@ -90,6 +97,7 @@ public class TimelineFeedManager {
             @Override
             public void onFinish() {
                 feedResponseHandler.onFinish();
+                manager.appendingBookmarks = false;
             }
         });
     }
@@ -118,6 +126,14 @@ public class TimelineFeedManager {
                 feedResponseHandler.onFinish();
             }
         });
+    }
+
+    public static boolean isAppending() {
+        return manager.appendingBookmarks;
+    }
+
+    public static boolean loadedAllBookmarks() {
+        return manager.loadedAllBookmarks;
     }
 
 

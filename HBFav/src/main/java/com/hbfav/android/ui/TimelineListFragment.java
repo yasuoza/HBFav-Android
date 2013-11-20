@@ -6,7 +6,6 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ public class TimelineListFragment extends ListFragment
     private View mFooterView;
     private TimelineEntryAdapter mAdapter;
     private PullToRefreshAttacher mPullToRefreshAttacher;
-    private boolean isFetchingBookmarks = false;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -63,8 +61,10 @@ public class TimelineListFragment extends ListFragment
         super.onActivityCreated(savedInstanceState);
 
         ListView listView = getListView();
-        listView.addFooterView(mFooterView, null, false);
-        listView.setOnScrollListener(this);
+        if (!TimelineFeedManager.loadedAllBookmarks()) {
+            listView.addFooterView(mFooterView, null, false);
+            listView.setOnScrollListener(this);
+        }
 
         mPullToRefreshAttacher.addRefreshableView(listView, this);
 
@@ -113,11 +113,14 @@ public class TimelineListFragment extends ListFragment
     }
 
     @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-    }
+    public void onScrollStateChanged(AbsListView view, int scrollState) { }
+
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if (TimelineFeedManager.loadedAllBookmarks()) {
+            return;
+        }
         if (totalItemCount == firstVisibleItem + visibleItemCount) {
             additionalReading();
         }
@@ -147,12 +150,11 @@ public class TimelineListFragment extends ListFragment
     }
 
     private void additionalReading() {
-        if (isFetchingBookmarks
+        if (TimelineFeedManager.isAppending()
                 || UserInfoManager.getUserName().isEmpty()) {
             return;
         }
 
-        isFetchingBookmarks  = true;
         TimelineFeedManager.fetchFeed(false, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
@@ -161,7 +163,9 @@ public class TimelineListFragment extends ListFragment
 
             @Override
             public void onFinish() {
-                isFetchingBookmarks = false;
+                if (TimelineFeedManager.loadedAllBookmarks() && getListView() != null) {
+                    getListView().removeFooterView(mFooterView);
+                }
             }
         });
     }
