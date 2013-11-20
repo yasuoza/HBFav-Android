@@ -1,6 +1,9 @@
 package com.hbfav.android;
 
 
+import com.hbfav.R;
+import com.hbfav.android.ui.MainActivity;
+
 public class Constants {
     /**
      * The fragment argument representing the section number for this
@@ -13,4 +16,11 @@ public class Constants {
     public static final String HBFAV_BASE_URL = "http://feed.hbfav.com/";
 
     public static final String BASE_THUMBNAIL_URL = "http://www.st-hatena.com/users/";
+
+    public static final String[] MENUS = new String[] {
+        MainActivity.getContextOfApplication().getString(R.string.title_section0),
+        MainActivity.getContextOfApplication().getString(R.string.title_section1),
+        MainActivity.getContextOfApplication().getString(R.string.title_section2),
+        MainActivity.getContextOfApplication().getString(R.string.title_section3)
+    };
 }

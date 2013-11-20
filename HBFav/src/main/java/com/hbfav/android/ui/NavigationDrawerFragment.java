@@ -23,7 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hbfav.R;
+import com.hbfav.android.Constants;
 import com.hbfav.android.core.UserInfoManager;
+
+import java.util.Arrays;
 
 
 /**
@@ -76,20 +79,15 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        String[] menus = new String[]{
-                getString(R.string.title_section1),
-                getString(R.string.title_section2),
-                getString(R.string.title_section3)
-        };
 
         View headerView = inflater.inflate(R.layout.navigation_drawer_header, container, false);
         mDrawerListView.addHeaderView(headerView);
 
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                R.layout.navigation_list_item_activated,
-                android.R.id.text1,
-                menus
+            getActionBar().getThemedContext(),
+            R.layout.navigation_list_item_activated,
+            android.R.id.text1,
+            Arrays.copyOfRange(Constants.MENUS, 1, Constants.MENUS.length)
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
