@@ -98,7 +98,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
         mInflater = inflater;
-        mFooterView = inflater.inflate(R.layout.listview_footer, null);
+        mFooterView = inflater.inflate(R.layout.timeline_list_footer, null);
         mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
         return rootView;
     }
@@ -181,7 +181,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
         }
 
         if (listView.getFooterViewsCount() == 0) {
-            mFooterView = mInflater.inflate(R.layout.listview_footer, null);
+            mFooterView = mInflater.inflate(R.layout.timeline_list_footer, null);
             listView.addFooterView(mFooterView, null, false);
         }
 
