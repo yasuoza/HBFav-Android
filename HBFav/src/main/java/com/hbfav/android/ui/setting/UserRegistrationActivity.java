@@ -36,7 +36,7 @@ public class UserRegistrationActivity extends Activity {
     private void showInputUserNamePopUp() {
         final UserRegistrationActivity activity = this;
 
-        View promptsView = LayoutInflater.from(this).inflate(R.layout.prompt_edit_username, null);
+        View promptsView = LayoutInflater.from(this).inflate(R.layout.edit_username_dialog, null);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(getString(R.string.setting_account));
         alert.setView(promptsView);

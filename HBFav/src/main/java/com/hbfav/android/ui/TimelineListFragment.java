@@ -50,8 +50,8 @@ public class TimelineListFragment extends ListFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
-        mFooterView = inflater.inflate(R.layout.timeline_list_footer, null);
+        View rootView = inflater.inflate(R.layout.common_entry_list_view, container, false);
+        mFooterView = inflater.inflate(R.layout.timeline_footer, null);
         mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
         return rootView;
     }

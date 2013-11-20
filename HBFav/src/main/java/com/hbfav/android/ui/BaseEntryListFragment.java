@@ -96,9 +96,9 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_entry_list_view_main, container, false);
+        View rootView = inflater.inflate(R.layout.common_entry_list_view, container, false);
         mInflater = inflater;
-        mFooterView = inflater.inflate(R.layout.timeline_list_footer, null);
+        mFooterView = inflater.inflate(R.layout.timeline_footer, null);
         mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
         return rootView;
     }
@@ -160,7 +160,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.removeItem(R.id.action_settings);
         inflater.inflate(R.menu.hotentry, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -181,7 +180,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
         }
 
         if (listView.getFooterViewsCount() == 0) {
-            mFooterView = mInflater.inflate(R.layout.timeline_list_footer, null);
+            mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
             listView.addFooterView(mFooterView, null, false);
         }
 

@@ -21,45 +21,6 @@ public class TimelineFeedManager {
         manager.bookmarks = new ArrayList<Entry>();
     }
 
-    public static void addAll(ArrayList<Entry> entries) {
-        Integer beforeCount = manager.bookmarks.size();
-        manager.bookmarks.addAll(entries);
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
-        if (beforeCount == manager.bookmarks.size()) {
-            manager.loadedAllBookmarks = true;
-        }
-    }
-
-    public static void prependAll(ArrayList<Entry> entries) {
-        Integer boundary = entries.size();
-        entries.addAll(manager.bookmarks);
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
-
-        // 配列の長さが同じ
-        // => 重複がない
-        // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
-        if (entries.size() == manager.bookmarks.size()) {
-            manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
-        }
-
-        // To test, uncomment this line
-        // manager.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
-    }
-
-    public static void insertAll(int position, ArrayList<Entry> entries) {
-        manager.bookmarks.remove(position);
-        manager.bookmarks.addAll(position, entries);
-        Integer boundary = manager.bookmarks.size();
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
-
-        // 配列の長さが同じ
-        // => 重複がない
-        // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
-        if (boundary == manager.bookmarks.size()) {
-            manager.bookmarks.add(position + entries.size(), Entry.newPlaceholder(entries.get(entries.size() - 1).getDateTime()));
-        }
-    }
-
     public static Entry get(Integer index) {
         return manager.bookmarks.get(index);
     }
@@ -136,6 +97,45 @@ public class TimelineFeedManager {
         return manager.loadedAllBookmarks;
     }
 
+
+    private static void addAll(ArrayList<Entry> entries) {
+        Integer beforeCount = manager.bookmarks.size();
+        manager.bookmarks.addAll(entries);
+        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
+        if (beforeCount == manager.bookmarks.size()) {
+            manager.loadedAllBookmarks = true;
+        }
+    }
+
+    private static void prependAll(ArrayList<Entry> entries) {
+        Integer boundary = entries.size();
+        entries.addAll(manager.bookmarks);
+        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
+
+        // 配列の長さが同じ
+        // => 重複がない
+        // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
+        if (entries.size() == manager.bookmarks.size()) {
+            manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
+        }
+
+        // To test, uncomment this line
+        // manager.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
+    }
+
+    private static void insertAll(int position, ArrayList<Entry> entries) {
+        manager.bookmarks.remove(position);
+        manager.bookmarks.addAll(position, entries);
+        Integer boundary = manager.bookmarks.size();
+        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
+
+        // 配列の長さが同じ
+        // => 重複がない
+        // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
+        if (boundary == manager.bookmarks.size()) {
+            manager.bookmarks.add(position + entries.size(), Entry.newPlaceholder(entries.get(entries.size() - 1).getDateTime()));
+        }
+    }
 
     private static String getAppendUrlFrom(final DateTime dateTime) {
         return  UserInfoManager.getUserName() + "?until=" + dateTime.getMillis() / 1000l;

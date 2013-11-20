@@ -42,7 +42,7 @@ public class SettingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_setting_view, container, false);
+        View rootView = inflater.inflate(R.layout.setting_view, container, false);
         mTextViewAccount = (TextView) rootView.findViewById(R.id.text_view_account);
         mTextViewAccount.setText(UserInfoManager.getUserName());
         rootView.findViewById(R.id.username_linear_layout).setOnClickListener(new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class SettingFragment extends Fragment {
 
     private void showInputUserNamePopUp() {
         Context context = getActivity();
-        View promptsView = LayoutInflater.from(context).inflate(R.layout.prompt_edit_username, null);
+        View promptsView = LayoutInflater.from(context).inflate(R.layout.edit_username_dialog, null);
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
         alert.setTitle(getString(R.string.setting_account));
         alert.setView(promptsView);
