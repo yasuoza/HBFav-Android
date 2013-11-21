@@ -6,12 +6,11 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
+import com.hbfav.android.ui.about.AboutAppFragment;
 import com.hbfav.android.ui.setting.SettingFragment;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
@@ -86,6 +85,11 @@ public class MainActivity extends Activity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, HotentryListFragment.newInstance(position))
                         .commit();
+                break;
+            case 4:
+                fragmentManager.beginTransaction()
+                    .replace(R.id.container, AboutAppFragment.newInstance(position))
+                    .commit();
                 break;
         }
     }

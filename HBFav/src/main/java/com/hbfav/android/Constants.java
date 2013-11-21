@@ -17,10 +17,13 @@ public class Constants {
 
     public static final String BASE_THUMBNAIL_URL = "http://www.st-hatena.com/users/";
 
+    public static final String ISSUES_URL = "https://github.com/yasuoza/HBFav-Android/issues";
+
     public static final String[] MENUS = new String[] {
         MainActivity.getContextOfApplication().getString(R.string.title_section0),
         MainActivity.getContextOfApplication().getString(R.string.title_section1),
         MainActivity.getContextOfApplication().getString(R.string.title_section2),
-        MainActivity.getContextOfApplication().getString(R.string.title_section3)
+        MainActivity.getContextOfApplication().getString(R.string.title_section3),
+        MainActivity.getContextOfApplication().getString(R.string.title_section4)
     };
 }

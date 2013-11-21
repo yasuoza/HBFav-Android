@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="20dp"
+              android:layout_marginRight="20dp">
+
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:layout_marginTop="30dp"
+                  android:orientation="vertical">
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_marginBottom="10dp"
+                  android:text="ActionBar-PullToRefresh"
+                  android:textStyle="bold"
+                  android:textSize="15sp"/>
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:autoLink="web"
+                  android:text="Copyright 2013 Chris Banes\n
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at\n
+http://www.apache.org/licenses/LICENSE-2.0\n
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License."/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:layout_marginTop="30dp"
+                  android:orientation="vertical">
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_marginBottom="10dp"
+                  android:text="android-async-http"
+                  android:textStyle="bold"
+                  android:textSize="15sp"/>
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:autoLink="web"
+                  android:text="The Android Asynchronous Http Client is released under the Android-friendly Apache License, Version 2.0. Read the full license here:\n
+http://www.apache.org/licenses/LICENSE-2.0"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:layout_marginTop="30dp"
+                  android:orientation="vertical">
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="wrap_content"
+                  android:layout_marginBottom="10dp"
+                  android:text="Joda-Time"
+                  android:textStyle="bold"
+                  android:textSize="15sp"/>
+
+        <TextView android:layout_height="wrap_content"
+                  android:layout_width="match_parent"
+                  android:autoLink="web"
+                  android:text="http://joda-time.sourceforge.net/license.html"/>
+
+    </LinearLayout>
+</LinearLayout>

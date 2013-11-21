@@ -12,6 +12,7 @@
     <string name="title_section1">Timeline</string>
     <string name="title_section2">Entrylist</string>
     <string name="title_section3">HotEntry</string>
+    <string name="title_section4">About App</string>
 
     <!-- Options menu -->
     <string name="option_category_menu_general">General</string>
@@ -30,4 +31,10 @@
     <!-- Setting -->
     <string name="setting_settings">SETTINGS</string>
     <string name="setting_account">Hatena account</string>
+
+    <!-- About App -->
+    <string name="about_issues_demands">Issues • Demands(GitHub)</string>
+    <string name="about_from_developer">From developer</string>
+    <string name="about_credits">Credits</string>
+
 </resources>
