@@ -27,6 +27,8 @@ import com.hbfav.android.Constants;
 import com.hbfav.android.core.UserInfoManager;
 
 import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -34,7 +36,7 @@ import java.util.Arrays;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements Observer {
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
@@ -43,6 +45,8 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
+    private ImageView mUserThumbImageView;
+    private TextView mUserNameTextView;
     private int mCurrentSelectedPosition = 1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -67,6 +71,8 @@ public class NavigationDrawerFragment extends Fragment {
 
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
+
+        UserInfoManager.registerObserver(this);
     }
 
     @Override
@@ -91,7 +97,9 @@ public class NavigationDrawerFragment extends Fragment {
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
-        ((ImageView) headerView.findViewById(R.id.navigation_drawer_header_user_thumb)).setImageDrawable(UserInfoManager.getUserThumb());
+        mUserNameTextView = (TextView) headerView.findViewById(R.id.navigation_drawer_header_username);
+        mUserThumbImageView = (ImageView) headerView.findViewById(R.id.navigation_drawer_header_user_thumb);
+        mUserThumbImageView.setImageDrawable(UserInfoManager.getUserThumb());
 
         return rootView;
     }
@@ -101,6 +109,17 @@ public class NavigationDrawerFragment extends Fragment {
         super.onStart();
 
         updateDrawerHeaderView();
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        if (getActivity() == null) {
+            return;
+        }
+        if (mUserThumbImageView == null) {
+            return;
+        }
+        mUserThumbImageView.setImageDrawable(UserInfoManager.getUserThumb());
     }
 
     public boolean isDrawerOpen() {
@@ -258,8 +277,8 @@ public class NavigationDrawerFragment extends Fragment {
         if (getActivity() == null) {
             return;
         }
-        ((TextView) getActivity().findViewById(R.id.navigation_drawer_header_username)).setText(UserInfoManager.getUserName());
-        ((ImageView) getActivity().findViewById(R.id.navigation_drawer_header_user_thumb)).setImageDrawable(UserInfoManager.getUserThumb());
+        mUserNameTextView.setText(UserInfoManager.getUserName());
+        mUserThumbImageView.setImageDrawable(UserInfoManager.getUserThumb());
     }
 
     /**

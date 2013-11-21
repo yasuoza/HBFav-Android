@@ -8,10 +8,19 @@ import android.preference.PreferenceManager;
 
 import com.hbfav.android.Constants;
 import com.hbfav.android.model.ImageCache;
+import com.hbfav.android.model.User;
 import com.hbfav.android.ui.MainActivity;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
-public class UserInfoManager {
+import java.util.Observable;
+import java.util.Observer;
+
+public class UserInfoManager extends Observable {
+    private static final UserInfoManager manager = new UserInfoManager();
+
+    public static void registerObserver(Observer observer) {
+        manager.addObserver(observer);
+    }
 
     public static void setUserName(final String userName) {
         if (userName.equals(getUserName())) {
@@ -35,6 +44,7 @@ public class UserInfoManager {
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
                     ImageCache.setImage(thumbUrl(), image);
+                    manager.triggerObservers();
                 }
             });
         }
@@ -43,5 +53,10 @@ public class UserInfoManager {
 
     private static String thumbUrl() {
         return Constants.BASE_THUMBNAIL_URL + getUserName() + "/profile.gif";
+    }
+
+    private void triggerObservers() {
+        setChanged();
+        notifyObservers();
     }
 }
