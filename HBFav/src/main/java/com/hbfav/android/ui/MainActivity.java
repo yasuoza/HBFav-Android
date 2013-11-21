@@ -34,8 +34,6 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
 
-    private PullToRefreshAttacher mPullToRefreshAttacher;
-
     public static Context getContextOfApplication() {
         return contextOfApplication;
     }
@@ -51,9 +49,6 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
-
-        // The attacher should always be created in the Activity's onCreate
-        mPullToRefreshAttacher = PullToRefreshAttacher.get(this);
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
@@ -92,10 +87,6 @@ public class MainActivity extends Activity
                     .commit();
                 break;
         }
-    }
-
-    PullToRefreshAttacher getPullToRefreshAttacher() {
-        return mPullToRefreshAttacher;
     }
 
     public void onSectionAttached(int number) {

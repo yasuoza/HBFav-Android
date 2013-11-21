@@ -20,13 +20,16 @@ import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.ui.setting.UserRegistrationActivity;
 
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
-public class TimelineListFragment extends ListFragment
-        implements AbsListView.OnScrollListener, PullToRefreshAttacher.OnRefreshListener {
+public class TimelineListFragment extends ListFragment implements AbsListView.OnScrollListener, OnRefreshListener {
     private View mFooterView;
     private TimelineEntryAdapter mAdapter;
-    private PullToRefreshAttacher mPullToRefreshAttacher;
+    private PullToRefreshLayout mPullToRefreshLayout;
+
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -52,7 +55,14 @@ public class TimelineListFragment extends ListFragment
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.common_entry_list_view, container, false);
         mFooterView = inflater.inflate(R.layout.timeline_footer, null);
-        mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
+
+        // PullToRefresh
+        mPullToRefreshLayout = (PullToRefreshLayout) rootView.findViewById(R.id.ptr_layout);
+        ActionBarPullToRefresh.from(getActivity())
+            .allChildrenArePullable()
+            .listener(this)
+            .setup(mPullToRefreshLayout);
+
         return rootView;
     }
 
@@ -65,8 +75,6 @@ public class TimelineListFragment extends ListFragment
             listView.addFooterView(mFooterView, null, false);
             listView.setOnScrollListener(this);
         }
-
-        mPullToRefreshAttacher.addRefreshableView(listView, this);
 
         mAdapter = new TimelineEntryAdapter(
                 getActivity(),
@@ -87,7 +95,7 @@ public class TimelineListFragment extends ListFragment
     @Override
     public void onStop() {
         super.onStop();
-        mPullToRefreshAttacher.setRefreshComplete();
+        mPullToRefreshLayout.setRefreshComplete();
     }
 
     @Override
@@ -144,7 +152,7 @@ public class TimelineListFragment extends ListFragment
                         }
                     });
                 }
-                mPullToRefreshAttacher.setRefreshComplete();
+                mPullToRefreshLayout.setRefreshComplete();
             }
         });
     }

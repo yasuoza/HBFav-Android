@@ -21,12 +21,15 @@ import com.hbfav.android.core.FeedResponseHandler;
 
 import java.util.Arrays;
 
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
-public abstract class BaseEntryListFragment extends ListFragment implements PullToRefreshAttacher.OnRefreshListener {
+public abstract class BaseEntryListFragment extends ListFragment implements OnRefreshListener {
     private View mFooterView;
-    private PullToRefreshAttacher mPullToRefreshAttacher;
     private LayoutInflater mInflater;
+    private PullToRefreshLayout mPullToRefreshLayout;
     private final Integer[] optionIDs = {
             R.id.option_category_menu_general,
             R.id.option_category_menu_social,
@@ -99,7 +102,14 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
         View rootView = inflater.inflate(R.layout.common_entry_list_view, container, false);
         mInflater = inflater;
         mFooterView = inflater.inflate(R.layout.timeline_footer, null);
-        mPullToRefreshAttacher = ((MainActivity) getActivity()).getPullToRefreshAttacher();
+
+        // PullToRefresh
+        mPullToRefreshLayout = (PullToRefreshLayout) rootView.findViewById(R.id.ptr_layout);
+        ActionBarPullToRefresh.from(getActivity())
+            .allChildrenArePullable()
+            .listener(this)
+            .setup(mPullToRefreshLayout);
+
         return rootView;
     }
 
@@ -112,7 +122,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
             return;
         }
         listView.addFooterView(mFooterView, null, false);
-        mPullToRefreshAttacher.addRefreshableView(listView, this);
         initAdapter();
         setListAdapter(getAdapter());
 
@@ -149,7 +158,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
     @Override
     public void onStop() {
         super.onStop();
-        mPullToRefreshAttacher.setRefreshComplete();
+        mPullToRefreshLayout.setRefreshComplete();
     }
 
     @Override
@@ -184,7 +193,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
             listView.addFooterView(mFooterView, null, false);
         }
 
-        mPullToRefreshAttacher.setRefreshComplete();
+        mPullToRefreshLayout.setRefreshComplete();
 
         getManager().setCategory(item.getItemId());
         getManager().clearList();
@@ -214,7 +223,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements Pull
 
             @Override
             public void onFinish() {
-                mPullToRefreshAttacher.setRefreshComplete();
+                mPullToRefreshLayout.setRefreshComplete();
             }
         });
     }
