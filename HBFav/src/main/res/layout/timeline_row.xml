@@ -66,12 +66,12 @@
                     android:orientation="horizontal" >
 
                     <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:visibility="visible"
-                        android:id="@+id/fragment_entry_list_entry_favicon_image_view"
-                        android:layout_gravity="center_horizontal"
-                        android:baselineAlignBottom="false" />
+                        android:layout_marginTop="3dp"
+                        android:id="@+id/fragment_entry_list_entry_favicon_image_view"/>
+
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="wrap_content"
