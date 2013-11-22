@@ -15,23 +15,14 @@
         <TextView android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
                   android:layout_marginBottom="10dp"
-                  android:text="ActionBar-PullToRefresh"
+                  android:text="@string/actionbar_pulll_to_refresh"
                   android:textStyle="bold"
                   android:textSize="15sp"/>
 
         <TextView android:layout_height="wrap_content"
                   android:layout_width="match_parent"
                   android:autoLink="web"
-                  android:text="Copyright 2013 Chris Banes\n
-Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at\n
-http://www.apache.org/licenses/LICENSE-2.0\n
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License."/>
+                  android:text="@string/license_actionbar_pull_to_refresh_text"/>
 
     </LinearLayout>
 
@@ -43,15 +34,14 @@ limitations under the License."/>
         <TextView android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
                   android:layout_marginBottom="10dp"
-                  android:text="android-async-http"
+                  android:text="@string/android_async_http"
                   android:textStyle="bold"
                   android:textSize="15sp"/>
 
         <TextView android:layout_height="wrap_content"
                   android:layout_width="match_parent"
                   android:autoLink="web"
-                  android:text="The Android Asynchronous Http Client is released under the Android-friendly Apache License, Version 2.0. Read the full license here:\n
-http://www.apache.org/licenses/LICENSE-2.0"/>
+                  android:text="@string/license_android_async_http" />
 
     </LinearLayout>
 
@@ -63,14 +53,14 @@ http://www.apache.org/licenses/LICENSE-2.0"/>
         <TextView android:layout_height="wrap_content"
                   android:layout_width="wrap_content"
                   android:layout_marginBottom="10dp"
-                  android:text="Joda-Time"
+                  android:text="@string/joda_time"
                   android:textStyle="bold"
                   android:textSize="15sp"/>
 
         <TextView android:layout_height="wrap_content"
                   android:layout_width="match_parent"
                   android:autoLink="web"
-                  android:text="http://joda-time.sourceforge.net/license.html"/>
+                  android:text="@string/license_joda_time"/>
 
     </LinearLayout>
 </LinearLayout>
