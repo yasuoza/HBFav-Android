@@ -122,6 +122,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
             return;
         }
         listView.addFooterView(mFooterView, null, false);
+        listView.setFooterDividersEnabled(false);
         initAdapter();
         setListAdapter(getAdapter());
 
