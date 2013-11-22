@@ -13,7 +13,7 @@ repositories {
 }
 
 android {
-    compileSdkVersion 14
+    compileSdkVersion 18
     buildToolsVersion "18.1.1"
 
     defaultConfig {
@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:support-v4:+'
+	compile 'com.android.support:support-v4:19.0.+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.9.1'
     compile 'com.loopj.android:android-async-http:1.4.4'
     compile "joda-time:joda-time:2.3"
