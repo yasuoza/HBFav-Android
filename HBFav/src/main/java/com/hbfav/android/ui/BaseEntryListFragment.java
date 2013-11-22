@@ -170,7 +170,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.hotentry, menu);
+        inflater.inflate(R.menu.categories, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
