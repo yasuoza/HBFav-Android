@@ -1,8 +1,10 @@
 package com.hbfav.android.ui.about;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.hbfav.R;
 
@@ -14,6 +16,18 @@ public class CreditsActivity extends Activity {
 
         setContentView(R.layout.activity_credits);
 
-        getActionBar().setTitle(getString(R.string.about_credits));
+        ActionBar actionBar = getActionBar();
+        actionBar.setTitle(getString(R.string.about_credits));
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
