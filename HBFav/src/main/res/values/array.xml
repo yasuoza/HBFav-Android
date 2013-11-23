@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entry_category_list">
+        <item>General</item>
+        <item>Social</item>
+        <item>IT</item>
+        <item>Economics</item>
+        <item>Life</item>
+        <item>Entertainment</item>
+        <item>Knowledge</item>
+        <item>Game</item>
+        <item>Fun</item>
+    </string-array>
+</resources>

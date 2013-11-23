@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 
 public class EntryListFeedManager extends BaseListFeedManager {
     private static EntryListFeedManager instance;
-    private int category = R.id.option_category_menu_general;
+    private int category = 0;
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
 
 

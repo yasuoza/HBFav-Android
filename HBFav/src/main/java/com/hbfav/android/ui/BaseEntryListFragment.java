@@ -1,6 +1,7 @@
 package com.hbfav.android.ui;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
@@ -22,7 +23,6 @@ import com.hbfav.android.core.FeedResponseHandler;
 import java.util.Arrays;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
@@ -30,17 +30,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     private View mFooterView;
     private LayoutInflater mInflater;
     private PullToRefreshLayout mPullToRefreshLayout;
-    private final Integer[] optionIDs = {
-            R.id.option_category_menu_general,
-            R.id.option_category_menu_social,
-            R.id.option_category_menu_it,
-            R.id.option_category_menu_economics,
-            R.id.option_category_menu_life,
-            R.id.option_category_menu_entertainment,
-            R.id.option_category_menu_knowledge,
-            R.id.option_category_menu_game,
-            R.id.option_category_menu_fun
-    };
 
 
     /**
@@ -169,52 +158,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.categories, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == getManager().getCategory()) {
-            return false;
-        }
-
-        if (!Arrays.asList(optionIDs).contains(item.getItemId())) {
-            return super.onOptionsItemSelected(item);
-        }
-
-        ListView listView = getListView();
-        if (listView == null) {
-            return false;
-        }
-
-        if (listView.getFooterViewsCount() == 0) {
-            mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
-            listView.addFooterView(mFooterView, null, false);
-        }
-
-        mPullToRefreshLayout.setRefreshComplete();
-
-        getManager().setCategory(item.getItemId());
-        getManager().clearList();
-        reloadListData();
-        restoreActionBar();
-        getManager().replaceFeed(new FeedResponseHandler() {
-            @Override
-            public void onSuccess() {
-                reloadListData();
-            }
-
-            @Override
-            public void onFinish() {
-                removeListFooter();
-            }
-        });
-        return true;
-    }
-
-    @Override
     public void onRefreshStarted(View view) {
         getManager().replaceFeed(new FeedResponseHandler() {
             @Override
@@ -235,36 +178,37 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
      */
     private void restoreActionBar() {
         MainActivity mainActivity = (MainActivity) getActivity();
-        String title = getSectionBaseTitle();
-        if (mainActivity != null) {
-            switch (getManager().getCategory()) {
-                case R.id.option_category_menu_social:
-                    title += " - " +getString(R.string.option_category_menu_social);
-                    break;
-                case R.id.option_category_menu_it:
-                    title += " - " +getString(R.string.option_category_menu_it);
-                    break;
-                case R.id.option_category_menu_economics:
-                    title += " - " +getString(R.string.option_category_menu_economics);
-                    break;
-                case R.id.option_category_menu_life:
-                    title += " - " +getString(R.string.option_category_menu_life);
-                    break;
-                case R.id.option_category_menu_entertainment:
-                    title += " - " +getString(R.string.option_category_menu_entertainment);
-                    break;
-                case R.id.option_category_menu_knowledge:
-                    title += " - " +getString(R.string.option_category_menu_knowledge);
-                    break;
-                case R.id.option_category_menu_game:
-                    title += " - " +getString(R.string.option_category_menu_game);
-                    break;
-                case R.id.option_category_menu_fun:
-                    title += " - " +getString(R.string.option_category_menu_fun);
-                    break;
-            }
-            mainActivity.setActionBarTitle(title);
+        if (mainActivity == null) {
+            return;
         }
+
+        mainActivity.restoreActionBar(new ActionBar.OnNavigationListener() {
+            @Override
+            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                ListView listView = getListView();
+                if (listView.getFooterViewsCount() == 0) {
+                    mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
+                    listView.addFooterView(mFooterView, null, false);
+                }
+                mPullToRefreshLayout.setRefreshComplete();
+                getManager().clearList();
+                getManager().setCategory(itemPosition);
+                getActivity().getActionBar().setSelectedNavigationItem(getManager().getCategory());
+                reloadListData();
+                getManager().replaceFeed(new FeedResponseHandler() {
+                    @Override
+                    public void onSuccess() {
+                        reloadListData();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        removeListFooter();
+                    }
+                });
+                return true;
+            }
+        });
     }
 
     private void removeListFooter() {

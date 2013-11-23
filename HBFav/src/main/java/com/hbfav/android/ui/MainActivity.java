@@ -13,8 +13,6 @@ import com.hbfav.android.Constants;
 import com.hbfav.android.ui.about.AboutAppFragment;
 import com.hbfav.android.ui.setting.SettingFragment;
 
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
-
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -33,6 +31,10 @@ public class MainActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private int mSelectedSectionNumber;
+
+    private ActionBar.OnNavigationListener mOnNavigationListener;
+
 
     public static Context getContextOfApplication() {
         return contextOfApplication;
@@ -91,6 +93,7 @@ public class MainActivity extends Activity
 
     public void onSectionAttached(int number) {
         mTitle = Constants.MENUS[number];
+        mSelectedSectionNumber = number;
     }
 
     public void restoreActionBar() {
@@ -98,16 +101,48 @@ public class MainActivity extends Activity
         if (actionBar == null) {
             return;
         }
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+        switch (mSelectedSectionNumber) {
+            case 2:
+            case 3:
+                actionBar.setDisplayShowTitleEnabled(false);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+                SubTitledSpinnerAdapter adapter = new SubTitledSpinnerAdapter(
+                    actionBar.getThemedContext(),
+                    R.layout.subtitled_spinner_item,
+                    android.R.id.text1,
+                    mTitle,
+                    getResources().getStringArray(R.array.entry_category_list)
+                );
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+                actionBar.setListNavigationCallbacks(adapter, mOnNavigationListener);
+                break;
+            default:
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                actionBar.setDisplayShowTitleEnabled(true);
+                actionBar.setTitle(mTitle);
+                break;
+        }
     }
 
-    public void setActionBarTitle(String title) {
-        mTitle = title;
-        restoreActionBar();
-    }
+    public void restoreActionBar(ActionBar.OnNavigationListener onNavigationListener) {
+        ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            return;
+        }
 
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        SubTitledSpinnerAdapter adapter = new SubTitledSpinnerAdapter(
+            actionBar.getThemedContext(),
+            R.layout.subtitled_spinner_item,
+            android.R.id.text1,
+            mTitle,
+            getResources().getStringArray(R.array.entry_category_list)
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mOnNavigationListener = onNavigationListener;
+        actionBar.setListNavigationCallbacks(adapter, mOnNavigationListener);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

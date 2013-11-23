@@ -1,15 +1,15 @@
 package com.hbfav.android.core;
 
-import com.hbfav.R;
+import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.loopj.android.http.JsonHttpResponseHandler;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 public abstract class BaseListFeedManager {
     public abstract void setList(ArrayList<Entry> entries);
@@ -33,31 +33,12 @@ public abstract class BaseListFeedManager {
 
     public void replaceFeed(final FeedResponseHandler feedResponseHandler) {
         String endpoint = getEndPoint();
-        switch (getCategory()) {
-            case R.id.option_category_menu_social:
-                endpoint += "?category=social";
-                break;
-            case R.id.option_category_menu_it:
-                endpoint += "?category=it";
-                break;
-            case R.id.option_category_menu_economics:
-                endpoint += "?category=economics";
-                break;
-            case R.id.option_category_menu_life:
-                endpoint += "?category=life";
-                break;
-            case R.id.option_category_menu_entertainment:
-                endpoint += "?category=entertainment";
-                break;
-            case R.id.option_category_menu_knowledge:
-                endpoint += "?category=knowledge";
-                break;
-            case R.id.option_category_menu_game:
-                endpoint += "?category=geme";
-                break;
-            case R.id.option_category_menu_fun:
-                endpoint += "?category=fun";
-                break;
+        int categoryIndex = getCategory();
+        if (categoryIndex < 0 || categoryIndex >= Constants.CATEGORIES.length) {
+            return;
+        }
+        if (categoryIndex != 0) {
+            endpoint += "?category=" + Constants.CATEGORIES[categoryIndex].toLowerCase();
         }
         HBFavFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
             @Override

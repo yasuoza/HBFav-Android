@@ -26,4 +26,8 @@ public class Constants {
         MainActivity.getContextOfApplication().getString(R.string.title_section3),
         MainActivity.getContextOfApplication().getString(R.string.title_section4)
     };
+
+    public static final String[] CATEGORIES = MainActivity.getContextOfApplication()
+                                                          .getResources()
+                                                          .getStringArray(R.array.entry_category_list);
 }
