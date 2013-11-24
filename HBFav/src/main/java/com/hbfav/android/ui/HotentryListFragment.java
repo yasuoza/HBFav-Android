@@ -28,11 +28,6 @@ public class HotentryListFragment extends BaseEntryListFragment {
     }
 
     @Override
-    protected String getSectionBaseTitle() {
-        return getString(R.string.title_section3);
-    }
-
-    @Override
     protected BaseListFeedManager getManager() {
         return HotEntryFeedManager.getInstance();
     }

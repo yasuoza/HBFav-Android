@@ -104,17 +104,6 @@ public class MainActivity extends Activity
         switch (mSelectedSectionNumber) {
             case 2:
             case 3:
-                actionBar.setDisplayShowTitleEnabled(false);
-                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-                SubTitledSpinnerAdapter adapter = new SubTitledSpinnerAdapter(
-                    actionBar.getThemedContext(),
-                    R.layout.subtitled_spinner_item,
-                    android.R.id.text1,
-                    mTitle,
-                    getResources().getStringArray(R.array.entry_category_list)
-                );
-                adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-                actionBar.setListNavigationCallbacks(adapter, mOnNavigationListener);
                 break;
             default:
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -139,7 +128,7 @@ public class MainActivity extends Activity
             mTitle,
             getResources().getStringArray(R.array.entry_category_list)
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         mOnNavigationListener = onNavigationListener;
         actionBar.setListNavigationCallbacks(adapter, mOnNavigationListener);
     }

@@ -28,11 +28,6 @@ public class EntryListFragment extends BaseEntryListFragment {
     }
 
     @Override
-    protected String getSectionBaseTitle() {
-        return getString(R.string.title_section2);
-    }
-
-    @Override
     protected BaseListFeedManager getManager() {
         return EntryListFeedManager.getInstance();
     }

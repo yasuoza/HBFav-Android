@@ -8,9 +8,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -19,8 +16,6 @@ import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.core.BaseListFeedManager;
 import com.hbfav.android.core.FeedResponseHandler;
-
-import java.util.Arrays;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -61,8 +56,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     protected abstract EntryListAdapter getAdapter();
 
     protected abstract void reloadListData();
-
-    protected abstract String getSectionBaseTitle();
 
     protected abstract BaseListFeedManager getManager();
 
@@ -114,7 +107,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         listView.setFooterDividersEnabled(false);
         initAdapter();
         setListAdapter(getAdapter());
-
         restoreActionBar();
         if (getManager().getList().isEmpty()) {
             getManager().replaceFeed(new FeedResponseHandler() {
