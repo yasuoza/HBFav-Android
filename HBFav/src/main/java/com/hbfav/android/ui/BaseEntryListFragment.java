@@ -185,6 +185,9 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         mainActivity.restoreActionBar(new ActionBar.OnNavigationListener() {
             @Override
             public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+                if (itemPosition == getManager().getCategory()) {
+                    return false;
+                }
                 ListView listView = getListView();
                 if (listView.getFooterViewsCount() == 0) {
                     mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
