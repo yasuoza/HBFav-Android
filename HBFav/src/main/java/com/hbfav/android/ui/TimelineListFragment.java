@@ -71,7 +71,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
         super.onActivityCreated(savedInstanceState);
 
         ListView listView = getListView();
-        listView.setFooterDividersEnabled(true);
+        listView.setFooterDividersEnabled(false);
         if (!TimelineFeedManager.loadedAllBookmarks()) {
             listView.addFooterView(mFooterView, null, false);
             listView.setOnScrollListener(this);
