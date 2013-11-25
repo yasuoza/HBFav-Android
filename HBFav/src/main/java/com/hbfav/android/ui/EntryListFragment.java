@@ -12,7 +12,7 @@ public class EntryListFragment extends BaseEntryListFragment {
     protected void initAdapter() {
         mAdapter = new EntryListAdapter(
             getActivity(),
-            R.layout.common_entry_row,
+            R.layout.common_entry_item,
             getManager().getList()
         );
     }
