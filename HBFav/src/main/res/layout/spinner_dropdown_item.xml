@@ -5,4 +5,4 @@
                  android:layout_width="match_parent"
                  android:minWidth="200dp"
                  android:layout_height="40dp"
-                 android:ellipsize="marquee" />
+                 android:ellipsize="marquee"/>

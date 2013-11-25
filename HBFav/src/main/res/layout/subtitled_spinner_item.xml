@@ -14,7 +14,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginBottom="-4dip"
             android:textColor="@color/white"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
             android:id="@android:id/text1"
@@ -23,6 +23,6 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@id/actionbar_title_text"
             android:textColor="@color/white"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 </RelativeLayout>
