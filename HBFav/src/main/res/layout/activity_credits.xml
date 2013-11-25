@@ -1,66 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_marginLeft="20dp"
-              android:layout_marginRight="20dp">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
 
-    <LinearLayout android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:layout_marginTop="30dp"
-                  android:orientation="vertical">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:layout_marginBottom="10dp"
-                  android:text="@string/actionbar_pulll_to_refresh"
-                  android:textStyle="bold"
-                  android:textSize="15sp"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/actionbar_pulll_to_refresh"
+            android:textStyle="bold"
+            android:textSize="15sp" />
 
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:autoLink="web"
-                  android:text="@string/license_actionbar_pull_to_refresh_text"/>
-
-    </LinearLayout>
-
-    <LinearLayout android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:layout_marginTop="30dp"
-                  android:orientation="vertical">
-
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:layout_marginBottom="10dp"
-                  android:text="@string/android_async_http"
-                  android:textStyle="bold"
-                  android:textSize="15sp"/>
-
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:autoLink="web"
-                  android:text="@string/license_android_async_http"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:autoLink="web"
+            android:text="@string/license_actionbar_pull_to_refresh_text" />
 
     </LinearLayout>
 
-    <LinearLayout android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:layout_marginTop="30dp"
-                  android:orientation="vertical">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="wrap_content"
-                  android:layout_marginBottom="10dp"
-                  android:text="@string/joda_time"
-                  android:textStyle="bold"
-                  android:textSize="15sp"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/android_async_http"
+            android:textStyle="bold"
+            android:textSize="15sp" />
 
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:autoLink="web"
-                  android:text="@string/license_joda_time"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:autoLink="web"
+            android:text="@string/license_android_async_http" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/joda_time"
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:autoLink="web"
+            android:text="@string/license_joda_time" />
 
     </LinearLayout>
 </LinearLayout>

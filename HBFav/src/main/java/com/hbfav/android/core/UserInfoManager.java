@@ -33,7 +33,7 @@ public class UserInfoManager extends Observable {
 
     public static String getUserName() {
         return PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString
-            (Constants.PREF_USER_NAME, "");
+                (Constants.PREF_USER_NAME, "");
     }
 
     public static Drawable getUserThumb() {

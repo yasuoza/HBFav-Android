@@ -3,13 +3,13 @@ package com.hbfav.android.core;
 import com.hbfav.android.model.Entry;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public class TimelineFeedManager {
     private static TimelineFeedManager manager = new TimelineFeedManager();
@@ -134,7 +134,7 @@ public class TimelineFeedManager {
         // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
         if (boundary == manager.bookmarks.size()) {
             manager.bookmarks.add(position + entries.size(), Entry.newPlaceholder(entries.get(entries.size() - 1)
-                .getDateTime()));
+                    .getDateTime()));
         }
     }
 

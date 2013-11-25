@@ -51,7 +51,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
         }
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_title))
-            .setText(entry.getTitle());
+                .setText(entry.getTitle());
 
         if (entry.getThumbnailUrl().isEmpty()) {
             view.findViewById(R.id.fragment_entry_thumb_image_view).setVisibility(View.GONE);
@@ -59,11 +59,11 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
             Drawable thumb = entry.getThumbnailImage();
             if (thumb == null) {
                 HBFavFetcher.getImage(entry.getThumbnailUrl(), new BinaryHttpResponseHandler(HBFavFetcher
-                    .ALLOWED_IMAGE_CONTENT_TYPE) {
+                        .ALLOWED_IMAGE_CONTENT_TYPE) {
                     @Override
                     public void onSuccess(byte[] fileData) {
                         Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0,
-                            fileData.length));
+                                fileData.length));
                         entry.setThumbnailImage(image);
                         notifyDataSetChanged();
                     }
@@ -76,7 +76,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
         Drawable favicon = entry.getFavicon();
         if (favicon == null) {
             HBFavFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(HBFavFetcher
-                .ALLOWED_IMAGE_CONTENT_TYPE) {
+                    .ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -86,19 +86,19 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
             });
         }
         ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
-            .setImageDrawable(favicon);
+                .setImageDrawable(favicon);
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_url))
-            .setText(Uri.parse(entry.getLink()).getHost());
+                .setText(Uri.parse(entry.getLink()).getHost());
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_entry_count))
-            .setText(entry.getCount() + " users");
+                .setText(entry.getCount() + " users");
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_entry_category))
-            .setText(entry.getCategory());
+                .setText(entry.getCategory());
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
-            .setText(entry.getRelativeTimeSpanString());
+                .setText(entry.getRelativeTimeSpanString());
 
         return view;
     }

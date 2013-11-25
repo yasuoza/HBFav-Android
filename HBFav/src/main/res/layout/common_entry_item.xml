@@ -1,98 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal" android:padding="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_gravity="left"
-                  android:layout_weight="1"
-                  android:paddingLeft="8dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="left"
+        android:layout_weight="1"
+        android:paddingLeft="8dp">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/fragment_entry_list_title"
-                      android:gravity="left"
-                      android:layout_weight="1"
-                      android:layout_gravity="top"/>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_entry_list_title"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:layout_gravity="top" />
 
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginTop="5dp"
-                      android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
 
             <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:visibility="visible"
-                    android:id="@+id/fragment_entry_list_entry_favicon_image_view"
-                    android:layout_gravity="center_horizontal"
-                    android:baselineAlignBottom="false"/>
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:visibility="visible"
+                android:id="@+id/fragment_entry_list_entry_favicon_image_view"
+                android:layout_gravity="center_horizontal"
+                android:baselineAlignBottom="false" />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/fragment_entry_list_url"
-                      android:layout_marginLeft="5dp"
-                      android:layout_gravity="top|left"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_entry_list_url"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="top|left" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="horizontal">
+                android:id="@+id/fragment_entry_list_entry_count"
+                android:gravity="left"
+                android:textColor="@color/light_gray_color"
+                android:textSize="@dimen/small" />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/fragment_entry_list_entry_count"
-                      android:gravity="left"
-                      android:textColor="@color/light_gray_color"
-                      android:textSize="@dimen/small"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_entry_list_entry_category"
+                android:layout_marginLeft="10dp"
+                android:gravity="left"
+                android:textColor="@color/light_gray_color"
+                android:textSize="@dimen/small" />
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/fragment_entry_list_entry_category"
-                      android:layout_marginLeft="10dp"
-                      android:gravity="left"
-                      android:textColor="@color/light_gray_color"
-                      android:textSize="@dimen/small"/>
-
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginLeft="10dp"
-                      android:id="@+id/fragment_entry_list_entry_created_at"
-                      android:gravity="left"
-                      android:textColor="@color/light_gray_color"
-                      android:textSize="@dimen/small"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/fragment_entry_list_entry_created_at"
+                android:gravity="left"
+                android:textColor="@color/light_gray_color"
+                android:textSize="@dimen/small" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:visibility="visible"
-            android:layout_marginLeft="8dp"
-            android:id="@+id/fragment_entry_thumb_image_view"
-            android:layout_gravity="right|top"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="visible"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/fragment_entry_thumb_image_view"
+        android:layout_gravity="right|top" />
 
 </LinearLayout>

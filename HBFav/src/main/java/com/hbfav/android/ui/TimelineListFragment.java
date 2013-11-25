@@ -46,21 +46,21 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached(
-            getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+                getArguments().getInt(Constants.ARG_SECTION_NUMBER));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.common_entry_list_view, container, false);
         mFooterView = inflater.inflate(R.layout.timeline_footer, null);
 
         // PullToRefresh
         mPullToRefreshLayout = (PullToRefreshLayout) rootView.findViewById(R.id.ptr_layout);
         ActionBarPullToRefresh.from(getActivity())
-            .allChildrenArePullable()
-            .listener(this)
-            .setup(mPullToRefreshLayout);
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
 
         return rootView;
     }
@@ -77,8 +77,8 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
         }
 
         mAdapter = new TimelineEntryAdapter(
-            getActivity(),
-            R.layout.timeline_row
+                getActivity(),
+                R.layout.timeline_row
         );
         setListAdapter(mAdapter);
     }
@@ -160,7 +160,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
     private void additionalReading() {
         if (TimelineFeedManager.isAppending()
-            || UserInfoManager.getUserName().isEmpty()) {
+                || UserInfoManager.getUserName().isEmpty()) {
             return;
         }
 

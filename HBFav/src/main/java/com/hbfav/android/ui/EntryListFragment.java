@@ -11,9 +11,9 @@ public class EntryListFragment extends BaseEntryListFragment {
     @Override
     protected void initAdapter() {
         mAdapter = new EntryListAdapter(
-            getActivity(),
-            R.layout.common_entry_item,
-            getManager().getList()
+                getActivity(),
+                R.layout.common_entry_item,
+                getManager().getList()
         );
     }
 

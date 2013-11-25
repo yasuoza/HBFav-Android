@@ -142,6 +142,6 @@ public class Entry {
             return true;
         }
         return entry.getLink().equals(this.getLink())
-            && entry.getUser().getName().equals(this.getUser().getName());
+                && entry.getUser().getName().equals(this.getUser().getName());
     }
 }

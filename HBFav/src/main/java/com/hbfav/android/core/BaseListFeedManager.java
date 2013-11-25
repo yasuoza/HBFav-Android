@@ -4,12 +4,12 @@ import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public abstract class BaseListFeedManager {
     public abstract void setList(ArrayList<Entry> entries);

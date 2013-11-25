@@ -90,10 +90,10 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
         mDrawerListView.addHeaderView(headerView);
 
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
-            getActionBar().getThemedContext(),
-            R.layout.navigation_list_item_activated,
-            android.R.id.text1,
-            Arrays.copyOfRange(Constants.MENUS, 1, Constants.MENUS.length)
+                getActionBar().getThemedContext(),
+                R.layout.navigation_list_item_activated,
+                android.R.id.text1,
+                Arrays.copyOfRange(Constants.MENUS, 1, Constants.MENUS.length)
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
@@ -147,11 +147,11 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
         mDrawerToggle = new ActionBarDrawerToggle(
-            getActivity(),                    /* host Activity */
-            mDrawerLayout,                    /* DrawerLayout object */
-            R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
-            R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
-            R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
+                getActivity(),                    /* host Activity */
+                mDrawerLayout,                    /* DrawerLayout object */
+                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
+                R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
+                R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -174,7 +174,7 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
                     // the navigation drawer automatically in the future.
                     mUserLearnedDrawer = true;
                     SharedPreferences sp = PreferenceManager
-                        .getDefaultSharedPreferences(getActivity());
+                            .getDefaultSharedPreferences(getActivity());
                     sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 

@@ -67,7 +67,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached(
-            getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+                getArguments().getInt(Constants.ARG_SECTION_NUMBER));
     }
 
     @Override
@@ -79,7 +79,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.common_entry_list_view, container, false);
         mInflater = inflater;
@@ -88,9 +88,9 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         // PullToRefresh
         mPullToRefreshLayout = (PullToRefreshLayout) rootView.findViewById(R.id.ptr_layout);
         ActionBarPullToRefresh.from(getActivity())
-            .allChildrenArePullable()
-            .listener(this)
-            .setup(mPullToRefreshLayout);
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(mPullToRefreshLayout);
 
         return rootView;
     }

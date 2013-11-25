@@ -35,18 +35,18 @@ public class AboutAppFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached(
-            getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+                getArguments().getInt(Constants.ARG_SECTION_NUMBER));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.about_app, container, false);
         String versionName = "";
         try {
             if (getActivity() != null && getActivity().getPackageManager() != null) {
                 versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(),
-                    0).versionName;
+                        0).versionName;
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -63,14 +63,14 @@ public class AboutAppFragment extends Fragment {
             }
         });
         listView.setAdapter(new ArrayAdapter<String>(
-            getActivity(),
-            R.layout.navigation_list_item_activated,
-            android.R.id.text1,
-            new String[] {
-                getString(R.string.about_issues_demands),
-                getString(R.string.about_from_developer),
-                getString(R.string.about_credits)
-            }
+                getActivity(),
+                R.layout.navigation_list_item_activated,
+                android.R.id.text1,
+                new String[]{
+                        getString(R.string.about_issues_demands),
+                        getString(R.string.about_from_developer),
+                        getString(R.string.about_credits)
+                }
         ));
         return rootView;
     }

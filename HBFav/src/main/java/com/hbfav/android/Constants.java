@@ -19,15 +19,15 @@ public class Constants {
 
     public static final String ISSUES_URL = "https://github.com/yasuoza/HBFav-Android/issues";
 
-    public static final String[] MENUS = new String[] {
-        MainActivity.getContextOfApplication().getString(R.string.title_section0),
-        MainActivity.getContextOfApplication().getString(R.string.title_section1),
-        MainActivity.getContextOfApplication().getString(R.string.title_section2),
-        MainActivity.getContextOfApplication().getString(R.string.title_section3),
-        MainActivity.getContextOfApplication().getString(R.string.title_section4)
+    public static final String[] MENUS = new String[]{
+            MainActivity.getContextOfApplication().getString(R.string.title_section0),
+            MainActivity.getContextOfApplication().getString(R.string.title_section1),
+            MainActivity.getContextOfApplication().getString(R.string.title_section2),
+            MainActivity.getContextOfApplication().getString(R.string.title_section3),
+            MainActivity.getContextOfApplication().getString(R.string.title_section4)
     };
 
     public static final String[] CATEGORIES = MainActivity.getContextOfApplication()
-        .getResources()
-        .getStringArray(R.array.params_entry_category);
+            .getResources()
+            .getStringArray(R.array.params_entry_category);
 }
