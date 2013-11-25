@@ -45,7 +45,8 @@ public class AboutAppFragment extends Fragment {
         String versionName = "";
         try {
             if (getActivity() != null && getActivity().getPackageManager() != null) {
-                versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
+                versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(),
+                    0).versionName;
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

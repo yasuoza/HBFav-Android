@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import java.util.HashMap;
 
 public class ImageCache {
-    private static HashMap<String,Drawable> cache = new HashMap<String,Drawable>();
+    private static HashMap<String, Drawable> cache = new HashMap<String, Drawable>();
 
     public static Drawable getImage(String key) {
         if (cache.containsKey(key)) {
@@ -18,8 +18,8 @@ public class ImageCache {
         cache.put(key, image);
     }
 
-    public static void clearCache(){
+    public static void clearCache() {
         cache = null;
-        cache = new HashMap<String,Drawable>();
+        cache = new HashMap<String, Drawable>();
     }
 }

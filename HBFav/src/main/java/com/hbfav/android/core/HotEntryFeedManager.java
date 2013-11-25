@@ -1,6 +1,5 @@
 package com.hbfav.android.core;
 
-import com.hbfav.R;
 import com.hbfav.android.model.Entry;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class HotEntryFeedManager extends BaseListFeedManager {
 
 
     public static HotEntryFeedManager getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new HotEntryFeedManager();
         }
         return instance;

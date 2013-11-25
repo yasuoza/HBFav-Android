@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 public class HBFavFetcher {
-    public static final String[] ALLOWED_IMAGE_CONTENT_TYPE = new String[]{"image/gif", "image/png", "image/jpeg"};
+    public static final String[] ALLOWED_IMAGE_CONTENT_TYPE = new String[] { "image/gif", "image/png", "image/jpeg" };
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 

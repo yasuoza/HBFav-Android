@@ -12,7 +12,8 @@ import com.hbfav.R;
 public class SubTitledSpinnerAdapter extends ArrayAdapter<String> {
     private CharSequence mActionBarTitle = "";
 
-    public SubTitledSpinnerAdapter(Context context, int resource, int textViewResourceId, CharSequence actionBarTitle, String[] objects) {
+    public SubTitledSpinnerAdapter(Context context, int resource, int textViewResourceId, CharSequence actionBarTitle,
+        String[] objects) {
         super(context, resource, textViewResourceId, objects);
         this.mActionBarTitle = actionBarTitle;
     }

@@ -15,7 +15,7 @@ import com.hbfav.android.ui.setting.SettingFragment;
 
 
 public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+    implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Cache MainActivity context
@@ -49,13 +49,13 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+            getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+            R.id.navigation_drawer,
+            (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -65,23 +65,23 @@ public class MainActivity extends Activity
         switch (position) {
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, SettingFragment.newInstance(position))
-                        .commit();
+                    .replace(R.id.container, SettingFragment.newInstance(position))
+                    .commit();
                 break;
             case 1:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, TimelineListFragment.newInstance(position))
-                        .commit();
+                    .replace(R.id.container, TimelineListFragment.newInstance(position))
+                    .commit();
                 break;
             case 2:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, EntryListFragment.newInstance(position))
-                        .commit();
+                    .replace(R.id.container, EntryListFragment.newInstance(position))
+                    .commit();
                 break;
             case 3:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, HotentryListFragment.newInstance(position))
-                        .commit();
+                    .replace(R.id.container, HotentryListFragment.newInstance(position))
+                    .commit();
                 break;
             case 4:
                 fragmentManager.beginTransaction()

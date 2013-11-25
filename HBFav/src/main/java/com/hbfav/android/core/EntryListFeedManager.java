@@ -1,6 +1,5 @@
 package com.hbfav.android.core;
 
-import com.hbfav.R;
 import com.hbfav.android.model.Entry;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class EntryListFeedManager extends BaseListFeedManager {
 
 
     public static EntryListFeedManager getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new EntryListFeedManager();
         }
         return instance;

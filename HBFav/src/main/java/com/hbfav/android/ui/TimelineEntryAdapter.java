@@ -60,7 +60,8 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
 
         Drawable userThumb = entry.getUser().getProfileImage();
         if (userThumb == null) {
-            HBFavFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(HBFavFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
+            HBFavFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(HBFavFetcher
+                .ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -70,11 +71,12 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
             });
         }
         ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view))
-                .setImageDrawable(userThumb);
+            .setImageDrawable(userThumb);
 
         Drawable favicon = entry.getFavicon();
         if (favicon == null) {
-            HBFavFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(HBFavFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
+            HBFavFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(HBFavFetcher
+                .ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
                     Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
@@ -84,24 +86,24 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
             });
         }
         ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
-                .setImageDrawable(favicon);
+            .setImageDrawable(favicon);
 
         ((TextView) view.findViewById(R.id.fragment_entry_user_name))
-                .setText(entry.getUser().getName());
+            .setText(entry.getUser().getName());
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_entry_created_at))
-                .setText(entry.getRelativeTimeSpanString());
+            .setText(entry.getRelativeTimeSpanString());
 
         if (entry.getComment().isEmpty()) {
             view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.GONE);
         } else {
             view.findViewById(R.id.fragment_entry_list_entry_comment).setVisibility(View.VISIBLE);
             ((TextView) view.findViewById(R.id.fragment_entry_list_entry_comment))
-                    .setText(entry.getComment());
+                .setText(entry.getComment());
         }
 
         ((TextView) view.findViewById(R.id.fragment_entry_list_title))
-                .setText(entry.getTitle());
+            .setText(entry.getTitle());
 
         return view;
     }

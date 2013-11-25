@@ -28,6 +28,6 @@ public class Constants {
     };
 
     public static final String[] CATEGORIES = MainActivity.getContextOfApplication()
-                                                          .getResources()
-                                                          .getStringArray(R.array.entry_category_list);
+        .getResources()
+        .getStringArray(R.array.entry_category_list);
 }

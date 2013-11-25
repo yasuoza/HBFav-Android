@@ -37,7 +37,7 @@ public class SettingFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+            getArguments().getInt(Constants.ARG_SECTION_NUMBER));
     }
 
     @Override

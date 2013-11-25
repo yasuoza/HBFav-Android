@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 
 import com.hbfav.android.Constants;
 import com.hbfav.android.model.ImageCache;
-import com.hbfav.android.model.User;
 import com.hbfav.android.ui.MainActivity;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 
@@ -33,7 +32,8 @@ public class UserInfoManager extends Observable {
     }
 
     public static String getUserName() {
-        return PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString(Constants.PREF_USER_NAME, "");
+        return PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString
+            (Constants.PREF_USER_NAME, "");
     }
 
     public static Drawable getUserThumb() {

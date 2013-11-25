@@ -20,19 +20,20 @@ public class Entry {
     private String thumbnailUrl = "";
     private boolean isPlaceholder = false;
     private DateTime datetime;
-    private User   user;
+    private User user;
 
     public static Entry newPlaceholder(DateTime dateTime) {
         Entry entry = new Entry();
         entry.title = "__placeholder_title__";
-        entry.link  = "__placeholder_link__";
+        entry.link = "__placeholder_link__";
         entry.isPlaceholder = true;
         entry.datetime = dateTime;
         return entry;
     }
 
 
-    private Entry() { }
+    private Entry() {
+    }
 
     public Entry(JSONObject json) {
         try {
@@ -52,7 +53,7 @@ public class Entry {
             if (json.has("category")) {
                 this.category = json.getString("category");
             }
-        } catch(JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -141,6 +142,6 @@ public class Entry {
             return true;
         }
         return entry.getLink().equals(this.getLink())
-                && entry.getUser().getName().equals(this.getUser().getName());
+            && entry.getUser().getName().equals(this.getUser().getName());
     }
 }
