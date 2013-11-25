@@ -10,28 +10,36 @@
         </option>
         <option name="IMPORT_LAYOUT_TABLE">
           <value>
-            <package name="" withSubpackages="true" static="true" />
             <package name="android" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="com" withSubpackages="true" static="false" />
             <emptyLine />
-            <package name="javax" withSubpackages="true" static="false" />
-            <package name="java" withSubpackages="true" static="false" />
+            <package name="junit" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="net" withSubpackages="true" static="false" />
             <emptyLine />
             <package name="org" withSubpackages="true" static="false" />
             <emptyLine />
+            <package name="java" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="javax" withSubpackages="true" static="false" />
+            <emptyLine />
             <package name="" withSubpackages="true" static="false" />
+            <emptyLine />
+            <package name="" withSubpackages="true" static="true" />
+            <emptyLine />
           </value>
         </option>
+        <option name="RIGHT_MARGIN" value="100" />
+        <AndroidXmlCodeStyleSettings>
+          <option name="USE_CUSTOM_SETTINGS" value="true" />
+        </AndroidXmlCodeStyleSettings>
         <XML>
-          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+          <option name="XML_KEEP_LINE_BREAKS" value="false" />
+          <option name="XML_ALIGN_ATTRIBUTES" value="false" />
+          <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
         </XML>
-        <codeStyleSettings language="JAVA">
-          <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
-          <option name="SPACE_WITHIN_ARRAY_INITIALIZER_BRACES" value="true" />
-          <option name="SPACE_BEFORE_ARRAY_INITIALIZER_LBRACE" value="true" />
-          <option name="METHOD_PARAMETERS_WRAP" value="1" />
-          <option name="WRAP_LONG_LINES" value="true" />
+        <codeStyleSettings language="XML">
           <indentOptions>
             <option name="CONTINUATION_INDENT_SIZE" value="4" />
           </indentOptions>
