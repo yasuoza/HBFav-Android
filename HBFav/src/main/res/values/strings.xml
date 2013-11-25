@@ -4,26 +4,13 @@
     <string name="app_name">HBFav</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
 
     <!-- Navigation title -->
     <string name="title_section0">Settings</string>
     <string name="title_section1">Timeline</string>
-    <string name="title_section2">Entrylist</string>
-    <string name="title_section3">HotEntry</string>
+    <string name="title_section2">New Entries</string>
+    <string name="title_section3">Popular Entries</string>
     <string name="title_section4">About App</string>
-
-    <!-- Options menu -->
-    <string name="option_category_menu_general">General</string>
-    <string name="option_category_menu_social">Social</string>
-    <string name="option_category_menu_it">IT</string>
-    <string name="option_category_menu_economics">Economics</string>
-    <string name="option_category_menu_life">Life</string>
-    <string name="option_category_menu_entertainment">Entertainment</string>
-    <string name="option_category_menu_knowledge">Knowledge</string>
-    <string name="option_category_menu_game">Game</string>
-    <string name="option_category_menu_fun">Fun</string>
 
      <!-- HotEntry -->
     <string name="users">users</string>

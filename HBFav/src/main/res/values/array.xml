@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Entrylist category param list -->
+    <string-array name="params_entry_category">
+        <item>general</item>
+        <item>social</item>
+        <item>it</item>
+        <item>economics</item>
+        <item>life</item>
+        <item>entertainment</item>
+        <item>knowledge</item>
+        <item>game</item>
+        <item>fun</item>
+    </string-array>
+
+    <!-- Entrylist category list -->
     <string-array name="entry_category_list">
         <item>General</item>
         <item>Social</item>

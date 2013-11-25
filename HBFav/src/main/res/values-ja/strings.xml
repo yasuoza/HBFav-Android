@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation title -->
+    <string name="title_section0">設定</string>
+    <string name="title_section1">タイムライン</string>
+    <string name="title_section2">新着エントリー</string>
+    <string name="title_section3">人気エントリー</string>
+    <string name="title_section4">アプリについて</string>
+
+        <!-- Setting -->
+    <string name="setting_settings">設定</string>
+    <string name="setting_account">はてなアカウント</string>
+
+    <!-- About App -->
+    <string name="about_issues_demands">バグ・要望(GitHub)</string>
+    <string name="about_from_developer">開発者から</string>
+    <string name="about_credits">クレジット</string>
+</resources>

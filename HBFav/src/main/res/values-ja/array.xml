@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entry_category_list">
+        <item>総合</item>
+        <item>世の中</item>
+        <item>テクノロジー</item>
+        <item>政治と経済</item>
+        <item>暮らし</item>
+        <item>エンタメ</item>
+        <item>学び</item>
+        <item>アニメとゲーム</item>
+        <item>おもしろ</item>
+    </string-array>
+</resources>
