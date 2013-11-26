@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         <ImageView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/about_app_version_code"
@@ -32,7 +32,7 @@
             android:layout_marginLeft="5dp"
             android:layout_gravity="center"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
 
@@ -49,16 +49,16 @@
             android:text="@string/title_section4"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <View
             android:background="?android:attr/listDivider"
             android:layout_width="fill_parent"
-            android:layout_height="2dp" />
+            android:layout_height="2dp"/>
 
         <ListView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:id="@+id/about_app_list_view" />
+            android:id="@+id/about_app_list_view"/>
     </LinearLayout>
 </LinearLayout>

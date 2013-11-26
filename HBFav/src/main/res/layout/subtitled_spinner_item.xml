@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingRight="8dp"
-    android:orientation="vertical">
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:orientation="vertical">
 
     <TextView
         android:id="@+id/actionbar_title_text"
@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="-4dip"
         android:textColor="@color/white"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
         android:id="@android:id/text1"
@@ -23,6 +23,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/actionbar_title_text"
         android:textColor="@color/white"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 </RelativeLayout>

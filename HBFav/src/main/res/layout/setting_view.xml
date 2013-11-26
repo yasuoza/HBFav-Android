@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp">
 
     <TextView
         android:layout_height="50dp"
@@ -16,13 +16,13 @@
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
         android:textSize="15sp"
-        android:gravity="bottom" />
+        android:gravity="bottom"/>
 
     <!-- horizontal divider -->
     <View
         android:background="?android:attr/listDivider"
         android:layout_width="fill_parent"
-        android:layout_height="5dp" />
+        android:layout_height="5dp"/>
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:textSize="20sp"
-            android:text="@string/setting_account" />
+            android:text="@string/setting_account"/>
 
         <TextView
             android:id="@+id/text_view_account"
@@ -44,13 +44,13 @@
             android:textSize="20sp"
             android:layout_gravity="right"
             android:gravity="right"
-            android:layout_marginRight="8dp" />
+            android:layout_marginRight="8dp"/>
 
         <!-- horizontal divider -->
         <View
             android:background="?android:attr/listDivider"
             android:layout_width="fill_parent"
-            android:layout_height="2dp" />
+            android:layout_height="2dp"/>
 
     </LinearLayout>
 

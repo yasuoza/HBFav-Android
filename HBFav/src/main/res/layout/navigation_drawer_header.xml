@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/navigation_drawer_header"
@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/navigation_drawer_header_user_thumb"
             android:layout_height="40dp"
-            android:layout_width="40dp" />
+            android:layout_width="40dp"/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
     </LinearLayout>
 
@@ -36,6 +36,6 @@
     <View
         android:background="?android:attr/listDivider"
         android:layout_width="fill_parent"
-        android:layout_height="2dp" />
+        android:layout_height="2dp"/>
 
 </LinearLayout>

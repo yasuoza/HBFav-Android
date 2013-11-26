@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -24,66 +24,66 @@
                                         app:round_background="false"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:layout_gravity="left">
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="10dp"
+                            android:layout_gravity="left">
 
                 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_entry_user_name"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="left"
-                    android:layout_alignParentTop="true"
-                    android:textStyle="bold|normal" />
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/fragment_entry_user_name"
+                          android:layout_alignParentLeft="true"
+                          android:gravity="left"
+                          android:layout_alignParentTop="true"
+                          android:textStyle="bold|normal"/>
 
                 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/fragment_entry_list_entry_created_at"
-                    android:gravity="right"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/light_gray_color"
-                    android:textSize="@dimen/small" />
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/fragment_entry_list_entry_created_at"
+                          android:gravity="right"
+                          android:layout_alignParentRight="true"
+                          android:textColor="@color/light_gray_color"
+                          android:textSize="@dimen/small"/>
 
                 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/fragment_entry_user_name"
-                    android:id="@+id/fragment_entry_list_entry_comment"
-                    android:layout_gravity="bottom|left|right"
-                    android:layout_marginTop="5dp" />
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_below="@id/fragment_entry_user_name"
+                          android:id="@+id/fragment_entry_list_entry_comment"
+                          android:layout_gravity="bottom|left|right"
+                          android:layout_marginTop="5dp"/>
 
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@id/fragment_entry_list_entry_comment"
-                    android:orientation="horizontal">
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="5dp"
+                              android:layout_below="@id/fragment_entry_list_entry_comment"
+                              android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:visibility="visible"
                         android:layout_marginTop="3dp"
-                        android:id="@+id/fragment_entry_list_entry_favicon_image_view" />
+                        android:id="@+id/fragment_entry_list_entry_favicon_image_view"/>
 
 
                     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/fragment_entry_list_title"
-                        android:layout_marginLeft="5dp"
-                        android:textColor="@color/hatena_color"
-                        android:layout_gravity="top|left" />
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/fragment_entry_list_title"
+                              android:layout_marginLeft="5dp"
+                              android:textColor="@color/hatena_color"
+                              android:layout_gravity="top|left"/>
 
                 </LinearLayout>
 
@@ -103,18 +103,18 @@
         android:layout_gravity="center">
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tap to load more entries."
-            android:textStyle="bold"
-            android:id="@+id/fragment_timeline_row_placeholder_text"
-            android:layout_gravity="top|left" />
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Tap to load more entries."
+                  android:textStyle="bold"
+                  android:id="@+id/fragment_timeline_row_placeholder_text"
+                  android:layout_gravity="top|left"/>
 
         <ProgressBar
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:visibility="gone"
-            android:id="@+id/fragment_timeline_row_placeholder_progressbar" />
+            android:id="@+id/fragment_timeline_row_placeholder_progressbar"/>
     </LinearLayout>
 
 </LinearLayout>
