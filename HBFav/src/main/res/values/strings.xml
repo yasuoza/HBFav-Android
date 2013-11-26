@@ -44,4 +44,7 @@
     <string name="joda_time">Joda-Time</string>
     <string name="license_joda_time">http://joda-time.sourceforge.net/license.html</string>
 
+    <string name="rounded_image_view">RoundedImageView</string>
+    <string name="license_rounded_image_view">https://raw.github.com/vinc3m1/RoundedImageView/master/NOTICE.txt</string>
+
 </resources>
