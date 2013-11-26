@@ -12,12 +12,16 @@
         android:id="@+id/fragment_timeline_row_entry"
         android:layout_margin="10dp">
 
-        <ImageView
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:visibility="visible"
-            android:id="@+id/fragment_entry_list_user_thumb_image_view"
-            android:layout_gravity="center_horizontal|top" />
+        <com.makeramen.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        android:layout_width="55dp"
+                                        android:layout_height="55dp"
+                                        android:visibility="visible"
+                                        android:id="@+id/fragment_entry_list_user_thumb_image_view"
+                                        android:layout_gravity="center_horizontal|top"
+                                        android:scaleType="centerCrop"
+                                        app:corner_radius="5dp"
+                                        app:border_width="0dp"
+                                        app:round_background="false"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
