@@ -42,7 +42,7 @@ public class UserInfoManager extends Observable {
             HBFavFetcher.getImage(thumbUrl(), new BinaryHttpResponseHandler(HBFavFetcher.ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
-                    Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                    Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
                     ImageCache.setImage(thumbUrl(), image);
                     manager.triggerObservers();
                 }

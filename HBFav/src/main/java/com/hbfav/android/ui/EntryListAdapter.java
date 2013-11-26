@@ -62,7 +62,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
                         .ALLOWED_IMAGE_CONTENT_TYPE) {
                     @Override
                     public void onSuccess(byte[] fileData) {
-                        Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0,
+                        Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0,
                                 fileData.length));
                         entry.setThumbnailImage(image);
                         notifyDataSetChanged();
@@ -79,7 +79,7 @@ public class EntryListAdapter extends ArrayAdapter<Entry> {
                     .ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
-                    Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                    Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
                     entry.setFavicon(image);
                     notifyDataSetChanged();
                 }

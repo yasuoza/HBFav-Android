@@ -64,7 +64,7 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
                     .ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
-                    Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                    Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
                     entry.getUser().setProfileImage(image);
                     notifyDataSetChanged();
                 }
@@ -79,7 +79,7 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
                     .ALLOWED_IMAGE_CONTENT_TYPE) {
                 @Override
                 public void onSuccess(byte[] fileData) {
-                    Drawable image = new BitmapDrawable(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+                    Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
                     entry.setFavicon(image);
                     notifyDataSetChanged();
                 }
