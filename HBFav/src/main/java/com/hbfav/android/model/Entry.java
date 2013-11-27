@@ -4,19 +4,22 @@ package com.hbfav.android.model;
 import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 
+import com.google.gson.annotations.SerializedName;
+import com.hbfav.android.util.gson.TimelineExclude;
+
 import org.joda.time.DateTime;
-import org.joda.time.format.ISODateTimeFormat;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Entry {
     private String title = "";
     private String comment = "";
     private Integer count = 0;
+    @SerializedName("favicon_url")
     private String faviconUrl = "";
     private String link = "";
     private String permalink = "";
+    @TimelineExclude
     private String category = "";
+    @SerializedName("thumbnail_url")
     private String thumbnailUrl = "";
     private boolean isPlaceholder = false;
     private DateTime datetime;
@@ -31,39 +34,8 @@ public class Entry {
         return entry;
     }
 
-
-    private Entry() {
-    }
-
-    public Entry(JSONObject json) {
-        try {
-            JSONObject jUser = json.getJSONObject("user");
-            User user = new User(jUser.getString("name"), jUser.getString("profile_image_url"));
-            this.title = json.getString("title");
-            this.comment = json.getString("comment");
-            this.count = json.getInt("count");
-            this.faviconUrl = json.getString("favicon_url");
-            this.datetime = ISODateTimeFormat.dateTimeNoMillis().parseDateTime(json.getString("datetime"));
-            this.link = json.getString("link");
-            this.permalink = json.getString("permalink");
-            this.user = user;
-            if (json.has("thumbnail_url")) {
-                this.thumbnailUrl = json.getString("thumbnail_url");
-            }
-            if (json.has("category")) {
-                this.category = json.getString("category");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
     }
 
     public DateTime getDateTime() {

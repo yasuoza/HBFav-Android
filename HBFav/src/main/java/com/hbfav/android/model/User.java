@@ -3,8 +3,11 @@ package com.hbfav.android.model;
 
 import android.graphics.drawable.Drawable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
     private String name;
+    @SerializedName("profile_image_url")
     private String profileImageUrl;
 
     public User(String name, String profileImageUrl) {

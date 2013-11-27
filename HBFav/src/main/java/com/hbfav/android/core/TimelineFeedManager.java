@@ -1,12 +1,15 @@
 package com.hbfav.android.core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hbfav.android.model.Entry;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.hbfav.android.model.Feed;
+import com.hbfav.android.util.gson.DateTimeTypeConverter;
+import com.hbfav.android.util.gson.TimelineExclusionStrategy;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import org.apache.http.Header;
 import org.joda.time.DateTime;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -32,25 +35,16 @@ public class TimelineFeedManager {
     public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
         manager.appendingBookmarks = !prepend;
         String endpoint = prepend ? UserInfoManager.getUserName() : getAppendUrl();
-        HBFavFetcher.get(endpoint, null, new JsonHttpResponseHandler() {
+        HBFavFetcher.get(endpoint, null, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(JSONObject jObj) {
-                try {
-                    ArrayList<Entry> entries = new ArrayList<Entry>();
-                    JSONArray bookmarkJsons = jObj.getJSONArray("bookmarks");
-                    for (int i = 0; i < bookmarkJsons.length(); i++) {
-                        Entry entry = new Entry((JSONObject) bookmarkJsons.get(i));
-                        entries.add(entry);
-                    }
-                    entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
-                    if (prepend) {
-                        prependAll(entries);
-                    } else {
-                        addAll(entries);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    return;
+            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+                String json = new String(bytes);
+                Feed feed = manager.timelineGson().fromJson(json, Feed.class);
+                ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
+                if (prepend) {
+                    prependAll(entries);
+                } else {
+                    addAll(entries);
                 }
                 feedResponseHandler.onSuccess();
             }
@@ -64,21 +58,13 @@ public class TimelineFeedManager {
     }
 
     public static void fetchFeed(final Integer position, final FeedResponseHandler feedResponseHandler) {
-        HBFavFetcher.get(getAppendUrlFrom(get(position).getDateTime()), null, new JsonHttpResponseHandler() {
+        HBFavFetcher.get(getAppendUrlFrom(get(position).getDateTime()), null, new AsyncHttpResponseHandler() {
             @Override
-            public void onSuccess(JSONObject jObj) {
-                try {
-                    ArrayList<Entry> entries = new ArrayList<Entry>();
-                    JSONArray bookmarkJsons = jObj.getJSONArray("bookmarks");
-                    for (int i = 0; i < bookmarkJsons.length(); i++) {
-                        Entry entry = new Entry((JSONObject) bookmarkJsons.get(i));
-                        entries.add(entry);
-                    }
-                    entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
-                    insertAll(position, entries);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
+                String json = new String(bytes);
+                Feed feed = manager.timelineGson().fromJson(json, Feed.class);
+                ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
+                insertAll(position, entries);
                 feedResponseHandler.onSuccess();
             }
 
@@ -149,5 +135,11 @@ public class TimelineFeedManager {
             return getAppendUrlFrom(entries.get(entries.size() - 1).getDateTime());
         }
         return user;
+    }
+
+    private Gson timelineGson() {
+        return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
+                .setExclusionStrategies(new TimelineExclusionStrategy())
+                .create();
     }
 }
