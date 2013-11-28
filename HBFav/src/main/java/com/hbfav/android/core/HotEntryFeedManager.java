@@ -1,5 +1,6 @@
 package com.hbfav.android.core;
 
+import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 
 import java.util.ArrayList;
@@ -40,6 +41,6 @@ public class HotEntryFeedManager extends BaseListFeedManager {
 
     @Override
     protected String getEndPoint() {
-        return "hotentry";
+        return Constants.HBFAV_BASE_URL + "hotentry";
     }
 }

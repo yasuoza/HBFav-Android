@@ -22,9 +22,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.core.UserInfoManager;
+import com.hbfav.android.util.volley.BitmapLruCache;
 
 import java.util.Arrays;
 import java.util.Observable;
@@ -50,6 +52,7 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
     private int mCurrentSelectedPosition = 1;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    private ImageLoader mImageLoader;
 
 
     @Override
@@ -73,6 +76,8 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
         setHasOptionsMenu(true);
 
         UserInfoManager.registerObserver(this);
+
+        mImageLoader = new ImageLoader(MainActivity.getRequestQueue(), new BitmapLruCache());
     }
 
     @Override
@@ -99,7 +104,7 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
 
         mUserNameTextView = (TextView) headerView.findViewById(R.id.navigation_drawer_header_username);
         mUserThumbImageView = (ImageView) headerView.findViewById(R.id.navigation_drawer_header_user_thumb);
-        mUserThumbImageView.setImageDrawable(UserInfoManager.getUserThumb());
+        updateDrawerHeaderView();
 
         return rootView;
     }
@@ -113,13 +118,7 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        if (getActivity() == null) {
-            return;
-        }
-        if (mUserThumbImageView == null) {
-            return;
-        }
-        mUserThumbImageView.setImageDrawable(UserInfoManager.getUserThumb());
+        updateDrawerHeaderView();
     }
 
     public boolean isDrawerOpen() {
@@ -262,7 +261,12 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
             return;
         }
         mUserNameTextView.setText(UserInfoManager.getUserName());
-        mUserThumbImageView.setImageDrawable(UserInfoManager.getUserThumb());
+        ImageLoader.ImageListener listener = ImageLoader.getImageListener(
+                mUserThumbImageView,
+                android.R.drawable.screen_background_light_transparent,
+                android.R.drawable.screen_background_light_transparent
+        );
+        mImageLoader.get(UserInfoManager.getThumbUrl(), listener);
     }
 
     /**

@@ -1,14 +1,16 @@
 package com.hbfav.android.core;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.Feed;
+import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.gson.DateTimeTypeConverter;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import org.apache.http.Header;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -43,21 +45,24 @@ public abstract class BaseListFeedManager {
         if (categoryIndex != 0) {
             endpoint += "?category=" + Constants.CATEGORIES[categoryIndex].toLowerCase();
         }
-        HBFavFetcher.get(endpoint, null, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                String json = new String(bytes);
-                Feed feed = entryGson().fromJson(json, Feed.class);
-                ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
-                setList(entries);
-                feedResponseHandler.onSuccess();
-            }
-
-            @Override
-            public void onFinish() {
-                feedResponseHandler.onFinish();
-            }
-        });
+        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Feed feed = entryGson().fromJson(response, Feed.class);
+                        ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
+                        setList(entries);
+                        feedResponseHandler.onSuccess();
+                        feedResponseHandler.onFinish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        feedResponseHandler.onFinish();
+                    }
+                }
+        ));
     }
 
     private Gson entryGson() {

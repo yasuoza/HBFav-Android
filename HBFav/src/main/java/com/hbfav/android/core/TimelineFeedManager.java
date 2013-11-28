@@ -1,14 +1,17 @@
 package com.hbfav.android.core;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.Feed;
+import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.gson.DateTimeTypeConverter;
 import com.hbfav.android.util.gson.TimelineExclusionStrategy;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import org.apache.http.Header;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -32,47 +35,59 @@ public class TimelineFeedManager {
         return manager.bookmarks;
     }
 
-    public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+    public static void fetchFeed(String endpoint, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
         manager.appendingBookmarks = !prepend;
-        String endpoint = prepend ? UserInfoManager.getUserName() : getAppendUrl();
-        HBFavFetcher.get(endpoint, null, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                String json = new String(bytes);
-                Feed feed = manager.timelineGson().fromJson(json, Feed.class);
-                ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
-                if (prepend) {
-                    prependAll(entries);
-                } else {
-                    addAll(entries);
+        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Feed feed = manager.timelineGson().fromJson(response, Feed.class);
+                        ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
+                        if (prepend) {
+                            prependAll(entries);
+                        } else {
+                            addAll(entries);
+                        }
+                        feedResponseHandler.onSuccess();
+                        feedResponseHandler.onFinish();
+                        manager.appendingBookmarks = false;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        feedResponseHandler.onFinish();
+                        manager.appendingBookmarks = false;
+                    }
                 }
-                feedResponseHandler.onSuccess();
-            }
+        ));
+    }
 
-            @Override
-            public void onFinish() {
-                feedResponseHandler.onFinish();
-                manager.appendingBookmarks = false;
-            }
-        });
+    public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+        String endpoint = prepend ? getPrependUrl() : getAppendUrl();
+        fetchFeed(endpoint, prepend, feedResponseHandler);
     }
 
     public static void fetchFeed(final Integer position, final FeedResponseHandler feedResponseHandler) {
-        HBFavFetcher.get(getAppendUrlFrom(get(position).getDateTime()), null, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                String json = new String(bytes);
-                Feed feed = manager.timelineGson().fromJson(json, Feed.class);
-                ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
-                insertAll(position, entries);
-                feedResponseHandler.onSuccess();
-            }
-
-            @Override
-            public void onFinish() {
-                feedResponseHandler.onFinish();
-            }
-        });
+        String endpoint = Constants.HBFAV_BASE_URL + getAppendUrlFrom(get(position).getDateTime());
+        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Feed feed = manager.timelineGson().fromJson(response, Feed.class);
+                        ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
+                        insertAll(position, entries);
+                        feedResponseHandler.onSuccess();
+                        feedResponseHandler.onFinish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        feedResponseHandler.onFinish();
+                    }
+                }
+        ));
     }
 
     public static boolean isAppending() {
@@ -82,7 +97,6 @@ public class TimelineFeedManager {
     public static boolean loadedAllBookmarks() {
         return manager.loadedAllBookmarks;
     }
-
 
     private static void addAll(ArrayList<Entry> entries) {
         Integer beforeCount = manager.bookmarks.size();
@@ -128,13 +142,16 @@ public class TimelineFeedManager {
         return UserInfoManager.getUserName() + "?until=" + dateTime.getMillis() / 1000l;
     }
 
+    private static String getPrependUrl() {
+        return Constants.HBFAV_BASE_URL + UserInfoManager.getUserName();
+    }
+
     private static String getAppendUrl() {
         final ArrayList<Entry> entries = getList();
-        String user = UserInfoManager.getUserName();
         if (entries.size() > 0) {
-            return getAppendUrlFrom(entries.get(entries.size() - 1).getDateTime());
+            return Constants.HBFAV_BASE_URL + getAppendUrlFrom(entries.get(entries.size() - 1).getDateTime());
         }
-        return user;
+        return getPrependUrl();
     }
 
     private Gson timelineGson() {
