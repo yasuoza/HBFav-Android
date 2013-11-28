@@ -43,4 +43,9 @@ public class HotEntryFeedManager extends BaseListFeedManager {
     protected String getEndPoint() {
         return Constants.HBFAV_BASE_URL + "hotentry";
     }
+
+    @Override
+    protected String getRequestTag() {
+        return getClass().getSimpleName() + "_category_" + getCategory();
+    }
 }

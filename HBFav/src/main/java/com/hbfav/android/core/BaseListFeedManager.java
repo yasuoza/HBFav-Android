@@ -1,6 +1,7 @@
 package com.hbfav.android.core;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -27,6 +28,8 @@ public abstract class BaseListFeedManager {
 
     protected abstract String getEndPoint();
 
+    protected abstract String getRequestTag();
+
 
     public Entry get(Integer index) {
         return getList().get(index);
@@ -37,6 +40,14 @@ public abstract class BaseListFeedManager {
     }
 
     public void replaceFeed(final FeedResponseHandler feedResponseHandler) {
+        // Cancel all request but current category
+        MainActivity.getRequestQueue().cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return request.getTag() != null && !request.getTag().equals(getRequestTag());
+            }
+        });
+
         String endpoint = getEndPoint();
         int categoryIndex = getCategory();
         if (categoryIndex < 0 || categoryIndex >= Constants.CATEGORIES.length) {
@@ -45,7 +56,7 @@ public abstract class BaseListFeedManager {
         if (categoryIndex != 0) {
             endpoint += "?category=" + Constants.CATEGORIES[categoryIndex].toLowerCase();
         }
-        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint,
+        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint, getRequestTag(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
