@@ -96,6 +96,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
     public void onStop() {
         super.onStop();
         mPullToRefreshLayout.setRefreshComplete();
+        TimelineFeedManager.cancelAllRequest();
     }
 
     @Override

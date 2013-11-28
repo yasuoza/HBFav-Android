@@ -10,10 +10,19 @@ public class HBFavAPIStringRequest extends StringRequest {
 
     private final Response.Listener<String> mListener;
 
+
     public HBFavAPIStringRequest(int method, String url, Response.Listener<String> listener,
                                  Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
         setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_MS, 1, 1.0f));
+        mListener = listener;
+    }
+
+    public HBFavAPIStringRequest(int method, String url, String tag, Response.Listener<String> listener,
+                                 Response.ErrorListener errorListener) {
+        super(method, url, listener, errorListener);
+        setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_MS, 1, 1.0f));
+        setTag(tag);
         mListener = listener;
     }
 }

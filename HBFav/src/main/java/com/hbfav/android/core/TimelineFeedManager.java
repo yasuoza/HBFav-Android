@@ -19,12 +19,21 @@ import java.util.LinkedHashSet;
 
 public class TimelineFeedManager {
     private static TimelineFeedManager manager = new TimelineFeedManager();
+    private final static String TAG = TimelineFeedManager.class.getSimpleName();
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
     private boolean appendingBookmarks = false;
     private boolean loadedAllBookmarks = false;
 
     public static void clearAll() {
+        MainActivity.getRequestQueue().cancelAll(TAG);
+        manager.appendingBookmarks = false;
+        manager.loadedAllBookmarks = false;
         manager.bookmarks = new ArrayList<Entry>();
+    }
+
+    public static void cancelAllRequest() {
+        MainActivity.getRequestQueue().cancelAll(TAG);
+        manager.appendingBookmarks = false;
     }
 
     public static Entry get(Integer index) {
@@ -37,7 +46,7 @@ public class TimelineFeedManager {
 
     public static void fetchFeed(String endpoint, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
         manager.appendingBookmarks = !prepend;
-        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint,
+        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint, TAG,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
