@@ -29,8 +29,6 @@ import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.util.volley.BitmapLruCache;
 
 import java.util.Arrays;
-import java.util.Observable;
-import java.util.Observer;
 
 
 /**
@@ -38,7 +36,7 @@ import java.util.Observer;
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends Fragment implements Observer {
+public class NavigationDrawerFragment extends Fragment {
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
@@ -74,8 +72,6 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
 
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
-
-        UserInfoManager.registerObserver(this);
 
         mImageLoader = new ImageLoader(MainActivity.getRequestQueue(), new BitmapLruCache());
     }
@@ -114,19 +110,6 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
         super.onStart();
 
         updateDrawerHeaderView();
-    }
-
-    @Override
-    public void update(Observable observable, Object data) {
-        if (getActivity() == null) {
-            return;
-        }
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updateDrawerHeaderView();
-            }
-        });
     }
 
     public boolean isDrawerOpen() {
