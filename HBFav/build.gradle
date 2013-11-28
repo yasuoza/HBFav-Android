@@ -37,7 +37,8 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:support-v4:19.0.+'
+    compile project(':vendor:modules:volley')
+    compile 'com.android.support:support-v4:19.0.+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.9.1'
     compile 'com.loopj.android:android-async-http:1.4.4'
     compile 'com.makeramen:roundedimageview:1.1.0@aar'
