@@ -10,8 +10,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:choiceMode="singleChoice"
-              android:divider="@android:color/transparent"
-              android:dividerHeight="0dp"
+              android:dividerHeight="1dp"
               android:background="@color/white"
               android:id="@+id/list_view_navigation_drawer"
               tools:context="com.hbfav.android.ui.NavigationDrawerFragment"/>
