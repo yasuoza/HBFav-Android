@@ -118,7 +118,15 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        updateDrawerHeaderView();
+        if (getActivity() == null) {
+            return;
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updateDrawerHeaderView();
+            }
+        });
     }
 
     public boolean isDrawerOpen() {

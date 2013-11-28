@@ -17,7 +17,7 @@ public class UserInfoManager extends Observable {
     }
 
     public static void setUserName(final String userName) {
-        if (userName.equals(getUserName())) {
+        if (userName == null || userName.equals(getUserName())) {
             return;
         }
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
