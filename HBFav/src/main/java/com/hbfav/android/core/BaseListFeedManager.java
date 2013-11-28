@@ -39,6 +39,10 @@ public abstract class BaseListFeedManager {
         setList(new ArrayList<Entry>());
     }
 
+    public void cancellAllRequest() {
+        MainActivity.getRequestQueue().cancelAll(getRequestTag());
+    }
+
     public void replaceFeed(final FeedResponseHandler feedResponseHandler) {
         // Cancel all request but current category
         MainActivity.getRequestQueue().cancelAll(new RequestQueue.RequestFilter() {

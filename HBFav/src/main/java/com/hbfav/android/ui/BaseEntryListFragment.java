@@ -120,16 +120,10 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
                     if (getActivity() == null) {
                         return;
                     }
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ListView listView = getListView();
-                            if (listView != null) {
-                                listView.removeFooterView(mFooterView);
-                            }
-
-                        }
-                    });
+                    ListView listView = getListView();
+                    if (listView != null) {
+                        listView.removeFooterView(mFooterView);
+                    }
                 }
             });
         } else {
@@ -141,6 +135,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     public void onStop() {
         super.onStop();
         mPullToRefreshLayout.setRefreshComplete();
+        getManager().cancellAllRequest();
     }
 
     @Override
