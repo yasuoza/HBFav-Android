@@ -30,17 +30,17 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
 
     @Override
     public int getCount() {
-        return TimelineFeedManager.getList().size();
+        return TimelineFeedManager.getInstance().getList().size();
     }
 
     @Override
     public Entry getItem(int position) {
-        return TimelineFeedManager.get(position);
+        return TimelineFeedManager.getInstance().get(position);
     }
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        final Entry entry = TimelineFeedManager.get(position);
+        final Entry entry = TimelineFeedManager.getInstance().get(position);
 
         if (view == null) {
             view = this.inflater.inflate(this.layout, parent, false);

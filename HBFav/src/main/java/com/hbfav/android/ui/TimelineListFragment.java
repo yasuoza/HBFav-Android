@@ -71,7 +71,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
         ListView listView = getListView();
         listView.setFooterDividersEnabled(false);
-        if (!TimelineFeedManager.loadedAllBookmarks()) {
+        if (!TimelineFeedManager.getInstance().loadedAllBookmarks()) {
             listView.addFooterView(mFooterView, null, false);
             listView.setOnScrollListener(this);
         }
@@ -96,19 +96,19 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
     public void onStop() {
         super.onStop();
         mPullToRefreshLayout.setRefreshComplete();
-        TimelineFeedManager.cancelAllRequest();
+        TimelineFeedManager.getInstance().cancelAllRequest();
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        Entry entry = TimelineFeedManager.get(position);
+        Entry entry = TimelineFeedManager.getInstance().get(position);
 
         if (entry.getIsPlaceholder()) {
             view.findViewById(R.id.fragment_timeline_row_placeholder_text).setVisibility(View.GONE);
             view.findViewById(R.id.fragment_timeline_row_placeholder_progressbar).setVisibility(View.VISIBLE);
-            TimelineFeedManager.fetchFeed(position, new FeedResponseHandler() {
+            TimelineFeedManager.getInstance().fetchFeed(position, new FeedResponseHandler() {
                 @Override
                 public void onSuccess() {
                     mAdapter.notifyDataSetChanged();
@@ -128,7 +128,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (TimelineFeedManager.loadedAllBookmarks()) {
+        if (TimelineFeedManager.getInstance().loadedAllBookmarks()) {
             return;
         }
         if (totalItemCount == firstVisibleItem + visibleItemCount) {
@@ -138,7 +138,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
     @Override
     public void onRefreshStarted(View view) {
-        TimelineFeedManager.fetchFeed(true, new FeedResponseHandler() {
+        TimelineFeedManager.getInstance().fetchFeed(true, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -160,12 +160,12 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
     }
 
     private void additionalReading() {
-        if (TimelineFeedManager.isAppending()
+        if (TimelineFeedManager.getInstance().isAppending()
                 || UserInfoManager.getUserName().isEmpty()) {
             return;
         }
 
-        TimelineFeedManager.fetchFeed(false, new FeedResponseHandler() {
+        TimelineFeedManager.getInstance().fetchFeed(false, new FeedResponseHandler() {
             @Override
             public void onSuccess() {
                 mAdapter.notifyDataSetChanged();
@@ -173,7 +173,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
             @Override
             public void onFinish() {
-                if (TimelineFeedManager.loadedAllBookmarks() && getListView() != null) {
+                if (TimelineFeedManager.getInstance().loadedAllBookmarks() && getListView() != null) {
                     getListView().removeFooterView(mFooterView);
                 }
             }

@@ -18,39 +18,46 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 public class TimelineFeedManager {
-    private static TimelineFeedManager manager = new TimelineFeedManager();
+    private static TimelineFeedManager instance = new TimelineFeedManager();
     private final static String TAG = TimelineFeedManager.class.getSimpleName();
     private ArrayList<Entry> bookmarks = new ArrayList<Entry>();
     private boolean appendingBookmarks = false;
     private boolean loadedAllBookmarks = false;
 
-    public static void clearAll() {
+    public static TimelineFeedManager getInstance() {
+        if (instance == null) {
+            instance = new TimelineFeedManager();
+        }
+        return instance;
+    }
+
+    public void clearList() {
         MainActivity.getRequestQueue().cancelAll(TAG);
-        manager.appendingBookmarks = false;
-        manager.loadedAllBookmarks = false;
-        manager.bookmarks = new ArrayList<Entry>();
+        instance.appendingBookmarks = false;
+        instance.loadedAllBookmarks = false;
+        instance.bookmarks = new ArrayList<Entry>();
     }
 
-    public static void cancelAllRequest() {
+    public void cancelAllRequest() {
         MainActivity.getRequestQueue().cancelAll(TAG);
-        manager.appendingBookmarks = false;
+        instance.appendingBookmarks = false;
     }
 
-    public static Entry get(Integer index) {
-        return manager.bookmarks.get(index);
+    public Entry get(Integer index) {
+        return instance.bookmarks.get(index);
     }
 
-    public static ArrayList<Entry> getList() {
-        return manager.bookmarks;
+    public ArrayList<Entry> getList() {
+        return instance.bookmarks;
     }
 
-    public static void fetchFeed(String endpoint, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
-        manager.appendingBookmarks = !prepend;
+    public void fetchFeed(String endpoint, final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+        instance.appendingBookmarks = !prepend;
         MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint, TAG,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Feed feed = manager.timelineGson().fromJson(response, Feed.class);
+                        Feed feed = instance.timelineGson().fromJson(response, Feed.class);
                         ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
                         if (prepend) {
                             prependAll(entries);
@@ -59,31 +66,31 @@ public class TimelineFeedManager {
                         }
                         feedResponseHandler.onSuccess();
                         feedResponseHandler.onFinish();
-                        manager.appendingBookmarks = false;
+                        instance.appendingBookmarks = false;
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         feedResponseHandler.onFinish();
-                        manager.appendingBookmarks = false;
+                        instance.appendingBookmarks = false;
                     }
                 }
         ));
     }
 
-    public static void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
+    public void fetchFeed(final boolean prepend, final FeedResponseHandler feedResponseHandler) {
         String endpoint = prepend ? getPrependUrl() : getAppendUrl();
         fetchFeed(endpoint, prepend, feedResponseHandler);
     }
 
-    public static void fetchFeed(final Integer position, final FeedResponseHandler feedResponseHandler) {
+    public void fetchFeed(final Integer position, final FeedResponseHandler feedResponseHandler) {
         String endpoint = Constants.HBFAV_BASE_URL + getAppendUrlFrom(get(position).getDateTime());
         MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Feed feed = manager.timelineGson().fromJson(response, Feed.class);
+                        Feed feed = instance.timelineGson().fromJson(response, Feed.class);
                         ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
                         insertAll(position, entries);
                         feedResponseHandler.onSuccess();
@@ -99,63 +106,63 @@ public class TimelineFeedManager {
         ));
     }
 
-    public static boolean isAppending() {
-        return manager.appendingBookmarks;
+    public boolean isAppending() {
+        return instance.appendingBookmarks;
     }
 
-    public static boolean loadedAllBookmarks() {
-        return manager.loadedAllBookmarks;
+    public boolean loadedAllBookmarks() {
+        return instance.loadedAllBookmarks;
     }
 
-    private static void addAll(ArrayList<Entry> entries) {
-        Integer beforeCount = manager.bookmarks.size();
-        manager.bookmarks.addAll(entries);
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
-        if (beforeCount == manager.bookmarks.size()) {
-            manager.loadedAllBookmarks = true;
+    private void addAll(ArrayList<Entry> entries) {
+        Integer beforeCount = instance.bookmarks.size();
+        instance.bookmarks.addAll(entries);
+        instance.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(instance.bookmarks));
+        if (beforeCount == instance.bookmarks.size()) {
+            instance.loadedAllBookmarks = true;
         }
     }
 
-    private static void prependAll(ArrayList<Entry> entries) {
+    private void prependAll(ArrayList<Entry> entries) {
         Integer boundary = entries.size();
-        entries.addAll(manager.bookmarks);
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
+        entries.addAll(instance.bookmarks);
+        instance.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
 
         // 配列の長さが同じ
         // => 重複がない
         // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
-        if (entries.size() == manager.bookmarks.size()) {
-            manager.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
+        if (entries.size() == instance.bookmarks.size()) {
+            instance.bookmarks.add(boundary, Entry.newPlaceholder(entries.get(boundary - 1).getDateTime()));
         }
 
         // To test, uncomment this line
-        // manager.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
+        // instance.bookmarks.add(2, Entry.newPlaceholder(entries.get(1).getDateTime()));
     }
 
-    private static void insertAll(int position, ArrayList<Entry> entries) {
-        manager.bookmarks.remove(position);
-        manager.bookmarks.addAll(position, entries);
-        Integer boundary = manager.bookmarks.size();
-        manager.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(manager.bookmarks));
+    private void insertAll(int position, ArrayList<Entry> entries) {
+        instance.bookmarks.remove(position);
+        instance.bookmarks.addAll(position, entries);
+        Integer boundary = instance.bookmarks.size();
+        instance.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(instance.bookmarks));
 
         // 配列の長さが同じ
         // => 重複がない
         // => 今回と前回のフェッチ間にまだフェッチしていないブックマークがあるかもしれない
-        if (boundary == manager.bookmarks.size()) {
-            manager.bookmarks.add(position + entries.size(), Entry.newPlaceholder(entries.get(entries.size() - 1)
+        if (boundary == instance.bookmarks.size()) {
+            instance.bookmarks.add(position + entries.size(), Entry.newPlaceholder(entries.get(entries.size() - 1)
                     .getDateTime()));
         }
     }
 
-    private static String getAppendUrlFrom(final DateTime dateTime) {
+    private String getAppendUrlFrom(final DateTime dateTime) {
         return UserInfoManager.getUserName() + "?until=" + dateTime.getMillis() / 1000l;
     }
 
-    private static String getPrependUrl() {
+    private String getPrependUrl() {
         return Constants.HBFAV_BASE_URL + UserInfoManager.getUserName();
     }
 
-    private static String getAppendUrl() {
+    private String getAppendUrl() {
         final ArrayList<Entry> entries = getList();
         if (entries.size() > 0) {
             return Constants.HBFAV_BASE_URL + getAppendUrlFrom(entries.get(entries.size() - 1).getDateTime());
