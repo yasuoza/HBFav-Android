@@ -25,6 +25,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.core.UserInfoManager;
+import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.volley.BitmapLruCache;
 
 import java.util.Arrays;
