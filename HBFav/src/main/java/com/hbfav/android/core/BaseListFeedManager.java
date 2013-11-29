@@ -74,6 +74,7 @@ public abstract class BaseListFeedManager {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        feedResponseHandler.onError();
                         feedResponseHandler.onFinish();
                     }
                 }

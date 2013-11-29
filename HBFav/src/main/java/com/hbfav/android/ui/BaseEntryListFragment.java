@@ -4,6 +4,7 @@ package com.hbfav.android.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
@@ -25,6 +27,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     private View mFooterView;
     private LayoutInflater mInflater;
     private PullToRefreshLayout mPullToRefreshLayout;
+    private Toast mTimeoutToast;
 
 
     /**
@@ -108,27 +111,7 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         initAdapter();
         setListAdapter(getAdapter());
         restoreActionBar();
-        if (getManager().getList().isEmpty()) {
-            getManager().replaceFeed(new FeedResponseHandler() {
-                @Override
-                public void onSuccess() {
-                    reloadListData();
-                }
-
-                @Override
-                public void onFinish() {
-                    if (getActivity() == null) {
-                        return;
-                    }
-                    ListView listView = getListView();
-                    if (listView != null) {
-                        listView.removeFooterView(mFooterView);
-                    }
-                }
-            });
-        } else {
-            getListView().removeFooterView(mFooterView);
-        }
+        categorySelected(getManager().getCategory());
     }
 
     @Override
@@ -153,6 +136,11 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
             }
 
             @Override
+            public void onError() {
+                showTimeoutToast();
+            }
+
+            @Override
             public void onFinish() {
                 mPullToRefreshLayout.setRefreshComplete();
             }
@@ -172,46 +160,53 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         mainActivity.restoreActionBar(new ActionBar.OnNavigationListener() {
             @Override
             public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-                if (itemPosition == getManager().getCategory()) {
-                    return false;
-                }
-                ListView listView = getListView();
-                if (listView.getFooterViewsCount() == 0) {
-                    mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
-                    listView.addFooterView(mFooterView, null, false);
-                }
-                mPullToRefreshLayout.setRefreshComplete();
-                getManager().clearList();
-                getManager().setCategory(itemPosition);
-                getActivity().getActionBar().setSelectedNavigationItem(getManager().getCategory());
-                reloadListData();
-                getManager().replaceFeed(new FeedResponseHandler() {
-                    @Override
-                    public void onSuccess() {
-                        reloadListData();
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        removeListFooter();
-                    }
-                });
-                return true;
+                return categorySelected(itemPosition);
             }
         });
     }
 
-    private void removeListFooter() {
-        if (getActivity() == null) {
-            return;
+    private boolean categorySelected(int itemPosition) {
+        ListView listView = getListView();
+        if (getManager().getList().size() != 0 && itemPosition == getManager().getCategory()) {
+            if (listView.getFooterViewsCount() > 0) {
+                listView.removeFooterView(mFooterView);
+            }
+            return false;
         }
-        getActivity().runOnUiThread(new Runnable() {
+        if (listView.getFooterViewsCount() == 0) {
+            mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
+            listView.addFooterView(mFooterView, null, false);
+        }
+        mPullToRefreshLayout.setRefreshComplete();
+        getManager().clearList();
+        getManager().setCategory(itemPosition);
+        getActivity().getActionBar().setSelectedNavigationItem(getManager().getCategory());
+        reloadListData();
+        getManager().replaceFeed(new FeedResponseHandler() {
             @Override
-            public void run() {
-                if (getListView() != null) {
-                    getListView().removeFooterView(mFooterView);
-                }
+            public void onSuccess() {
+                reloadListData();
+            }
+
+            @Override
+            public void onError() {
+                showTimeoutToast();
+            }
+
+            @Override
+            public void onFinish() {
+                getListView().removeFooterView(mFooterView);
             }
         });
+        return true;
+    }
+
+    private void showTimeoutToast() {
+        if (mTimeoutToast != null && mTimeoutToast.getView().isShown()) {
+            return;
+        }
+        Context ctx = getActivity().getApplicationContext();
+        mTimeoutToast = Toast.makeText(ctx, ctx.getString(R.string.timeout_error), Toast.LENGTH_LONG);
+        mTimeoutToast.show();
     }
 }
