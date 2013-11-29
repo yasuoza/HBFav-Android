@@ -91,7 +91,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
             startActivity(new Intent(getActivity(), UserRegistrationActivity.class));
             return;
         }
-        if (getListView() != null) {
+        if (getListView() != null && TimelineFeedManager.getInstance().getList().isEmpty()) {
             getListView().invalidateViews();
         }
     }
@@ -132,7 +132,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (TimelineFeedManager.getInstance().loadedAllBookmarks()) {
+        if (TimelineFeedManager.getInstance().loadedAllBookmarks() || totalItemCount == 0) {
             return;
         }
         if (totalItemCount == firstVisibleItem + visibleItemCount) {
