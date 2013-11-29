@@ -26,8 +26,8 @@
             android:id="@+id/navigation_drawer_header_username"
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:textSize="18sp"/>
+            android:layout_marginLeft="13dp"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
     </LinearLayout>
 
