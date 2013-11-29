@@ -11,6 +11,7 @@ import android.view.Menu;
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.ui.about.AboutAppFragment;
+import com.hbfav.android.ui.navigation.NavigationDrawerFragment;
 import com.hbfav.android.ui.setting.SettingFragment;
 
 
@@ -92,7 +93,7 @@ public class MainActivity extends Activity
     }
 
     public void onSectionAttached(int number) {
-        mTitle = Constants.MENUS[number];
+        mTitle = Constants.MENUS[number].getTitle();
         mSelectedSectionNumber = number;
     }
 

@@ -1,4 +1,4 @@
-package com.hbfav.android.ui;
+package com.hbfav.android.ui.navigation;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -89,10 +88,9 @@ public class NavigationDrawerFragment extends Fragment implements Observer {
         View headerView = inflater.inflate(R.layout.navigation_drawer_header, container, false);
         mDrawerListView.addHeaderView(headerView);
 
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+        mDrawerListView.setAdapter(new NavigationDrawerListAdapter(
                 getActionBar().getThemedContext(),
                 R.layout.navigation_list_item_activated,
-                android.R.id.text1,
                 Arrays.copyOfRange(Constants.MENUS, 1, Constants.MENUS.length)
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

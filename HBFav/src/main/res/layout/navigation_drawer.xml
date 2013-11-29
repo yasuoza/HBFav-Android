@@ -13,6 +13,6 @@
               android:dividerHeight="1dp"
               android:background="@color/white"
               android:id="@+id/list_view_navigation_drawer"
-              tools:context="com.hbfav.android.ui.NavigationDrawerFragment"/>
+              tools:context="com.hbfav.android.ui.navigation.NavigationDrawerFragment"/>
 
 </LinearLayout>

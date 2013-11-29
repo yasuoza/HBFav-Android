@@ -2,6 +2,7 @@ package com.hbfav.android;
 
 
 import com.hbfav.R;
+import com.hbfav.android.model.NavigationItem;
 import com.hbfav.android.ui.MainActivity;
 
 public class Constants {
@@ -19,12 +20,28 @@ public class Constants {
 
     public static final String ISSUES_URL = "https://github.com/yasuoza/HBFav-Android/issues";
 
-    public static final String[] MENUS = new String[]{
-            MainActivity.getContextOfApplication().getString(R.string.title_section0),
-            MainActivity.getContextOfApplication().getString(R.string.title_section1),
-            MainActivity.getContextOfApplication().getString(R.string.title_section2),
-            MainActivity.getContextOfApplication().getString(R.string.title_section3),
-            MainActivity.getContextOfApplication().getString(R.string.title_section4)
+    public static final NavigationItem[] MENUS = new NavigationItem[]{
+            new NavigationItem(
+                    null,
+                    MainActivity.getContextOfApplication().getString(R.string.title_section0)
+            ),
+
+            new NavigationItem(
+                    MainActivity.getContextOfApplication().getResources().getDrawable(R.drawable.ic_star),
+                    MainActivity.getContextOfApplication().getString(R.string.title_section1)
+            ),
+            new NavigationItem(
+                    MainActivity.getContextOfApplication().getResources().getDrawable(R.drawable.ic_doc),
+                    MainActivity.getContextOfApplication().getString(R.string.title_section2)
+            ),
+            new NavigationItem(
+                    MainActivity.getContextOfApplication().getResources().getDrawable(R.drawable.ic_heart),
+                    MainActivity.getContextOfApplication().getString(R.string.title_section3)
+            ),
+            new NavigationItem(
+                    MainActivity.getContextOfApplication().getResources().getDrawable(R.drawable.ic_about),
+                    MainActivity.getContextOfApplication().getString(R.string.title_section4)
+            )
     };
 
     public static final String[] CATEGORIES = MainActivity.getContextOfApplication()

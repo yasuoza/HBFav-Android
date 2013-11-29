@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/HBFav.ActionBar</item>
         <item name="android:actionDropDownStyle">@style/customActionBarDropDownStyle</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
     </style>
 
     <style name="customActionBarDropDownStyle" parent="android:style/Widget.Holo.Light.Spinner">
