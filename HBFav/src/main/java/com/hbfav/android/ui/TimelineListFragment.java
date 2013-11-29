@@ -89,6 +89,10 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
         if (UserInfoManager.getUserName().isEmpty()) {
             startActivity(new Intent(getActivity(), UserRegistrationActivity.class));
+            return;
+        }
+        if (getListView() != null) {
+            getListView().invalidateViews();
         }
     }
 
