@@ -1,0 +1,4 @@
+[submodule "vendor/modules/volley"]
+  path = vendor/modules/volley
+  url = https://android.googlesource.com/platform/frameworks/volley
+  ignore = dirty

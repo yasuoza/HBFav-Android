@@ -2,9 +2,6 @@ package com.hbfav.android.ui;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,36 +9,38 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.hbfav.R;
-import com.hbfav.android.core.HBFavFetcher;
 import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.model.Entry;
-import com.loopj.android.http.BinaryHttpResponseHandler;
+import com.hbfav.android.util.volley.BitmapLruCache;
 
 public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
     private LayoutInflater inflater;
     private int layout;
+    private ImageLoader mImageLoader;
 
 
     public TimelineEntryAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
         this.inflater = ((Activity) context).getLayoutInflater();
         this.layout = textViewResourceId;
+        this.mImageLoader = new ImageLoader(MainActivity.getRequestQueue(), new BitmapLruCache());
     }
 
     @Override
     public int getCount() {
-        return TimelineFeedManager.getList().size();
+        return TimelineFeedManager.getInstance().getList().size();
     }
 
     @Override
     public Entry getItem(int position) {
-        return TimelineFeedManager.get(position);
+        return TimelineFeedManager.getInstance().get(position);
     }
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        final Entry entry = TimelineFeedManager.get(position);
+        final Entry entry = TimelineFeedManager.getInstance().get(position);
 
         if (view == null) {
             view = this.inflater.inflate(this.layout, parent, false);
@@ -58,35 +57,22 @@ public class TimelineEntryAdapter extends ArrayAdapter<Entry> {
         view.findViewById(R.id.fragment_timeline_row_entry).setVisibility(View.VISIBLE);
         view.findViewById(R.id.fragment_timeline_row_placeholder).setVisibility(View.GONE);
 
-        Drawable userThumb = entry.getUser().getProfileImage();
-        if (userThumb == null) {
-            HBFavFetcher.getImage(entry.getUser().getProfileImageUrl(), new BinaryHttpResponseHandler(HBFavFetcher
-                    .ALLOWED_IMAGE_CONTENT_TYPE) {
-                @Override
-                public void onSuccess(byte[] fileData) {
-                    Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
-                    entry.getUser().setProfileImage(image);
-                    notifyDataSetChanged();
-                }
-            });
-        }
-        ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view))
-                .setImageDrawable(userThumb);
+        ImageView thumbImageView = ((ImageView) view.findViewById(R.id.fragment_entry_list_user_thumb_image_view));
+        ImageLoader.ImageListener thumbImageListener = ImageLoader.getImageListener(
+                thumbImageView,
+                android.R.drawable.screen_background_light_transparent,
+                android.R.drawable.screen_background_dark_transparent
+        );
+        mImageLoader.get(entry.getUser().getProfileImageUrl(), thumbImageListener);
 
-        Drawable favicon = entry.getFavicon();
-        if (favicon == null) {
-            HBFavFetcher.getImage(entry.getFaviconUrl(), new BinaryHttpResponseHandler(HBFavFetcher
-                    .ALLOWED_IMAGE_CONTENT_TYPE) {
-                @Override
-                public void onSuccess(byte[] fileData) {
-                    Drawable image = new BitmapDrawable(null, BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
-                    entry.setFavicon(image);
-                    notifyDataSetChanged();
-                }
-            });
-        }
-        ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view))
-                .setImageDrawable(favicon);
+        ImageView faviconImageView = ((ImageView) view.findViewById(R.id.fragment_entry_list_entry_favicon_image_view));
+        ImageLoader.ImageListener faviconImageListener = ImageLoader.getImageListener(
+                faviconImageView,
+                android.R.drawable.screen_background_light_transparent,
+                android.R.drawable.screen_background_light_transparent
+        );
+        mImageLoader.get(entry.getFaviconUrl(), faviconImageListener);
+
 
         ((TextView) view.findViewById(R.id.fragment_entry_user_name))
                 .setText(entry.getUser().getName());

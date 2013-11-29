@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/android_async_http"
+                    android:text="@string/volley"
                     android:textStyle="bold"
                     android:textSize="15sp"/>
 
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:autoLink="web"
-                    android:text="@string/license_android_async_http"/>
+                    android:text="@string/license_volley"/>
 
             </LinearLayout>
 

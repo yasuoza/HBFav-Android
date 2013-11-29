@@ -70,7 +70,7 @@ public class SettingFragment extends Fragment {
                 if (UserInfoManager.getUserName().equals(input.getText().toString())) {
                     return;
                 }
-                TimelineFeedManager.clearAll();
+                TimelineFeedManager.getInstance().clearList();
                 UserInfoManager.setUserName(input.getText().toString());
                 mTextViewAccount.setText(UserInfoManager.getUserName());
             }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.ui.about.AboutAppFragment;
@@ -36,9 +38,15 @@ public class MainActivity extends Activity
 
     private ActionBar.OnNavigationListener mOnNavigationListener;
 
+    private static RequestQueue mRequestQueue;
+
 
     public static Context getContextOfApplication() {
         return contextOfApplication;
+    }
+
+    public static RequestQueue getRequestQueue() {
+        return mRequestQueue;
     }
 
     @Override
@@ -46,6 +54,7 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
 
         contextOfApplication = getApplicationContext();
+        mRequestQueue = Volley.newRequestQueue(this);
 
         setContentView(R.layout.activity_main);
 

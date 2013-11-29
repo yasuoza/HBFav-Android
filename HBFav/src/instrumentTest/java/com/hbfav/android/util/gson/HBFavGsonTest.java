@@ -1,11 +1,8 @@
-package com.hbfav.android.test.util.gson;
+package com.hbfav.android.util.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.hbfav.android.util.gson.DateTimeTypeConverter;
-import com.hbfav.android.util.gson.TimelineExclude;
-import com.hbfav.android.util.gson.TimelineExclusionStrategy;
 
 import junit.framework.TestCase;
 

@@ -1,5 +1,6 @@
 package com.hbfav.android.core;
 
+import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 
 import java.util.ArrayList;
@@ -40,6 +41,11 @@ public class EntryListFeedManager extends BaseListFeedManager {
 
     @Override
     protected String getEndPoint() {
-        return "entrylist";
+        return Constants.HBFAV_BASE_URL + "entrylist";
+    }
+
+    @Override
+    protected String getRequestTag() {
+        return getClass().getSimpleName() + "_category_" + getCategory();
     }
 }
