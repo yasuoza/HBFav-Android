@@ -72,6 +72,7 @@ public class TimelineFeedManager {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        feedResponseHandler.onError();
                         feedResponseHandler.onFinish();
                         instance.appendingBookmarks = false;
                     }
@@ -100,6 +101,7 @@ public class TimelineFeedManager {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        feedResponseHandler.onError();
                         feedResponseHandler.onFinish();
                     }
                 }

@@ -4,6 +4,10 @@
     <string name="app_name">HBFav</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="timeout_error">
+        Could not retrieve entries.\n
+        Please try again later.
+    </string>
 
     <!-- Navigation title -->
     <string name="title_section0">Settings</string>

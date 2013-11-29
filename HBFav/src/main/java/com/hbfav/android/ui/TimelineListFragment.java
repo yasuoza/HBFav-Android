@@ -3,6 +3,7 @@ package com.hbfav.android.ui;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
@@ -28,7 +30,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
     private View mFooterView;
     private TimelineEntryAdapter mAdapter;
     private PullToRefreshLayout mPullToRefreshLayout;
-
+    private Toast mTimeoutToast;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -92,6 +94,10 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
         if (getListView() != null && TimelineFeedManager.getInstance().getList().isEmpty()) {
             getListView().invalidateViews();
         }
+        if (getListView().getFooterViewsCount() == 0) {
+            mFooterView = LayoutInflater.from(getActivity()).inflate(R.layout.timeline_footer, null);
+            getListView().addFooterView(mFooterView, null, false);
+        }
     }
 
     @Override
@@ -144,6 +150,11 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
             }
 
             @Override
+            public void onError() {
+                showTimeoutToast();
+            }
+
+            @Override
             public void onFinish() {
                 mAdapter.notifyDataSetChanged();
                 mPullToRefreshLayout.setRefreshComplete();
@@ -164,11 +175,28 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
             }
 
             @Override
+            public void onError() {
+                getListView().removeFooterView(mFooterView);
+                if (TimelineFeedManager.getInstance().getList().isEmpty()) {
+                    showTimeoutToast();
+                }
+            }
+
+            @Override
             public void onFinish() {
                 if (getListView() != null && TimelineFeedManager.getInstance().loadedAllBookmarks()) {
                     getListView().removeFooterView(mFooterView);
                 }
             }
         });
+    }
+
+    private void showTimeoutToast() {
+        if (mTimeoutToast != null && mTimeoutToast.getView().isShown()) {
+            return;
+        }
+        Context ctx = getActivity().getApplicationContext();
+        mTimeoutToast = Toast.makeText(ctx, ctx.getString(R.string.timeout_error), Toast.LENGTH_LONG);
+        mTimeoutToast.show();
     }
 }
