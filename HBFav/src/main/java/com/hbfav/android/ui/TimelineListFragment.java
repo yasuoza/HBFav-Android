@@ -71,10 +71,8 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
         ListView listView = getListView();
         listView.setFooterDividersEnabled(false);
-        if (!TimelineFeedManager.getInstance().loadedAllBookmarks()) {
-            listView.addFooterView(mFooterView, null, false);
-            listView.setOnScrollListener(this);
-        }
+        listView.addFooterView(mFooterView, null, false);
+        listView.setOnScrollListener(this);
 
         mAdapter = new TimelineEntryAdapter(
                 getActivity(),
@@ -132,10 +130,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (TimelineFeedManager.getInstance().loadedAllBookmarks() || totalItemCount == 0) {
-            return;
-        }
-        if (totalItemCount == firstVisibleItem + visibleItemCount) {
+        if (totalItemCount > 0 && totalItemCount == firstVisibleItem + visibleItemCount) {
             additionalReading();
         }
     }
@@ -150,14 +145,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
             @Override
             public void onFinish() {
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    });
-                }
+                mAdapter.notifyDataSetChanged();
                 mPullToRefreshLayout.setRefreshComplete();
             }
         });
@@ -177,7 +165,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
 
             @Override
             public void onFinish() {
-                if (TimelineFeedManager.getInstance().loadedAllBookmarks() && getListView() != null) {
+                if (getListView() != null && TimelineFeedManager.getInstance().loadedAllBookmarks()) {
                     getListView().removeFooterView(mFooterView);
                 }
             }
