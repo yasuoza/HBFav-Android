@@ -125,6 +125,10 @@ public class TimelineFeedManager {
 
     private void prependAll(ArrayList<Entry> entries) {
         Integer boundary = entries.size();
+        if (boundary == 0) {
+            return;
+        }
+
         entries.addAll(instance.bookmarks);
         instance.bookmarks = new ArrayList<Entry>(new LinkedHashSet<Entry>(entries));
 
