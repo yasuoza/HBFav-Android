@@ -41,7 +41,6 @@ dependencies {
     compile 'com.android.support:support-v4:19.0.+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.9.1'
     compile 'com.makeramen:roundedimageview:1.1.0@aar'
-    compile 'joda-time:joda-time:2.3'
     compile 'com.google.code.gson:gson:2.2.4'
     instrumentTestCompile 'com.google.guava:guava:11.0.2'
 }

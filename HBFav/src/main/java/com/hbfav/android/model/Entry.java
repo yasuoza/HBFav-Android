@@ -7,7 +7,8 @@ import android.text.format.DateUtils;
 import com.google.gson.annotations.SerializedName;
 import com.hbfav.android.util.gson.TimelineExclude;
 
-import org.joda.time.DateTime;
+import java.util.Date;
+
 
 public class Entry {
     private String title = "";
@@ -22,10 +23,10 @@ public class Entry {
     @SerializedName("thumbnail_url")
     private String thumbnailUrl = "";
     private boolean isPlaceholder = false;
-    private DateTime datetime;
+    private Date datetime;
     private User user;
 
-    public static Entry newPlaceholder(DateTime dateTime) {
+    public static Entry newPlaceholder(Date dateTime) {
         Entry entry = new Entry();
         entry.title = "__placeholder_title__";
         entry.link = "__placeholder_link__";
@@ -38,12 +39,12 @@ public class Entry {
         return title;
     }
 
-    public DateTime getDateTime() {
+    public Date getDateTime() {
         return datetime;
     }
 
     public CharSequence getRelativeTimeSpanString() {
-        return DateUtils.getRelativeTimeSpanString(this.datetime.getMillis());
+        return DateUtils.getRelativeTimeSpanString(this.datetime.getTime());
     }
 
     public String getComment() {

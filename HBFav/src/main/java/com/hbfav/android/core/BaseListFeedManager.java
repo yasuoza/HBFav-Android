@@ -10,9 +10,6 @@ import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.Feed;
 import com.hbfav.android.ui.MainActivity;
-import com.hbfav.android.util.gson.DateTimeTypeConverter;
-
-import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -82,7 +79,7 @@ public abstract class BaseListFeedManager {
     }
 
     private Gson entryGson() {
-        return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
+        return new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
     }
 }

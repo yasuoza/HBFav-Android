@@ -9,12 +9,10 @@ import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.Feed;
 import com.hbfav.android.ui.MainActivity;
-import com.hbfav.android.util.gson.DateTimeTypeConverter;
 import com.hbfav.android.util.gson.TimelineExclusionStrategy;
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashSet;
 
 public class TimelineFeedManager {
@@ -160,8 +158,8 @@ public class TimelineFeedManager {
         }
     }
 
-    private String getAppendUrlFrom(final DateTime dateTime) {
-        return UserInfoManager.getUserName() + "?until=" + dateTime.getMillis() / 1000l;
+    private String getAppendUrlFrom(final Date dateTime) {
+        return UserInfoManager.getUserName() + "?until=" + dateTime.getTime() / 1000l;
     }
 
     private String getPrependUrl() {
@@ -177,7 +175,7 @@ public class TimelineFeedManager {
     }
 
     private Gson timelineGson() {
-        return new GsonBuilder().registerTypeAdapter(DateTime.class, new DateTimeTypeConverter())
+        return new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .setExclusionStrategies(new TimelineExclusionStrategy())
                 .create();
     }
