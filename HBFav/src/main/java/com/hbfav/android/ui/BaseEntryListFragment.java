@@ -111,6 +111,11 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         initAdapter();
         setListAdapter(getAdapter());
         restoreActionBar();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         categorySelected(getManager().getCategory());
     }
 

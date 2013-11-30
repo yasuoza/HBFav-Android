@@ -37,7 +37,12 @@ public abstract class BaseListFeedManager {
     }
 
     public void cancellAllRequest() {
-        MainActivity.getRequestQueue().cancelAll(getRequestTag());
+        MainActivity.getRequestQueue().cancelAll(new RequestQueue.RequestFilter() {
+            @Override
+            public boolean apply(Request<?> request) {
+                return request.getTag() != null && request.getTag().equals(getRequestTag());
+            }
+        });
     }
 
     public void replaceFeed(final FeedResponseHandler feedResponseHandler) {
