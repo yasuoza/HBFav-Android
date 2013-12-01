@@ -1,8 +1,6 @@
 package com.hbfav.android.model;
 
 
-import android.graphics.drawable.Drawable;
-
 import com.google.gson.annotations.SerializedName;
 
 public class User {
@@ -27,11 +25,4 @@ public class User {
         return profileImageUrl;
     }
 
-    public Drawable getProfileImage() {
-        return ImageCache.getImage(profileImageUrl);
-    }
-
-    public void setProfileImage(final Drawable profileImage) {
-        ImageCache.setImage(profileImageUrl, profileImage);
-    }
 }

@@ -1,7 +1,6 @@
 package com.hbfav.android.model;
 
 
-import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 
 import com.google.gson.annotations.SerializedName;
@@ -59,14 +58,6 @@ public class Entry {
         return faviconUrl;
     }
 
-    public Drawable getFavicon() {
-        return ImageCache.getImage(faviconUrl);
-    }
-
-    public void setFavicon(Drawable favicon) {
-        ImageCache.setImage(faviconUrl, favicon);
-    }
-
     public String getLink() {
         return link;
     }
@@ -77,14 +68,6 @@ public class Entry {
 
     public boolean getIsPlaceholder() {
         return this.isPlaceholder;
-    }
-
-    public Drawable getThumbnailImage() {
-        return ImageCache.getImage(thumbnailUrl);
-    }
-
-    public void setThumbnailImage(Drawable thumbnailImage) {
-        ImageCache.setImage(thumbnailUrl, thumbnailImage);
     }
 
     public User getUser() {
