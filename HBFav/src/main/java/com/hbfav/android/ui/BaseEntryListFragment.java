@@ -116,7 +116,9 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
     @Override
     public void onStart() {
         super.onStart();
-        categorySelected(getManager().getCategory());
+        int category = getManager().getCategory();
+        getActivity().getActionBar().setSelectedNavigationItem(category);
+        categorySelected(category);
     }
 
     @Override
@@ -185,7 +187,6 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
         mPullToRefreshLayout.setRefreshComplete();
         getManager().clearList();
         getManager().setCategory(itemPosition);
-        getActivity().getActionBar().setSelectedNavigationItem(getManager().getCategory());
         reloadListData();
         getManager().replaceFeed(new FeedResponseHandler() {
             @Override
