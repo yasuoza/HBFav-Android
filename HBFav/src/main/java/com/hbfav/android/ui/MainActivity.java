@@ -4,12 +4,17 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
+import com.hbfav.BuildConfig;
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.ui.about.AboutAppFragment;
@@ -52,6 +57,10 @@ public class MainActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!BuildConfig.DEBUG && hasCrashlyticsApiKey(this)) {
+            Crashlytics.start(this);
+        }
 
         contextOfApplication = getApplicationContext();
         mRequestQueue = Volley.newRequestQueue(this);
@@ -150,5 +159,29 @@ public class MainActivity extends Activity
             return true;
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+
+    /**
+     * @return true if the Crashlytics API key is declared in AndroidManifest.xml metadata,
+     *         otherwise return false.
+     */
+    static boolean hasCrashlyticsApiKey(Context context) {
+        boolean hasValidKey = false;
+        try {
+            Context appContext = context.getApplicationContext();
+            ApplicationInfo ai = appContext.getPackageManager().getApplicationInfo(
+                    appContext.getPackageName(),
+                    PackageManager.GET_META_DATA
+            );
+            Bundle bundle = ai.metaData;
+            if (bundle != null) {
+                String apiKey = bundle.getString("com.crashlytics.ApiKey");
+                hasValidKey = apiKey != null && !apiKey.equals("0000000000000000000000000000000000000000");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+                Log.e("com.hbfav.android", "Unexpected NameNotFound.", e);
+        }
+        return hasValidKey;
     }
 }

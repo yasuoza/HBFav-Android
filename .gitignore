@@ -40,3 +40,5 @@ proguard_logs/
 !.idea/codeStyleSettings.xml
 
 adt-bundle-windows-x86_64/
+
+HBFav/src/release/AndroidManifest.xml

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="0000000000000000000000000000000000000000"/>
+    </application>
+</manifest>
