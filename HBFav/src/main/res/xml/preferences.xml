@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/setting_accounts"
+        android:key="pref_key_account_settings">
+        <EditTextPreference
+            android:key="@string/pref_hatena_user_name"
+            android:title="@string/setting_account"
+            android:summary="@string/pref_hatena_user_name_summary"/>
+    </PreferenceCategory>
+</PreferenceScreen>

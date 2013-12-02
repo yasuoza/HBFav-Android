@@ -21,7 +21,14 @@
 
     <!-- Setting -->
     <string name="setting_settings">SETTINGS</string>
+    <string name="setting_accounts">ACCOUNTS</string>
+    <string name="setting_configs">CONFIGS</string>
     <string name="setting_account">Hatena account</string>
+    <string name="pref_hatena_user_name">pref_user_name</string>
+    <string name="pref_hatena_user_name_summary">Tap here to register hatena user name.</string>
+    <string name="pref_send_crash_log">pref_send_crash_log</string>
+    <string name="pref_send_crash_log_title">Send crash log</string>
+    <string name="pref_send_crash_log_summary">If you can send crash log, please enable this option.</string>
 
     <!-- About App -->
     <string name="about_issues_demands">Issues • Demands(GitHub)</string>

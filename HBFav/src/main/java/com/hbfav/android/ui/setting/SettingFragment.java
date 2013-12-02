@@ -1,26 +1,17 @@
 package com.hbfav.android.ui.setting;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.preference.EditTextPreference;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 
 import com.hbfav.R;
 import com.hbfav.android.Constants;
-import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.MainActivity;
 
-public class SettingFragment extends Fragment {
-    TextView mTextViewAccount;
-
+public class SettingFragment extends PreferenceFragment {
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -36,49 +27,35 @@ public class SettingFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).onSectionAttached(
-                getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+
+        // SettingFragment will be attached to MainActivity or SettingActivity
+        // Execute following code only when attached into MainActivity
+        if (activity instanceof MainActivity) {
+            ((MainActivity) activity).onSectionAttached(
+                    getArguments().getInt(Constants.ARG_SECTION_NUMBER));
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.setting_view, container, false);
-        mTextViewAccount = (TextView) rootView.findViewById(R.id.text_view_account);
-        mTextViewAccount.setText(UserInfoManager.getUserName());
-        rootView.findViewById(R.id.username_linear_layout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showInputUserNamePopUp();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Load the preferences from an XML resource
+        addPreferencesFromResource(R.xml.preferences);
+
+        EditTextPreference editTextPreference = (EditTextPreference) findPreference(getString(R.string.pref_hatena_user_name));
+        if (editTextPreference != null) {
+            if (!UserInfoManager.getUserName().isEmpty()) {
+                editTextPreference.setSummary(UserInfoManager.getUserName());
             }
-        });
-        return rootView;
+            editTextPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    preference.setSummary(newValue.toString());
+                    return true;
+                }
+            });
+        }
     }
 
-    private void showInputUserNamePopUp() {
-        Context context = getActivity();
-        View promptsView = LayoutInflater.from(context).inflate(R.layout.edit_username_dialog, null);
-        AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setTitle(getString(R.string.setting_account));
-        alert.setView(promptsView);
-        final EditText input = (EditText) promptsView.findViewById(R.id.prompt_edit_username);
-        input.setText(UserInfoManager.getUserName());
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if (input.getText() == null) {
-                    return;
-                }
-                if (UserInfoManager.getUserName().equals(input.getText().toString())) {
-                    return;
-                }
-                TimelineFeedManager.getInstance().clearList();
-                UserInfoManager.setUserName(input.getText().toString());
-                mTextViewAccount.setText(UserInfoManager.getUserName());
-            }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
-        alert.show();
-    }
 }

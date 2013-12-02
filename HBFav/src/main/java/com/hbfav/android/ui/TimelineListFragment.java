@@ -20,7 +20,7 @@ import com.hbfav.android.core.FeedResponseHandler;
 import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
-import com.hbfav.android.ui.setting.UserRegistrationActivity;
+import com.hbfav.android.ui.setting.SettingActivity;
 
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
@@ -88,7 +88,7 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
         super.onStart();
 
         if (UserInfoManager.getUserName().isEmpty()) {
-            startActivity(new Intent(getActivity(), UserRegistrationActivity.class));
+            startActivity(new Intent(getActivity(), SettingActivity.class));
             return;
         }
         if (getListView() != null && TimelineFeedManager.getInstance().getList().isEmpty()) {

@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".android.ui.setting.UserRegistrationActivity"
+            android:name=".android.ui.setting.SettingActivity"
             android:configChanges="keyboardHidden|screenSize"
             android:hardwareAccelerated="true">
             <intent-filter>
