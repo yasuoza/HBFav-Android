@@ -31,8 +31,14 @@ android {
         release {
             debuggable false
             runProguard true
-            proguardFile getDefaultProguardFile('proguard-android.txt')
+            proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFile file('proguard-android-release.txt')
         }
+    }
+
+    productFlavors {
+        development {}
+        production {}
     }
 }
 
