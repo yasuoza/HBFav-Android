@@ -30,6 +30,16 @@ android {
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file(project.properties.storeFile)
+            storePassword project.properties.storePassword
+            keyAlias project.properties.storeAlias
+            keyPassword project.properties.keyPassword
+        }
+    }
+
+
     buildTypes {
         debug {
             debuggable true
@@ -40,6 +50,7 @@ android {
             runProguard true
             proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
             proguardFile file('proguard-android-release.txt')
+            signingConfig signingConfigs.release
         }
     }
 }
