@@ -6,6 +6,10 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.hbfav.BuildConfig;
 import com.hbfav.R;
 import com.hbfav.android.Constants;
 import com.hbfav.android.core.UserInfoManager;
@@ -55,6 +59,28 @@ public class SettingFragment extends PreferenceFragment {
                     return true;
                 }
             });
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (!BuildConfig.DEBUG) {
+            // Google analytics
+            EasyTracker tracker = EasyTracker.getInstance(getActivity());
+            tracker.set(Fields.SCREEN_NAME, getString(R.string.page_setting));
+            tracker.send(MapBuilder.createAppView().build());
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (!BuildConfig.DEBUG) {
+            // Google analytics
+            EasyTracker.getInstance(getActivity()).activityStop(getActivity());
         }
     }
 

@@ -3,7 +3,6 @@ package com.hbfav.android.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,7 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
+import com.hbfav.BuildConfig;
 import com.hbfav.R;
+import com.hbfav.android.BaseListFragment;
 import com.hbfav.android.Constants;
 import com.hbfav.android.core.BaseListFeedManager;
 import com.hbfav.android.core.FeedResponseHandler;
@@ -23,7 +27,7 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
-public abstract class BaseEntryListFragment extends ListFragment implements OnRefreshListener {
+public abstract class BaseEntryListFragment extends BaseListFragment implements OnRefreshListener {
     private View mFooterView;
     private LayoutInflater mInflater;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -180,6 +184,12 @@ public abstract class BaseEntryListFragment extends ListFragment implements OnRe
             }
             return false;
         }
+
+        if (!BuildConfig.DEBUG) {
+            // Google analytics
+            sendAnalyticsTracker();
+        }
+
         if (listView.getFooterViewsCount() == 0) {
             mFooterView = mInflater.inflate(R.layout.timeline_footer, null);
             listView.addFooterView(mFooterView, null, false);

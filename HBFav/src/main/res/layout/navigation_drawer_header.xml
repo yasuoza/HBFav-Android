@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="13dp"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
     </LinearLayout>
 

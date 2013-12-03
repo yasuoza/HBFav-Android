@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+    <!--Replace placeholder ID with your tracking ID-->
+    <string name="ga_trackingId">UA-XXXXX-Y</string>
+
+    <!--Enable automatic activity tracking-->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!--Enable automatic exception tracking-->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+
+    <!--Pages-->
+    <string name="page_timeline">Timeline</string>
+    <string name="page_new_entries">NewEntries</string>
+    <string name="page_hot_entries">HotEntries</string>
+    <string name="page_setting">Setting</string>
+</resources>

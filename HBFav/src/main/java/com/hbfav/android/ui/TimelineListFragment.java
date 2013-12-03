@@ -2,7 +2,6 @@ package com.hbfav.android.ui;
 
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hbfav.R;
+import com.hbfav.android.BaseListFragment;
 import com.hbfav.android.Constants;
 import com.hbfav.android.core.FeedResponseHandler;
 import com.hbfav.android.core.TimelineFeedManager;
@@ -26,7 +26,7 @@ import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
-public class TimelineListFragment extends ListFragment implements AbsListView.OnScrollListener, OnRefreshListener {
+public class TimelineListFragment extends BaseListFragment implements AbsListView.OnScrollListener, OnRefreshListener {
     private View mFooterView;
     private TimelineEntryAdapter mAdapter;
     private PullToRefreshLayout mPullToRefreshLayout;
@@ -160,6 +160,11 @@ public class TimelineListFragment extends ListFragment implements AbsListView.On
                 mPullToRefreshLayout.setRefreshComplete();
             }
         });
+    }
+
+    @Override
+    protected String getPageTitle() {
+        return getString(R.string.page_timeline);
     }
 
     private void additionalReading() {
