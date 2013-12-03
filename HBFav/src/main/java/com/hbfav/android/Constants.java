@@ -14,7 +14,7 @@ public class Constants {
 
     public static final String PREF_USER_NAME = MainActivity.getContextOfApplication().getString(R.string.pref_hatena_user_name);
 
-    public static final String HBFAV_BASE_URL = "http://feed.hbfav.com/";
+    public static final String HBFAV_BASE_URL = "http://hbfav-android.herokuapp.com//";
 
     public static final String BASE_THUMBNAIL_URL = "http://www.st-hatena.com/users/";
 
