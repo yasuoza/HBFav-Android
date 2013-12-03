@@ -9,7 +9,6 @@ import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.Feed;
 import com.hbfav.android.ui.MainActivity;
-import com.hbfav.android.util.gson.TimelineExclusionStrategy;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +54,7 @@ public class TimelineFeedManager {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Feed feed = instance.timelineGson().fromJson(response, Feed.class);
+                        Feed feed = Entry.gson().fromJson(response, Feed.class);
                         ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
                         if (prepend) {
                             prependAll(entries);
@@ -89,7 +88,7 @@ public class TimelineFeedManager {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Feed feed = instance.timelineGson().fromJson(response, Feed.class);
+                        Feed feed = Entry.gson().fromJson(response, Feed.class);
                         ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
                         insertAll(position, entries);
                         feedResponseHandler.onSuccess();
@@ -172,11 +171,5 @@ public class TimelineFeedManager {
             return Constants.HBFAV_BASE_URL + getAppendUrlFrom(entries.get(entries.size() - 1).getDateTime());
         }
         return getPrependUrl();
-    }
-
-    private Gson timelineGson() {
-        return new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .setExclusionStrategies(new TimelineExclusionStrategy())
-                .create();
     }
 }

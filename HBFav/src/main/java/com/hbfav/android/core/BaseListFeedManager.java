@@ -66,7 +66,7 @@ public abstract class BaseListFeedManager {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Feed feed = entryGson().fromJson(response, Feed.class);
+                        Feed feed = Entry.gson().fromJson(response, Feed.class);
                         ArrayList<Entry> entries = new ArrayList<Entry>(new LinkedHashSet<Entry>(feed.getBookmarks()));
                         setList(entries);
                         feedResponseHandler.onSuccess();
@@ -81,10 +81,5 @@ public abstract class BaseListFeedManager {
                     }
                 }
         ));
-    }
-
-    private Gson entryGson() {
-        return new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .create();
     }
 }

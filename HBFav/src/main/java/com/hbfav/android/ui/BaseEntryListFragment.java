@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.Fields;
-import com.google.analytics.tracking.android.MapBuilder;
 import com.hbfav.BuildConfig;
 import com.hbfav.R;
 import com.hbfav.android.BaseListFragment;

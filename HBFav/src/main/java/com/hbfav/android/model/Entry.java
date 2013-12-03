@@ -3,8 +3,9 @@ package com.hbfav.android.model;
 
 import android.text.format.DateUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.hbfav.android.util.gson.TimelineExclude;
 
 import java.util.Date;
 
@@ -17,8 +18,7 @@ public class Entry {
     private String faviconUrl = "";
     private String link = "";
     private String permalink = "";
-    @TimelineExclude
-    private String category = "";
+    private String[] categories;
     @SerializedName("thumbnail_url")
     private String thumbnailUrl = "";
     private boolean isPlaceholder = false;
@@ -33,6 +33,12 @@ public class Entry {
         entry.datetime = dateTime;
         return entry;
     }
+
+    public static Gson gson() {
+        return new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
+    }
+
 
     public String getTitle() {
         return title;
@@ -75,7 +81,7 @@ public class Entry {
     }
 
     public String getCategory() {
-        return this.category;
+        return this.categories.length > 0 ? this.categories[0] : "";
     }
 
 
