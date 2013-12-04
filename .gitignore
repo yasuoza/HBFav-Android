@@ -44,3 +44,4 @@ proguard_logs/
 adt-bundle-windows-x86_64/
 
 HBFav/src/release/AndroidManifest.xml
+HBFav/src/main/res/values/com_crashlytics_export_strings.xml
