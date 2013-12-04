@@ -13,15 +13,14 @@ public class UserInfoManagerTest extends ActivityInstrumentationTestCase2<MainAc
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        setActivityInitialTouchMode(false);
         getActivity(); // Start activity
         mOrigName = UserInfoManager.getUserName();
     }
 
     @Override
     protected void tearDown() throws Exception {
-        UserInfoManager.setUserName(mOrigName);
         super.tearDown();
+        UserInfoManager.setUserName(mOrigName);
     }
 
     public UserInfoManagerTest() {
@@ -29,15 +28,9 @@ public class UserInfoManagerTest extends ActivityInstrumentationTestCase2<MainAc
     }
 
     public void testSetGetUserName() {
-        String name = "kogaidan";
+        String name = "dankogai";
         UserInfoManager.setUserName(name);
         Assert.assertEquals(UserInfoManager.getUserName(), name);
-    }
-
-    public void testGetThumbUrl() {
-        assertEquals(1, 1);
-        String name = "kogaidan";
-        UserInfoManager.setUserName(name);
         assertEquals(UserInfoManager.getThumbUrl(), Constants.BASE_THUMBNAIL_URL + name + "/profile.gif");
     }
 }
