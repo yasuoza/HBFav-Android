@@ -6,3 +6,4 @@ market_link:
 sass:
   style: expanded
   deploy_style: compressed
+  compile_in_place: true
