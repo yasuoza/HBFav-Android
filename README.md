@@ -1,10 +1,15 @@
-README.md
-
-
 # HBFav-Android
 
-Android版[HBFav](https://github.com/naoya/HBFav2)
+Android版 [HBFav](https://github.com/naoya/HBFav2)  
 はてなブックマークのお気に入りをTwitterのタイムラインのように。
+
+## スクリーンショット
+
+![](https://raw.github.com/yasuoza/HBFav-Android/master/assets/screenshots_ja/timeline.png)
+
+![](https://raw.github.com/yasuoza/HBFav-Android/master/assets/screenshots_ja/navigation_drawer.png)
+
+![](https://raw.github.com/yasuoza/HBFav-Android/master/assets/screenshots_ja/entrylist.png)
 
 
 ## TODO
@@ -27,3 +32,8 @@ Android版[HBFav](https://github.com/naoya/HBFav2)
 * [Android Studio](http://developer.android.com/sdk/installing/studio.html)をダウンロード
 * Android用のGoogle Analyticsをダウンロードして`HBFav/src/libs`に置く
 * gradle.properties.exampleをgradle.propertiesにコピーして値を適宜設定する
+
+
+## Special Thanks
+
+@naoya - The creator of [HBFav](https://github.com/naoya/HBFav2/)
