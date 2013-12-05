@@ -1,1 +1,545 @@
-*{box-sizing:border-box;-moz-box-sizing:border-box;*behavior:url("/assets/css/boxsizing.htc");background-repeat:no-repeat;position:relative;vertical-align:middle}html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after{content:'';content:none}q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{margin:0px;padding:0px;font-family:"Roboto",Arial,sans-serif;letter-spacing:0;background:#222}.page-wrap{max-width:960px;margin:0 auto;padding:0 20px}#header{background:#fff;padding:40px 0;overflow:hidden}#header ul{float:right;color:#999;line-height:25px}#header ul li,#header ul a{color:#999;font-size:15px;text-decoration:none;display:inline-block}#header ul li+li{margin-left:30px}#header .title{height:25px;background-size:182px 25px;float:left;font-weight:500;color:black}#header .title a{display:block;color:black;text-decoration:none}#promo{background:#333;background:-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444), color-stop(100%, #222));background:-webkit-linear-gradient(top, #444, #222);background:-moz-linear-gradient(top, #444, #222);background:-o-linear-gradient(top, #444, #222);background:linear-gradient(top, #444, #222);background-repeat:repeat;min-height:330px;padding:30px}#promo h1{max-width:440px;line-height:50px;margin-bottom:50px}#promo .feature{float:right;position:absolute;top:-100px;right:0;z-index:999}#promo a.sup{color:#96deff;text-decoration:none}.store{width:190px;height:64px;display:inline-block;margin-right:10px;margin-bottom:30px;padding:10px;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;-o-border-radius:2px;border-radius:2px;-webkit-box-shadow:0 2px 1px rgba(0,0,0,0.2);-moz-box-shadow:0 2px 1px rgba(0,0,0,0.2);box-shadow:0 2px 1px rgba(0,0,0,0.2);border:1px solid white;text-indent:-9999px}.store a{position:absolute;top:0;bottom:0;left:0;right:0}.store.apple{background:#333 url("../img/store-apple.png") no-repeat}.store.google{background:#333 url("../img/store-google.png") no-repeat}h1{font-size:46px;line-height:50px;font-weight:100;color:#fff;margin-bottom:20px}#android{padding:50px 0px 40px 0px;background:#3797c7;color:#fff}#android h3{font-size:30px;line-height:42px;margin-bottom:30px;font-weight:400;letter-spacing:0;padding-left:50px;background:url(/img/android.png) no-repeat}#android h3 .light{font-weight:100}#android h4{font-size:26px;line-height:42px;font-weight:100;letter-spacing:0.05em;text-align:center}#android p{font-size:15px;line-height:22px;margin-bottom:30px;font-weight:200}#android a{color:#96deff}#ios{padding:40px 0px;background:#f9f9f9}#ios h3{font-size:30px;line-height:42px;margin-bottom:30px;font-weight:400;letter-spacing:0;color:#424242;padding-left:50px;background:url(/img/apple.png) no-repeat}.details{margin-top:20px}.details .fine-print-text{font-size:13px;font-style:italic}footer{padding:20px;background:#222}footer .logo{display:inline-block;float:left;margin-right:30px}footer .copyright{line-height:40px;color:#999;font-size:14px}footer .copyright a{color:#96deff}footer ul{color:#999;display:inline-block;height:40px;font-size:14px}footer ul li,footer ul a{color:#999;font-size:14px;line-height:40px;text-decoration:none;display:inline-block}footer ul li+li{margin-left:20px}footer .logo{height:25px;width:93px;margin-top:5px;background:url("../img/github-logo-1x.png") no-repeat;background-size:93px 25px}footer .logo a{display:block;text-indent:-999px}.features{max-width:276px;display:inline-block;margin-right:40px;vertical-align:top}.features:last-child{margin-right:0}.features img{max-width:276px;border:6px solid #fff;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;-o-border-radius:2px;border-radius:2px;-webkit-box-shadow:0px 1px 2px rgba(0,0,0,0.2);-moz-box-shadow:0px 1px 2px rgba(0,0,0,0.2);box-shadow:0px 1px 2px rgba(0,0,0,0.2);margin-bottom:20px}@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait){#promo{padding:30px;min-height:100px}#promo .feature{top:-50px}#promo ul,#promo li{margin-bottom:0}#promo img{width:17em}#promo h1{font-size:36px;line-height:40px;max-width:340px}}@media only screen and (max-width: 959px){#header{padding:30px 0;margin:0;text-align:center}#header .logo{display:block;margin:0 auto;width:185px;height:36px}#header .title{font-size:40px}#header ul{display:none}#promo{padding:20px 20px;margin:0 auto}#promo .page-wrap{padding:0;margin:0}#promo img.feature{top:-35px;position:relative;right:0;left:0;bottom:0;width:100%;max-width:464px;margin:0 auto;align:center;float:none;display:block}#promo h1{font-size:30px;line-height:40px;margin-top:-20px;text-align:center;max-width:none}#promo ul{display:none}#ios{padding:20px 0px 0px 0px}#ios h3{font-size:30px;line-height:34px;background:none;text-align:center;padding-left:0px}#android{padding:30px 0px 30px 0px;background:#3797c7}#android h3{font-size:30px;line-height:34px;margin-bottom:10px;font-weight:400;letter-spacing:0.04em;color:#fff;padding-left:0px;background:none;text-align:center}#android h3 .light{font-weight:100}#android h4{font-size:26px;line-height:42px;font-weight:100;letter-spacing:0.05em;color:#fff;text-align:center}#android p{color:#d8f2ff;font-size:15px;line-height:22px;margin-bottom:30px;font-weight:200;text-align:center}.features{max-width:999px;display:block;margin-right:0px;vertical-align:top;margin:0 auto;text-align:center}.features p{text-align:left}.features:last-child{margin-right:0}.features img{max-width:100%;border:6px solid #fff;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;-o-border-radius:2px;border-radius:2px;-webkit-box-shadow:0px 1px 2px rgba(0,0,0,0.2);-moz-box-shadow:0px 1px 2px rgba(0,0,0,0.2);box-shadow:0px 1px 2px rgba(0,0,0,0.2);margin-bottom:20px}footer{padding:20px 0;background:#222;margin:0 auto;text-align:center}footer .logo{display:none}footer .copyright{float:right;line-height:20px;color:#999;font-size:12px}footer ul{color:#999;display:inline-block;height:20px;font-size:14px;margin-bottom:5px}footer ul li,footer ul a{color:#999;font-size:14px;line-height:20px;text-decoration:none;display:inline-block}footer ul li+li{margin-left:10px}}
+/* line 3, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  *behavior: url("/assets/css/boxsizing.htc");
+  background-repeat: no-repeat;
+  position: relative;
+  vertical-align: middle;
+}
+
+/* line 12, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* line 21, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 25, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+body {
+  line-height: 1;
+}
+
+/* line 29, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 33, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 38, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+blockquote:before, blockquote:after {
+  content: '';
+  content: none;
+}
+
+/* line 45, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 51, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 56, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto",Arial,sans-serif;
+  letter-spacing: 0;
+  background: #222;
+}
+
+/* line 64, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.page-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* line 70, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#header {
+  background: #fff;
+  padding: 40px 0;
+  overflow: hidden;
+}
+/* line 74, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#header ul {
+  float: right;
+  color: #999;
+  line-height: 25px;
+}
+/* line 78, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#header ul li, #header ul a {
+  color: #999;
+  font-size: 15px;
+  text-decoration: none;
+  display: inline-block;
+}
+/* line 84, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#header ul li + li {
+  margin-left: 30px;
+}
+/* line 88, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#header .title {
+  height: 25px;
+  background-size: 182px 25px;
+  float: left;
+  font-weight: 500;
+  color: black;
+}
+/* line 94, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#header .title a {
+  display: block;
+  color: black;
+  text-decoration: none;
+}
+
+/* line 102, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#promo {
+  background: #333;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #444444), color-stop(100%, #222222));
+  background: -webkit-linear-gradient(top, #444444, #222222);
+  background: -moz-linear-gradient(top, #444444, #222222);
+  background: -o-linear-gradient(top, #444444, #222222);
+  background: linear-gradient(top, #444444, #222222);
+  background-repeat: repeat;
+  min-height: 330px;
+  padding: 30px;
+}
+/* line 112, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#promo h1 {
+  max-width: 440px;
+  line-height: 50px;
+  margin-bottom: 50px;
+}
+/* line 117, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#promo .feature {
+  float: right;
+  position: absolute;
+  top: -100px;
+  right: 0;
+  z-index: 999;
+}
+/* line 124, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#promo a.sup {
+  color: #96deff;
+  text-decoration: none;
+}
+
+/* line 130, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.store {
+  width: 190px;
+  height: 64px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 30px;
+  padding: 10px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid white;
+  text-indent: -9999px;
+}
+/* line 147, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.store a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+/* line 154, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.store.apple {
+  background: #333333 url("../img/store-apple.png") no-repeat;
+}
+/* line 157, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.store.google {
+  background: #333333 url("../img/store-google.png") no-repeat;
+}
+
+/* line 162, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+h1 {
+  font-size: 46px;
+  line-height: 50px;
+  font-weight: 100;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* line 170, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#android {
+  padding: 50px 0px 40px 0px;
+  background: #3797c7;
+  color: #fff;
+}
+/* line 174, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#android h3 {
+  font-size: 30px;
+  line-height: 42px;
+  margin-bottom: 30px;
+  font-weight: 400;
+  letter-spacing: 0;
+  padding-left: 50px;
+  background: url(/img/android.png) no-repeat;
+}
+/* line 182, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#android h3 .light {
+  font-weight: 100;
+}
+/* line 186, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#android h4 {
+  font-size: 26px;
+  line-height: 42px;
+  font-weight: 100;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+/* line 193, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#android p {
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 30px;
+  font-weight: 200;
+}
+/* line 199, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#android a {
+  color: #96deff;
+}
+
+/* line 204, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#ios {
+  padding: 40px 0px;
+  background: #f9f9f9;
+}
+/* line 207, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+#ios h3 {
+  font-size: 30px;
+  line-height: 42px;
+  margin-bottom: 30px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #424242;
+  padding-left: 50px;
+  background: url(/img/apple.png) no-repeat;
+}
+
+/* line 219, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.details {
+  margin-top: 20px;
+}
+/* line 221, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.details .fine-print-text {
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* line 227, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer {
+  padding: 20px;
+  background: #222;
+}
+/* line 230, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer .logo {
+  display: inline-block;
+  float: left;
+  margin-right: 30px;
+}
+/* line 235, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer .copyright {
+  line-height: 40px;
+  color: #999;
+  font-size: 14px;
+}
+/* line 239, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer .copyright a {
+  color: #96deff;
+}
+/* line 243, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer ul {
+  color: #999;
+  display: inline-block;
+  height: 40px;
+  font-size: 14px;
+}
+/* line 248, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer ul li, footer ul a {
+  color: #999;
+  font-size: 14px;
+  line-height: 40px;
+  text-decoration: none;
+  display: inline-block;
+}
+/* line 255, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer ul li + li {
+  margin-left: 20px;
+}
+/* line 259, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer .logo {
+  height: 25px;
+  width: 93px;
+  margin-top: 5px;
+  background: url("../img/github-logo-1x.png") no-repeat;
+  background-size: 93px 25px;
+}
+/* line 265, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+footer .logo a {
+  display: block;
+  text-indent: -999px;
+}
+
+/* line 272, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.features {
+  max-width: 276px;
+  display: inline-block;
+  margin-right: 40px;
+  vertical-align: top;
+}
+/* line 277, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.features:last-child {
+  margin-right: 0;
+}
+/* line 280, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+.features img {
+  max-width: 276px;
+  border: 6px solid #fff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  /* line 296, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo {
+    padding: 30px;
+    min-height: 100px;
+  }
+  /* line 299, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo .feature {
+    top: -50px;
+  }
+  /* line 302, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo ul, #promo li {
+    margin-bottom: 0;
+  }
+  /* line 305, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo img {
+    width: 17em;
+  }
+  /* line 308, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo h1 {
+    font-size: 36px;
+    line-height: 40px;
+    max-width: 340px;
+  }
+}
+@media only screen and (max-width: 959px) {
+  /* line 317, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #header {
+    padding: 30px 0;
+    margin: 0;
+    text-align: center;
+  }
+  /* line 321, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #header .logo {
+    display: block;
+    margin: 0 auto;
+    width: 185px;
+    height: 36px;
+  }
+  /* line 327, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #header .title {
+    font-size: 40px;
+  }
+  /* line 330, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #header ul {
+    display: none;
+  }
+
+  /* line 334, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo {
+    padding: 20px 20px;
+    margin: 0 auto;
+  }
+  /* line 337, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo .page-wrap {
+    padding: 0;
+    margin: 0;
+  }
+  /* line 341, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo img.feature {
+    top: -35px;
+    position: relative;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 464px;
+    margin: 0 auto;
+    align: center;
+    float: none;
+    display: block;
+  }
+  /* line 354, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo h1 {
+    font-size: 30px;
+    line-height: 40px;
+    margin-top: -20px;
+    text-align: center;
+    max-width: none;
+  }
+  /* line 361, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #promo ul {
+    display: none;
+  }
+
+  /* line 365, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #ios {
+    padding: 20px 0px 0px 0px;
+  }
+  /* line 367, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #ios h3 {
+    font-size: 30px;
+    line-height: 34px;
+    background: none;
+    text-align: center;
+    padding-left: 0px;
+  }
+
+  /* line 375, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #android {
+    padding: 30px 0px 30px 0px;
+    background: #3797c7;
+  }
+  /* line 378, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #android h3 {
+    font-size: 30px;
+    line-height: 34px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #fff;
+    padding-left: 0px;
+    background: none;
+    text-align: center;
+  }
+  /* line 388, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #android h3 .light {
+    font-weight: 100;
+  }
+  /* line 392, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #android h4 {
+    font-size: 26px;
+    line-height: 42px;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+    color: #fff;
+    text-align: center;
+  }
+  /* line 400, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  #android p {
+    color: #d8f2ff;
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 30px;
+    font-weight: 200;
+    text-align: center;
+  }
+
+  /* line 409, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  .features {
+    max-width: 999px;
+    display: block;
+    margin-right: 0px;
+    vertical-align: top;
+    margin: 0 auto;
+    text-align: center;
+  }
+  /* line 416, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  .features p {
+    text-align: left;
+  }
+  /* line 419, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  .features:last-child {
+    margin-right: 0;
+  }
+  /* line 422, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  .features img {
+    max-width: 100%;
+    border: 6px solid #fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+  }
+
+  /* line 436, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  footer {
+    padding: 20px 0;
+    background: #222;
+    margin: 0 auto;
+    text-align: center;
+  }
+  /* line 441, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  footer .logo {
+    display: none;
+  }
+  /* line 444, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  footer .copyright {
+    float: right;
+    line-height: 20px;
+    color: #999;
+    font-size: 12px;
+  }
+  /* line 450, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  footer ul {
+    color: #999;
+    display: inline-block;
+    height: 20px;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  /* line 456, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  footer ul li, footer ul a {
+    color: #999;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  /* line 463, /Users/ozaki/Sites/hbfav-android/css/main.scss */
+  footer ul li + li {
+    margin-left: 10px;
+  }
+}

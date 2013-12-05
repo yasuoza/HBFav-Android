@@ -1,6 +1,8 @@
 name: HBFav-Android
 markdown: redcarpet
 pygments: true
+baseurl: /HBFav-Android
+
 market_link:
 
 sass:
