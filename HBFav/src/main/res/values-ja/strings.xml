@@ -10,6 +10,7 @@
     <!-- Setting -->
     <string name="setting_settings">設定</string>
     <string name="setting_account">はてなアカウント</string>
+    <string name="pref_hatena_user_name_summary">ここをタップしてはてなユーザ名を登録</string>
 
     <!-- About App -->
     <string name="about_issues_demands">バグ・要望(GitHub)</string>
