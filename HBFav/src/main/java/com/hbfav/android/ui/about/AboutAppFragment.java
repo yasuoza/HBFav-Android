@@ -64,7 +64,7 @@ public class AboutAppFragment extends Fragment {
         });
         listView.setAdapter(new ArrayAdapter<String>(
                 getActivity(),
-                R.layout.navigation_list_item_activated,
+                android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 new String[]{
                         getString(R.string.about_issues_demands),
