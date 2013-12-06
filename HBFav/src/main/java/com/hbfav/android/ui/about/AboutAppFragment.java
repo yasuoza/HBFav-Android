@@ -14,8 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.hbfav.R;
 import com.hbfav.android.Constants;
+import com.hbfav.android.R;
 import com.hbfav.android.ui.MainActivity;
 
 public class AboutAppFragment extends Fragment {

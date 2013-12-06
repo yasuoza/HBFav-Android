@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hbfav.R;
+import com.hbfav.android.R;
 import com.hbfav.android.model.NavigationItem;
 
 

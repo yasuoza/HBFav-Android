@@ -76,7 +76,7 @@
                 android:autoLink="web"
                 android:textSize="@dimen/text_size_nomark"
                 android:lineSpacingExtra="@dimen/extra_line_space"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 

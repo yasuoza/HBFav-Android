@@ -9,9 +9,9 @@ import android.preference.PreferenceFragment;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
-import com.hbfav.BuildConfig;
-import com.hbfav.R;
+import com.hbfav.android.BuildConfig;
 import com.hbfav.android.Constants;
+import com.hbfav.android.R;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.MainActivity;
 

@@ -14,9 +14,9 @@ import android.view.Menu;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
-import com.hbfav.BuildConfig;
-import com.hbfav.R;
+import com.hbfav.android.BuildConfig;
 import com.hbfav.android.Constants;
+import com.hbfav.android.R;
 import com.hbfav.android.ui.about.AboutAppFragment;
 import com.hbfav.android.ui.navigation.NavigationDrawerFragment;
 import com.hbfav.android.ui.setting.SettingFragment;
@@ -164,7 +164,7 @@ public class MainActivity extends Activity
 
     /**
      * @return true if the Crashlytics API key is declared in AndroidManifest.xml metadata,
-     *         otherwise return false.
+     * otherwise return false.
      */
     static boolean hasCrashlyticsApiKey(Context context) {
         boolean hasValidKey = false;
@@ -180,7 +180,7 @@ public class MainActivity extends Activity
                 hasValidKey = apiKey != null && !apiKey.equals("0000000000000000000000000000000000000000");
             }
         } catch (PackageManager.NameNotFoundException e) {
-                Log.e("com.hbfav.android", "Unexpected NameNotFound.", e);
+            Log.e("com.hbfav.android", "Unexpected NameNotFound.", e);
         }
         return hasValidKey;
     }

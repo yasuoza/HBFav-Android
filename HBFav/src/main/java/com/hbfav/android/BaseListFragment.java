@@ -5,7 +5,6 @@ import android.app.ListFragment;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
-import com.hbfav.BuildConfig;
 
 abstract public class BaseListFragment extends ListFragment {
     abstract protected String getPageTitle();

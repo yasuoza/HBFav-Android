@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.hbfav.BuildConfig;
-import com.hbfav.R;
 import com.hbfav.android.BaseListFragment;
+import com.hbfav.android.BuildConfig;
 import com.hbfav.android.Constants;
+import com.hbfav.android.R;
 import com.hbfav.android.core.BaseListFeedManager;
 import com.hbfav.android.core.FeedResponseHandler;
 

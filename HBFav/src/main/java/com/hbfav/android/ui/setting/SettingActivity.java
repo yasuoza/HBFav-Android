@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.hbfav.R;
+import com.hbfav.android.R;
 
 public class SettingActivity extends Activity {
     @Override

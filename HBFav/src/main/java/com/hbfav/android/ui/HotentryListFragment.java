@@ -1,7 +1,7 @@
 package com.hbfav.android.ui;
 
-import com.hbfav.R;
 import com.hbfav.android.Constants;
+import com.hbfav.android.R;
 import com.hbfav.android.core.BaseListFeedManager;
 import com.hbfav.android.core.HotEntryFeedManager;
 

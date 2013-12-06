@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.hbfav.R;
+import com.hbfav.android.R;
 
 public class SubTitledSpinnerAdapter extends ArrayAdapter<String> {
     private CharSequence mActionBarTitle = "";

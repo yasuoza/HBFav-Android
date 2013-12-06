@@ -13,9 +13,9 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.hbfav.R;
 import com.hbfav.android.BaseListFragment;
 import com.hbfav.android.Constants;
+import com.hbfav.android.R;
 import com.hbfav.android.core.FeedResponseHandler;
 import com.hbfav.android.core.TimelineFeedManager;
 import com.hbfav.android.core.UserInfoManager;

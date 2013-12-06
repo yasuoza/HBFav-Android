@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.hbfav.R;
+import com.hbfav.android.R;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.util.volley.BitmapLruCache;
 

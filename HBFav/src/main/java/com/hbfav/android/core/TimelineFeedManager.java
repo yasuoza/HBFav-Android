@@ -3,8 +3,6 @@ package com.hbfav.android.core;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.hbfav.android.Constants;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.Feed;
