@@ -16,4 +16,26 @@
     <string name="about_issues_demands">バグ・要望(GitHub)</string>
     <string name="about_from_developer">開発者から</string>
     <string name="about_credits">クレジット</string>
+
+    <!-- From Developer -->
+    <string name="title_how_to_follow">ユーザをフォローするには</string>
+    <string name="message_how_to_follow">
+        ユーザをフォローするAPIは公開されていないので、アプリからはユーザをお気に入り登録することは残念ながら出来ません。\n
+        ユーザをフォローするにはブラウザ上で、はてなブックマークにログインした状態で http://b.hatena.ne.jp/ユーザ名 を開いて、「お気に入りに追加」ボタンを押して下さい。\n
+        例えば http://b.hatena.ne.jp/YasuOza を開くと、「お気に入りに追加」ボタンがページの左側に現れるはずですので、そのボタンを押して下さい。
+    </string>
+    <string name="title_how_to_add_bookmark">エントリーをブックマークするには</string>
+    <string name="message_how_to_add_bookmark"><![CDATA[
+        このアプリ単体ではブックマークを登録したり、コメントを閲覧することは出来ません。(ごめんなさい)\n
+        エントリーをブックマークに登録したり、コメントを見たりするには\n
+        「はてなブックマーク」( https://play.google.com/store/apps/details?id=com.hatena.android.bookmark )\n
+        をインストールして下さい。インストール後、ブラウザの「共有」から「ブックマークに登録」で見ているページをブックマークに登録できます。
+    ]]></string>
+    <string name="title_last_message">最後に</string>
+    <string name="message_last_message">
+        このアプリはまだまだ開発途中です。ビルトインブラウザやバックグラウンド更新などの機能をこれからのアップデートで提供していく予定です!\n
+        「ここが不便」、「こんな機能がほしい」などありましたらお気軽に http://www.twitter.com/yasuoza までご連絡下さい。\n
+        このアプリをご利用いただき本当にありがとうございます!
+    </string>
+
 </resources>
