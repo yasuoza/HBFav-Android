@@ -35,6 +35,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".android.ui.about.FromDeveloperActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:hardwareAccelerated="true">
+            <intent-filter>
+                <action android:name="com.hbfav.android.setting.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".android.ui.about.CreditsActivity"
             android:configChanges="keyboardHidden|screenSize"
             android:hardwareAccelerated="true">

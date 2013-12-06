@@ -32,8 +32,27 @@
 
     <!-- About App -->
     <string name="about_issues_demands">Issues • Demands(GitHub)</string>
-    <string name="about_from_developer">From developer</string>
+    <string name="about_from_developer">From Developer</string>
     <string name="about_credits">Credits</string>
+
+    <!-- From Developer -->
+    <string name="title_how_to_follow">How to follow user</string>
+    <string name="message_how_to_follow">
+        Follow user api is not provided, so to follow a user, visit http://b.hatena.ne.jp/USERNAME and click \'お気に入りに追加\'.\n
+        For example, visit http://b.hatena.ne.jp/YasuOza and you can find \'お気に入りに追加\'. Make sure you logged into Hatena bookmark.
+    </string>
+    <string name="title_how_to_add_bookmark">How to add entry to your bookmark</string>
+    <string name="message_how_to_add_bookmark"><![CDATA[
+        Currently, it is not supported in this application. (I\'m so sorry…)\n
+        To add entry to your bookmark, please install \'はてなブックマーク\' from https://play.google.com/store/apps/details?id=com.hatena.android.bookmark,
+        then you can add bookmark from Browser -> Share -> \'ブックマークに登録\'.
+    ]]></string>
+    <string name="title_last_message">To be continued.</string>
+    <string name="message_last_message">
+        I\'m working hard to make this application more useful.\n
+        This release is my first Android application, and I learned a lot from this one month developing.\n
+        So, please stay tuned. I promise you to bring many useful features in coming future updates!\n
+    </string>
 
     <!-- Credits -->
     <string name="actionbar_pulll_to_refresh">ActionBar-PullToRefresh</string>

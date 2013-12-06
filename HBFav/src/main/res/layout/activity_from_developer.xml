@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_how_to_follow"
+                android:textStyle="bold"/>
+
+            <View
+                android:background="?android:attr/listDivider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_how_to_follow"
+                android:autoLink="web"
+                android:textSize="@dimen/text_size_nomark"
+                android:lineSpacingExtra="@dimen/extra_line_space"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_how_to_add_bookmark"
+                android:textStyle="bold"/>
+
+            <View
+                android:background="?android:attr/listDivider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_how_to_add_bookmark"
+                android:autoLink="web"
+                android:textSize="@dimen/text_size_nomark"
+                android:lineSpacingExtra="@dimen/extra_line_space"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_last_message"
+                android:textStyle="bold"/>
+
+            <View
+                android:background="?android:attr/listDivider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/message_last_message"
+                android:autoLink="web"
+                android:textSize="@dimen/text_size_nomark"
+                android:lineSpacingExtra="@dimen/extra_line_space"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

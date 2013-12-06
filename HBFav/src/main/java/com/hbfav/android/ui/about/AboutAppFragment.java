@@ -81,6 +81,9 @@ public class AboutAppFragment extends Fragment {
             case 0:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.ISSUES_URL)));
                 break;
+            case 1:
+                startActivity(new Intent(getActivity(), FromDeveloperActivity.class));
+                break;
             case 2:
                 startActivity(new Intent(getActivity(), CreditsActivity.class));
                 break;
