@@ -19,6 +19,9 @@ public class Constants {
 
     public static final String ISSUES_URL = "https://github.com/yasuoza/HBFav-Android/issues";
 
+    public static final String HATENA_API_KEY = "";
+    public static final String HATENA_API_KEY_SECRET = "";
+
     public static final NavigationItem[] MENUS = new NavigationItem[]{
             new NavigationItem(
                     null,

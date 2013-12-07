@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.crashlytics.android.Crashlytics;
 import com.hbfav.android.BuildConfig;
 import com.hbfav.android.Constants;
 import com.hbfav.android.R;
+import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.about.AboutAppFragment;
 import com.hbfav.android.ui.navigation.NavigationDrawerFragment;
 import com.hbfav.android.ui.setting.SettingFragment;
@@ -75,6 +77,11 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        if (UserInfoManager.getAccessToken() == null) {
+            Intent intent = new Intent(this, HatenaOauthActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
