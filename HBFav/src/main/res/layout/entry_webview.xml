@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <include
+            android:id="@+id/webViewContainer"
+            layout="@layout/general_webview"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_alignBottom="@+id/webViewContainer"
+            android:background="#9999"
+            android:clickable="false"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <!-- control bar overlay -->
+                <View
+                    android:clickable="true"
+                    android:background="@android:color/transparent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <Button
+                    android:id="@+id/historyBackButton"
+                    android:clickable="false"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="&lt;"
+                    android:textSize="35sp"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/hatena_color"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="30dp"/>
+
+                <Button
+                    android:id="@+id/historyForwardButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="&gt;"
+                    android:textSize="35sp"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/hatena_color"
+                    android:layout_toRightOf="@+id/historyBackButton"
+                    android:layout_centerVertical="true"/>
+
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="B!"
+                    android:padding="10dp"
+                    android:background="@color/hatena_color"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="230\nusers"
+                    android:textSize="12sp"
+                    android:background="@color/hatena_color"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

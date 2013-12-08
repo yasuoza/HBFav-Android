@@ -5,7 +5,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,7 +131,9 @@ public abstract class BaseEntryListFragment extends BaseListFragment implements 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getManager().get(position).getLink())));
+        Intent intent = new Intent(getActivity(), EntryContentWebViewActivity.class);
+        intent.putExtra("entry", getManager().get(position));
+        startActivity(intent);
     }
 
     @Override

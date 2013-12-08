@@ -4,7 +4,6 @@ package com.hbfav.android.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,8 +124,9 @@ public class TimelineListFragment extends BaseListFragment implements AbsListVie
             return;
         }
 
-        Uri uri = Uri.parse(entry.getLink());
-        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        Intent intent = new Intent(getActivity(), EntryContentWebViewActivity.class);
+        intent.putExtra("entry", TimelineFeedManager.getInstance().get(position));
+        startActivity(intent);
     }
 
     @Override

@@ -22,8 +22,6 @@ import org.scribe.model.Verifier;
 
 public class HatenaOauthActivity extends Activity {
 
-    private static final String TAG = HatenaOauthActivity.class.getPackage().toString();
-
     private ProgressBar mProgressBar;
     private WebView mWebView;
 
@@ -32,13 +30,14 @@ public class HatenaOauthActivity extends Activity {
         super.onCreate(savedInstanceState);
         getActionBar().hide();
 
-        setContentView(R.layout.activity_hatena_authorization);
+        setContentView(R.layout.general_webview);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.clearCache(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
+        mWebView.getSettings().setDisplayZoomControls(false);
         mWebView.setWebViewClient(mWebViewClient);
         mWebView.setWebChromeClient(mWebChromeClient);
 
