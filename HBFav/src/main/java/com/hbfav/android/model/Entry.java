@@ -1,16 +1,19 @@
 package com.hbfav.android.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.format.DateUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Entry {
+public class Entry implements Parcelable {
     private String title = "";
     private String comment = "";
     private Integer count = 0;
@@ -18,12 +21,15 @@ public class Entry {
     private String faviconUrl = "";
     private String link = "";
     private String permalink = "";
-    private String[] categories;
+    private ArrayList<String> categories;
     @SerializedName("thumbnail_url")
     private String thumbnailUrl = "";
     private boolean isPlaceholder = false;
     private Date datetime;
     private User user;
+
+
+    public Entry() { }
 
     public static Entry newPlaceholder(Date dateTime) {
         Entry entry = new Entry();
@@ -81,7 +87,7 @@ public class Entry {
     }
 
     public String getCategory() {
-        return this.categories.length > 0 ? this.categories[0] : "";
+        return this.categories.size() > 0 ? this.categories.get(0) : "";
     }
 
 
@@ -106,4 +112,49 @@ public class Entry {
         return entry.getLink().equals(this.getLink())
                 && entry.getUser().getName().equals(this.getUser().getName());
     }
+
+    /* Parcelable implementation */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(title);
+        out.writeString(comment);
+        out.writeInt(count);
+        out.writeString(faviconUrl);
+        out.writeString(link);
+        out.writeString(permalink);
+        out.writeList(categories);
+        out.writeString(thumbnailUrl);
+        out.writeByte((byte) (isPlaceholder ? 1 : 0));
+        out.writeSerializable(datetime);
+        out.writeSerializable(user);
+    }
+
+    public static final Parcelable.Creator<Entry> CREATOR = new Parcelable.Creator<Entry>() {
+        public Entry createFromParcel(Parcel in) {
+            Entry entry = new Entry();
+
+            entry.title = in.readString();
+            entry.comment = in.readString();
+            entry.count = in.readInt();
+            entry.faviconUrl = in.readString();
+            entry.link = in.readString();
+            entry.permalink = in.readString();
+            entry.categories = in.readArrayList(String.class.getClassLoader());
+            entry.thumbnailUrl = in.readString();
+            entry.isPlaceholder =  (in.readByte() != 0);
+            entry.datetime = (Date) in.readSerializable();
+            entry.user = (User) in.readSerializable();
+
+            return entry;
+        }
+
+        public Entry[] newArray(int size) {
+            return new Entry[size];
+        }
+    };
 }
