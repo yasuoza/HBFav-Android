@@ -3,7 +3,7 @@ markdown: redcarpet
 pygments: true
 baseurl: /HBFav-Android
 
-market_link:
+market_link: https://play.google.com/store/apps/details?id=com.hbfav.android
 
 sass:
   style: expanded
