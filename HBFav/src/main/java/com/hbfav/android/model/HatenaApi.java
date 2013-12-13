@@ -1,5 +1,7 @@
 package com.hbfav.android.model;
 
+import android.net.Uri;
+
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.Token;
 
@@ -36,5 +38,9 @@ public class HatenaApi extends DefaultApi10a {
     @Override
     public String getAuthorizationUrl(Token requestToken) {
         return String.format(AUTHORIZE_URL, requestToken.getToken());
+    }
+
+    public static String entryDetialUrl(String url) {
+        return HatenaApi.PAGE_DETAIL_URL + "?url=" + Uri.encode(url);
     }
 }

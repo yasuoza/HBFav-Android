@@ -34,6 +34,7 @@ public class EntryContentWebViewActivity extends Activity {
     private Button mHistoryBackButton;
     private Button mHistoryForwardButton;
     private Button mBookmarkButton;
+    private Button mBookmarkCountButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class EntryContentWebViewActivity extends Activity {
         mHistoryBackButton = (Button) findViewById(R.id.historyBackButton);
         mHistoryForwardButton = (Button) findViewById(R.id.historyForwardButton);
         mBookmarkButton = (Button) findViewById(R.id.bookmarkButton);
+        mBookmarkCountButton = (Button) findViewById(R.id.entry_webview_bookmark_count_button);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -76,6 +78,8 @@ public class EntryContentWebViewActivity extends Activity {
                 registerBookmark(entry);
             }
         });
+
+        mBookmarkCountButton.setText(entry.getCount() + "\nusers");
 
         startWebView(entry);
 
@@ -151,7 +155,7 @@ public class EntryContentWebViewActivity extends Activity {
 
     private void registerBookmark(final Entry entry) {
         Intent intent = new Intent(this, BookmarkEntryActivity.class);
-        intent.putExtra("entryUrl", entry.getLink());
+        intent.putExtra("entry", entry);
         startActivity(intent);
     }
 }

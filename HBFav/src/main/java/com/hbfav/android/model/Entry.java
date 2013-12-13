@@ -38,8 +38,16 @@ public class Entry implements Parcelable {
     private Date datetime;
     private User user;
 
-    private String[] mRecommendTags;
+    private String[] mRecommendTags = new String[]{};
     private boolean mFetchedRecommendTags;
+
+    public Entry() { }
+
+    public Entry(String title, String link, Integer count) {
+        this.title = title;
+        this.link = link;
+        this.count = count;
+    }
 
     public static Entry newPlaceholder(Date dateTime) {
         Entry entry = new Entry();
@@ -101,6 +109,9 @@ public class Entry implements Parcelable {
     }
 
     public String[] getmRecommendTags() {
+        if (mRecommendTags == null) {
+            mRecommendTags = new String[]{};
+        }
         return mRecommendTags;
     }
 
@@ -111,9 +122,7 @@ public class Entry implements Parcelable {
     }
 
     public void fetchRecommendTags() {
-        final String bookmarkDetailUrl = HatenaApi.PAGE_DETAIL_URL + "?url=" + link;
-
-        MainActivity.getRequestQueue().add(new StringRequest(Request.Method.GET, bookmarkDetailUrl,
+        MainActivity.getRequestQueue().add(new StringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -206,7 +215,7 @@ public class Entry implements Parcelable {
             entry.permalink = in.readString();
             entry.categories = in.readArrayList(String.class.getClassLoader());
             entry.thumbnailUrl = in.readString();
-            entry.isPlaceholder =  (in.readByte() != 0);
+            entry.isPlaceholder = (in.readByte() != 0);
             entry.datetime = (Date) in.readSerializable();
             entry.user = (User) in.readSerializable();
 

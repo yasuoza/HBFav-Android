@@ -136,8 +136,7 @@ public class UserInfoManager {
     private static class FetchMyTagsTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            String endpoint = HatenaApi.MY_TAGS_URL;
-            OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
+            OAuthRequest request = new OAuthRequest(Verb.GET, HatenaApi.MY_TAGS_URL);
             HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
             org.scribe.model.Response response;
             try {

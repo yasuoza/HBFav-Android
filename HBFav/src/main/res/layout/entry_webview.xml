@@ -69,9 +69,9 @@
                     android:layout_centerInParent="true"/>
 
                 <Button
+                    android:id="@+id/entry_webview_bookmark_count_button"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:text="230\nusers"
                     android:textSize="12sp"
                     android:background="@color/hatena_color"
                     android:layout_centerVertical="true"

@@ -25,20 +25,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.hbfav.android.Constants;
 import com.hbfav.android.R;
 import com.hbfav.android.core.HatenaApiManager;
 import com.hbfav.android.core.UserInfoManager;
+import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.HatenaApi;
 import com.hbfav.android.model.HatenaBookmark;
-import com.hbfav.android.model.ResultPage;
 import com.hbfav.android.util.HBFavUtils;
-import com.hbfav.android.util.IntegerMapComparator;
 
 import org.scribe.exceptions.OAuthConnectionException;
 import org.scribe.model.OAuthRequest;
@@ -46,16 +40,12 @@ import org.scribe.model.Verb;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeMap;
 
 public class BookmarkEntryActivity extends Activity {
 
     private Context mContext;
 
-    private String mEntryUrl = "";
+    private Entry mEntry;
 
     private boolean needShowControllPanel;
     private boolean isKeyboardShown;
@@ -86,8 +76,6 @@ public class BookmarkEntryActivity extends Activity {
 
     private ProgressDialog mProgressDialog;
 
-    private ArrayList<String> mRecommendTags = new ArrayList<String>();
-    private ArrayList<String> mMyTags = new ArrayList<String>();
     private ArrayList<String> mSelectedTags = new ArrayList<String>();
 
     private final String TAG = "com.hbfav.android.bookmark";
@@ -98,20 +86,22 @@ public class BookmarkEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         mContext = this;
-
-        mEntryUrl = getIntent().getStringExtra("entryUrl");
-
         needShowControllPanel = false;
         isKeyboardShown = false;
 
-        setContentView(R.layout.activity_bookamrk_entry);
-
-        setUpActivity();
+        mEntry = getIntent().getParcelableExtra("entry");
+        if (mEntry == null) {
+            mEntry = new Entry("", getIntent().getStringExtra("entryUrl"), 0);
+        }
 
         fetchBookmarkStatus();
+        mEntry.fetchRecommendTagsIfNeeded();
 
         UserInfoManager.refreshMyTagsIfNeeded();
         UserInfoManager.refreshShareServiceAvailability();
+
+        setContentView(R.layout.activity_bookamrk_entry);
+        setUpActivity();
     }
 
     @Override
@@ -153,7 +143,6 @@ public class BookmarkEntryActivity extends Activity {
         new AsyncTask<Void, Void, Boolean>() {
             protected void onPreExecute() {
                 mProgressDialog = new ProgressDialog(mContext);
-                mProgressDialog.setTitle("Processing...");
                 mProgressDialog.setMessage("Please wait.");
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.setIndeterminate(true);
@@ -162,7 +151,7 @@ public class BookmarkEntryActivity extends Activity {
 
             protected Boolean doInBackground(Void... params) {
                 OAuthRequest request = new OAuthRequest(requestMethod, HatenaApi.BOOKMARK_URL);
-                request.addQuerystringParameter("url", Uri.decode(mEntryUrl));
+                request.addQuerystringParameter("url", Uri.decode(mEntry.getLink()));
                 request.addQuerystringParameter("comment", mCommentEditText.getText().toString());
                 for (String tag : mSelectedTags) {
                     request.addQuerystringParameter("tags", tag);
@@ -228,8 +217,13 @@ public class BookmarkEntryActivity extends Activity {
         }
 
         mEntryTitleTextView = (TextView) findViewById(R.id.activity_bookmark_entry_title);
+        mEntryTitleTextView.setText(mEntry.getTitle());
+
         mEntryUrlTextView = (TextView) findViewById(R.id.activity_bookmark_entry_url);
+        mEntryUrlTextView.setText(mEntry.getLink());
+
         mEntryBookmarkCountTextView = (TextView) findViewById(R.id.activity_bookmark_bookmark_count);
+        mEntryBookmarkCountTextView.setText(HBFavUtils.usersToString(mEntry.getCount()));
 
         mCommentEditText = (EditText) findViewById(R.id.input_comment);
         mCommentEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -333,7 +327,7 @@ public class BookmarkEntryActivity extends Activity {
             @Override
             protected Boolean doInBackground(Void... params) {
                 OAuthRequest request = new OAuthRequest(Verb.GET, HatenaApi.BOOKMARK_URL);
-                request.addQuerystringParameter("url", mEntryUrl);
+                request.addQuerystringParameter("url", mEntry.getLink());
                 HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
                 org.scribe.model.Response response;
                 try {
@@ -414,7 +408,7 @@ public class BookmarkEntryActivity extends Activity {
             return;
         }
 
-        for (String tag : mRecommendTags) {
+        for (String tag : mEntry.getmRecommendTags()) {
             final Button button = new Button(mContext);
             button.setText(tag);
             button.setPressed(mSelectedTags.indexOf(tag) != -1);
