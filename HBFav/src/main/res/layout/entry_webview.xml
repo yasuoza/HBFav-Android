@@ -59,6 +59,7 @@
                     android:layout_centerVertical="true"/>
 
                 <Button
+                    android:id="@+id/bookmarkButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:text="B!"

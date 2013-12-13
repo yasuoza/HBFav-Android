@@ -19,6 +19,9 @@ public class Constants {
 
     public static final String ISSUES_URL = "https://github.com/yasuoza/HBFav-Android/issues";
 
+    public static final int MAX_TAG_COUNT = 10;
+    public static final int MAX_MY_TAG_COUNT = 100;
+
     public static final String HATENA_API_KEY = "";
     public static final String HATENA_API_KEY_SECRET = "";
 

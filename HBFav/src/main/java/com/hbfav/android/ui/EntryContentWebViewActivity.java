@@ -3,7 +3,9 @@ package com.hbfav.android.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
@@ -13,8 +15,16 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
 import com.hbfav.android.R;
+import com.hbfav.android.core.HatenaApiManager;
+import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
+import com.hbfav.android.model.User;
+
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Verb;
 
 public class EntryContentWebViewActivity extends Activity {
 
@@ -22,13 +32,14 @@ public class EntryContentWebViewActivity extends Activity {
     private WebView mWebView;
     private Button mHistoryBackButton;
     private Button mHistoryForwardButton;
+    private Button mBookmarkButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
 
-        Entry entry = getIntent().getParcelableExtra("entry");
+        final Entry entry = getIntent().getParcelableExtra("entry");
 
         setContentView(R.layout.entry_webview);
 
@@ -36,6 +47,7 @@ public class EntryContentWebViewActivity extends Activity {
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mHistoryBackButton = (Button) findViewById(R.id.historyBackButton);
         mHistoryForwardButton = (Button) findViewById(R.id.historyForwardButton);
+        mBookmarkButton = (Button) findViewById(R.id.bookmarkButton);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -54,6 +66,13 @@ public class EntryContentWebViewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 goForwardHistory();
+            }
+        });
+
+        mBookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerBookmark(entry);
             }
         });
 
@@ -124,5 +143,32 @@ public class EntryContentWebViewActivity extends Activity {
         } else {
             mHistoryForwardButton.setTextColor(getResources().getColor(R.color.light_gray_color));
         }
+    }
+
+    private void registerBookmark(final Entry entry) {
+        (new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                String endpoint = "http://api.b.hatena.ne.jp/1/my";
+
+                OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
+                HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
+
+                Log.e("com.hbfav.android", "request = " + UserInfoManager.getAccessToken());
+
+                Log.e("com.hbfav.android", "request = " + request.getCompleteUrl());
+                Log.e("com.hbfav.android", "request = " + request.getOauthParameters());
+
+                Response response = request.send();
+                Log.e("com.hbfav.android", "response = " + response.getBody());
+
+                Gson gson = new Gson();
+                User user = gson.fromJson(response.getBody(), User.class);
+
+                Log.e("com.hbfav.android", "twitter = " + user.isOauthTwitter());
+
+                return null;
+            }
+        }).execute();
     }
 }

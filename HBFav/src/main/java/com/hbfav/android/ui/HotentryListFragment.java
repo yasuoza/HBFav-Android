@@ -36,6 +36,6 @@ public class HotentryListFragment extends BaseEntryListFragment {
     @Override
     protected String getPageTitle() {
         return getString(R.string.page_new_entries)
-                + "_" + Constants.CATEGORIES[getManager().getCategory()];
+                + "_" + Constants.getCategories()[getManager().getCategory()];
     }
 }

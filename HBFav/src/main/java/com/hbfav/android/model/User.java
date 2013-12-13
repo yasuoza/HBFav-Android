@@ -12,6 +12,15 @@ public class User implements Parcelable, Serializable {
     private String name;
     @SerializedName("profile_image_url")
     private String profileImageUrl;
+    @SerializedName("is_oauth_twitter")
+    private Boolean isOauthTwitter;
+    @SerializedName("is_oauth_evernote")
+    private Boolean isOauthEverNote;
+    @SerializedName("is_oauth_mixi_check")
+    private Boolean isOauthMixi;
+    @SerializedName("is_oauth_facebook")
+    private Boolean isOauthFacebook;
+
 
     public User(String name, String profileImageUrl) {
         this.name = name;
@@ -28,6 +37,22 @@ public class User implements Parcelable, Serializable {
 
     public String getProfileImageUrl() {
         return profileImageUrl;
+    }
+
+    public Boolean isOauthTwitter() {
+        return isOauthTwitter;
+    }
+
+    public Boolean isOauthEverNote() {
+        return isOauthEverNote;
+    }
+
+    public Boolean isOauthMixi() {
+        return isOauthMixi;
+    }
+
+    public Boolean isOauthFacebook() {
+        return isOauthFacebook;
     }
 
 

@@ -54,11 +54,11 @@ public abstract class BaseListFeedManager {
 
         String endpoint = getEndPoint();
         int categoryIndex = getCategory();
-        if (categoryIndex < 0 || categoryIndex >= Constants.CATEGORIES.length) {
+        if (categoryIndex < 0 || categoryIndex >= Constants.getCategories().length) {
             return;
         }
         if (categoryIndex != 0) {
-            endpoint += "?category=" + Constants.CATEGORIES[categoryIndex].toLowerCase();
+            endpoint += "?category=" + Constants.getCategories()[categoryIndex].toLowerCase();
         }
         MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, endpoint, getRequestTag(),
                 new Response.Listener<String>() {

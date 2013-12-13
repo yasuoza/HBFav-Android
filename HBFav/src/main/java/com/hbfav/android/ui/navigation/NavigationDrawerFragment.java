@@ -93,7 +93,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.setAdapter(new NavigationDrawerListAdapter(
                 getActionBar().getThemedContext(),
                 R.layout.navigation_list_item_activated,
-                Arrays.copyOfRange(Constants.MENUS, 1, Constants.MENUS.length)
+                Arrays.copyOfRange(Constants.getMenus(), 1, Constants.getMenus().length)
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 

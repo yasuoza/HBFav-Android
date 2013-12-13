@@ -118,7 +118,7 @@ public class MainActivity extends Activity
     }
 
     public void onSectionAttached(int number) {
-        mTitle = Constants.MENUS[number].getTitle();
+        mTitle = Constants.getMenus()[number].getTitle();
         mSelectedSectionNumber = number;
     }
 

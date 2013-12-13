@@ -4,5 +4,9 @@
     <color name="hatena_color">#2c6ebd</color>
     <color name="row_activated">#e1e1e1</color>
 
+    <color name="keyboard_background">#272727</color>
+
+    <color name="button_light_gray_color">#D1D1D1</color>
+
     <color name="white">#fff</color>
 </resources>

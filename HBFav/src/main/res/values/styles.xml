@@ -5,7 +5,14 @@
         <item name="android:actionBarStyle">@style/HBFav.ActionBar</item>
         <item name="android:actionDropDownStyle">@style/customActionBarDropDownStyle</item>
         <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
+
+        <item name="android:checkboxStyle">@style/CheckBoxhbfav</item>
+        <item name="android:buttonStyle">@style/Buttonhbfav</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonhbfav</item>
+
+        <item name="android:actionMenuTextColor">@color/white</item>
     </style>
+
 
     <style name="customActionBarDropDownStyle" parent="android:style/Widget.Holo.Light.Spinner">
         <item name="android:background">@drawable/spinner_ab</item>
@@ -20,4 +27,18 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="CheckBoxhbfav" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/hbfav_btn_check_holo_dark</item>
+    </style>
+
+    <style name="Buttonhbfav" parent="android:Widget.Button">
+        <item name="android:background">@drawable/hbfav_btn_default_holo_dark</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="ImageButtonhbfav" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/hbfav_btn_default_holo_dark</item>
+    </style>
 </resources>
