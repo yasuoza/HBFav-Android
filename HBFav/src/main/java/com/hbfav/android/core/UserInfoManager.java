@@ -3,10 +3,17 @@ package com.hbfav.android.core;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 
+import com.google.gson.Gson;
 import com.hbfav.android.Constants;
 import com.hbfav.android.model.HatenaApi;
+import com.hbfav.android.model.ResultMyTags;
+import com.hbfav.android.model.Tag;
 import com.hbfav.android.ui.MainActivity;
+import com.hbfav.android.util.IntegerMapComparator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +22,12 @@ import org.scribe.model.OAuthRequest;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeMap;
+
 public class UserInfoManager {
     private static final String ACCESS_TOKEN = "access_token";
     private static final String ACCESS_TOKEN_SECRET = "access_token_secret";
@@ -22,6 +35,7 @@ public class UserInfoManager {
     private static boolean isOauthFacebook = false;
     private static boolean isOauthMixi = false;
     private static boolean isOauthEvernote = false;
+    private static String[] myTags = new String[]{};
 
     public static void setUserName(final String userName) {
         if (userName == null || userName.equals(getUserName())) {
@@ -54,38 +68,13 @@ public class UserInfoManager {
     }
 
     public static void refreshShareServiceAvailability() {
-        final String endpoint = HatenaApi.MY_URL;
+        new FetchShareConfigTask().execute();
+    }
 
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
-                HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
-                org.scribe.model.Response response;
-                try {
-                    response = request.send();
-                } catch (OAuthConnectionException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-
-                String res = response.getBody();
-                if (res == null || res.isEmpty()) {
-                    return null;
-                }
-
-                try {
-                    JSONObject userObj = new JSONObject(res);
-                    isOauthTwitter = userObj.getBoolean("is_oauth_twitter");
-                    isOauthFacebook = userObj.getBoolean("is_oauth_facebook");
-                    isOauthMixi = userObj.getBoolean("is_oauth_mixi_check");
-                    isOauthEvernote = userObj.getBoolean("is_oauth_evernote");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        }.execute();
+    public static void refreshMyTagsIfNeeded() {
+        if (myTags == null || myTags.length == 0) {
+            new FetchMyTagsTask().execute();
+        }
     }
 
     public static boolean isOauthTwitter() {
@@ -102,5 +91,85 @@ public class UserInfoManager {
 
     public static boolean isOauthEvernote() {
         return isOauthEvernote;
+    }
+
+    public static String[] getMyTags() {
+        return myTags;
+    }
+
+
+    /** Async tasks **/
+
+    private static class FetchShareConfigTask extends AsyncTask<Void, Void, Void> {
+        final String endpoint = HatenaApi.MY_URL;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
+            HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
+            org.scribe.model.Response response;
+            try {
+                response = request.send();
+            } catch (OAuthConnectionException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+            String res = response.getBody();
+            if (res == null || res.isEmpty()) {
+                return null;
+            }
+
+            try {
+                JSONObject userObj = new JSONObject(res);
+                isOauthTwitter = userObj.getBoolean("is_oauth_twitter");
+                isOauthFacebook = userObj.getBoolean("is_oauth_facebook");
+                isOauthMixi = userObj.getBoolean("is_oauth_mixi_check");
+                isOauthEvernote = userObj.getBoolean("is_oauth_evernote");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class FetchMyTagsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            String endpoint = HatenaApi.MY_TAGS_URL;
+            OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
+            HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
+            org.scribe.model.Response response;
+            try {
+                response = request.send();
+            } catch (OAuthConnectionException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+            String res = response.getBody();
+            if (res == null || res.isEmpty() || response.getCode() != 200) {
+                return null;
+            }
+
+            HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
+
+            Gson gson = new Gson();
+            ResultMyTags result = gson.fromJson(res, ResultMyTags.class);
+            Tag[] tags = result.getTags();
+            int length = tags.length > Constants.MAX_MY_TAG_COUNT ? Constants.MAX_MY_TAG_COUNT : tags.length;
+            for (int i = 0; i < length; i++) {
+                tagsMap.put(tags[i].getTag(), tags[i].getCount());
+            }
+
+            TreeMap<String, Integer> tagsTreeMap =
+                    new TreeMap<String, Integer>(new IntegerMapComparator(tagsMap));
+            tagsTreeMap.putAll(tagsMap);
+
+            Set<String> tagsSet = tagsTreeMap.keySet();
+
+            myTags = tagsSet.toArray(new String[tagsSet.size()]);
+            return null;
+        }
     }
 }

@@ -112,8 +112,8 @@ public class BookmarkEntryActivity extends Activity {
 
         fetchBookmarkStatus();
         fetchEntryDetail();
-        fetchMyTags();
 
+        UserInfoManager.refreshMyTagsIfNeeded();
         UserInfoManager.refreshShareServiceAvailability();
     }
 
@@ -440,59 +440,6 @@ public class BookmarkEntryActivity extends Activity {
         ));
     }
 
-    private void fetchMyTags() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                String endpoint = HatenaApi.MY_TAGS_URL;
-                OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
-                HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
-                org.scribe.model.Response response;
-                try {
-                    response = request.send();
-                } catch (OAuthConnectionException e) {
-                    e.printStackTrace();
-                    return null;
-                }
-
-                String res = response.getBody();
-                if (res == null || res.isEmpty() || response.getCode() != 200) {
-                    return null;
-                }
-
-                HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
-
-                Gson gson = new Gson();
-                ResultMyTags myTags = gson.fromJson(res, ResultMyTags.class);
-                Tag[] tags = myTags.getTags();
-                int length = tags.length > Constants.MAX_MY_TAG_COUNT ? Constants.MAX_MY_TAG_COUNT : tags.length;
-                for (int i = 0; i < length; i++) {
-                    tagsMap.put(tags[i].getTag(), tags[i].getCount());
-                }
-
-                TreeMap<String, Integer> tagsTreeMap =
-                        new TreeMap<String, Integer>(new IntegerMapComparator(tagsMap));
-                tagsTreeMap.putAll(tagsMap);
-
-                Set<String> tagsSet = tagsTreeMap.keySet();
-                Iterator<String> iterator = tagsSet.iterator();
-                for (int i = 0; i < length; i++) {
-                    String tag = iterator.next();
-                    mMyTags.add(tag);
-                    final Button button = new Button(mContext);
-                    button.setText(tag);
-                    button.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            return onTagButtonTouch(button, event);
-                        }
-                    });
-                }
-                return null;
-            }
-        }.execute();
-    }
-
     public void fetchMyShareConfig() {
         mCheckBoxTwitter.setEnabled(UserInfoManager.isOauthTwitter());
         mCheckBoxFacebook.setEnabled(UserInfoManager.isOauthFacebook());
@@ -541,7 +488,7 @@ public class BookmarkEntryActivity extends Activity {
             return;
         }
 
-        for (String tag : mMyTags) {
+        for (String tag : UserInfoManager.getMyTags()) {
             final Button button = new Button(mContext);
             button.setText(tag);
             button.setPressed(mSelectedTags.indexOf(tag) != -1);

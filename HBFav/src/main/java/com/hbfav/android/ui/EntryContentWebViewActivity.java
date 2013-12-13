@@ -78,6 +78,8 @@ public class EntryContentWebViewActivity extends Activity {
         });
 
         startWebView(entry);
+
+        UserInfoManager.refreshMyTagsIfNeeded();
     }
 
     private void startWebView(Entry entry) {
