@@ -36,7 +36,7 @@ import com.hbfav.android.core.HatenaApiManager;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.HatenaApi;
 import com.hbfav.android.model.HatenaBookmark;
-import com.hbfav.android.model.ResultEntry;
+import com.hbfav.android.model.ResultPage;
 import com.hbfav.android.util.HBFavUtils;
 import com.hbfav.android.util.IntegerMapComparator;
 
@@ -109,7 +109,6 @@ public class BookmarkEntryActivity extends Activity {
         setUpActivity();
 
         fetchBookmarkStatus();
-        fetchEntryDetail();
 
         UserInfoManager.refreshMyTagsIfNeeded();
         UserInfoManager.refreshShareServiceAvailability();
@@ -391,51 +390,6 @@ public class BookmarkEntryActivity extends Activity {
                 }
             }
         }.execute();
-    }
-
-    private void fetchEntryDetail() {
-        String bookmarkDetailUrl = HatenaApi.ENTRY_DETAIL_URL + "?url=" + mEntryUrl;
-        MainActivity.getRequestQueue().add(new StringRequest(Request.Method.GET, bookmarkDetailUrl,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
-                        Gson gson = new Gson();
-                        ResultEntry entryDetail = gson.fromJson(response, ResultEntry.class);
-
-                        mEntryTitleTextView.setText(entryDetail.getTitle());
-                        mEntryUrlTextView.setText(entryDetail.getUrl());
-                        mEntryBookmarkCountTextView.setText(HBFavUtils.usersToString(entryDetail.getCount()));
-
-                        HatenaBookmark[] hatenaBookmarks = entryDetail.getBookmarks();
-                        for (HatenaBookmark entry : hatenaBookmarks) {
-                            for (String tag : entry.getTags()) {
-                                int count = tagsMap.containsKey(tag) ? tagsMap.get(tag) + 1 : 1;
-                                tagsMap.put(tag, count);
-                            }
-                        }
-
-                        TreeMap<String, Integer> tagsTreeMap =
-                                new TreeMap<String, Integer>(new IntegerMapComparator(tagsMap));
-                        tagsTreeMap.putAll(tagsMap);
-
-                        Set<String> tagsSet = tagsTreeMap.keySet();
-                        int length = tagsSet.size() > Constants.MAX_TAG_COUNT ? Constants.MAX_TAG_COUNT : tagsSet.size();
-                        Iterator<String> iterator = tagsSet.iterator();
-                        for (int i = 0; i < length; i++) {
-                            String tag = iterator.next();
-                            mRecommendTags.add(tag);
-                        }
-
-                        layoutRecommendTagButtons();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }
-        ));
     }
 
     public void fetchMyShareConfig() {

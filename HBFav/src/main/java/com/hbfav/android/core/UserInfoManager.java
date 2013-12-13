@@ -168,7 +168,7 @@ public class UserInfoManager {
 
             Set<String> tagsSet = tagsTreeMap.keySet();
 
-            myTags = tagsSet.toArray(new String[tagsSet.size()]);
+            myTags = tagsSet.toArray(new String[length]);
             return null;
         }
     }

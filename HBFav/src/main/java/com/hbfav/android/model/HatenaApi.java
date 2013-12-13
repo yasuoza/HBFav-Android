@@ -13,7 +13,7 @@ public class HatenaApi extends DefaultApi10a {
     public static final String MY_TAGS_URL = BASE_URL + API_VERSION + "/my/tags";
     public static final String BOOKMARK_URL = BASE_URL + API_VERSION + "/my/bookmark";
 
-    public static final String ENTRY_DETAIL_URL = "http://b.hatena.ne.jp/entry/jsonlite/";
+    public static final String PAGE_DETAIL_URL = "http://b.hatena.ne.jp/entry/jsonlite/";
 
     public static final String OAUTH_VERIFIER = "oauth_verifier";
 

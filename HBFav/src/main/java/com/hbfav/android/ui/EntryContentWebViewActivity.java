@@ -80,6 +80,7 @@ public class EntryContentWebViewActivity extends Activity {
         startWebView(entry);
 
         UserInfoManager.refreshMyTagsIfNeeded();
+        entry.fetchRecommendTagsIfNeeded();
     }
 
     private void startWebView(Entry entry) {

@@ -5,12 +5,22 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateUtils;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.hbfav.android.Constants;
+import com.hbfav.android.ui.MainActivity;
+import com.hbfav.android.util.IntegerMapComparator;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.TreeMap;
 
 
 public class Entry implements Parcelable {
@@ -28,8 +38,8 @@ public class Entry implements Parcelable {
     private Date datetime;
     private User user;
 
-
-    public Entry() { }
+    private String[] mRecommendTags;
+    private boolean mFetchedRecommendTags;
 
     public static Entry newPlaceholder(Date dateTime) {
         Entry entry = new Entry();
@@ -90,6 +100,54 @@ public class Entry implements Parcelable {
         return this.categories.size() > 0 ? this.categories.get(0) : "";
     }
 
+    public String[] getmRecommendTags() {
+        return mRecommendTags;
+    }
+
+    public void fetchRecommendTagsIfNeeded() {
+        if (!mFetchedRecommendTags) {
+            fetchRecommendTags();
+        }
+    }
+
+    public void fetchRecommendTags() {
+        final String bookmarkDetailUrl = HatenaApi.PAGE_DETAIL_URL + "?url=" + link;
+
+        MainActivity.getRequestQueue().add(new StringRequest(Request.Method.GET, bookmarkDetailUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
+                        Gson gson = new Gson();
+                        ResultPage entryDetail = gson.fromJson(response, ResultPage.class);
+
+                        HatenaBookmark[] hatenaBookmarks = entryDetail.getBookmarks();
+                        for (HatenaBookmark entry : hatenaBookmarks) {
+                            for (String tag : entry.getTags()) {
+                                int count = tagsMap.containsKey(tag) ? tagsMap.get(tag) + 1 : 1;
+                                tagsMap.put(tag, count);
+                            }
+                        }
+
+                        TreeMap<String, Integer> tagsTreeMap =
+                                new TreeMap<String, Integer>(new IntegerMapComparator(tagsMap));
+                        tagsTreeMap.putAll(tagsMap);
+
+                        Set<String> tagsSet = tagsTreeMap.keySet();
+                        int length = tagsSet.size() > Constants.MAX_TAG_COUNT ? Constants.MAX_TAG_COUNT : tagsSet.size();
+                        mRecommendTags = tagsSet.toArray(new String[length]);
+                        mFetchedRecommendTags = true;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mFetchedRecommendTags = true;
+                    }
+                }
+        ));
+    }
+
 
     @Override
     public int hashCode() {
@@ -113,7 +171,9 @@ public class Entry implements Parcelable {
                 && entry.getUser().getName().equals(this.getUser().getName());
     }
 
+
     /* Parcelable implementation */
+
     @Override
     public int describeContents() {
         return 0;

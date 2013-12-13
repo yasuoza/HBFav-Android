@@ -1,6 +1,6 @@
 package com.hbfav.android.model;
 
-public class ResultEntry {
+public class ResultPage {
     private String title;
     private String url;
     private int count;
