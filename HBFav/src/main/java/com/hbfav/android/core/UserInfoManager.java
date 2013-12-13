@@ -60,7 +60,7 @@ public class UserInfoManager {
         String token = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString(ACCESS_TOKEN, "");
         String secret = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString(ACCESS_TOKEN_SECRET, "");
 
-        return token.isEmpty() || secret.isEmpty() ? null : new Token(token, secret);
+        return new Token(token, secret);
     }
 
     public static String getThumbUrl() {
@@ -75,6 +75,10 @@ public class UserInfoManager {
         if (myTags == null || myTags.length == 0) {
             new FetchMyTagsTask().execute();
         }
+    }
+
+    public static void refreshMyTags() {
+        new FetchMyTagsTask().execute();
     }
 
     public static boolean isOauthTwitter() {
@@ -100,11 +104,11 @@ public class UserInfoManager {
 
     /** Async tasks **/
 
-    private static class FetchShareConfigTask extends AsyncTask<Void, Void, Void> {
+    public static class FetchShareConfigTask extends AsyncTask<Void, Void, Boolean> {
         final String endpoint = HatenaApi.MY_URL;
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
             HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
             org.scribe.model.Response response;
@@ -112,12 +116,12 @@ public class UserInfoManager {
                 response = request.send();
             } catch (OAuthConnectionException e) {
                 e.printStackTrace();
-                return null;
+                return false;
             }
 
             String res = response.getBody();
             if (res == null || res.isEmpty()) {
-                return null;
+                return false;
             }
 
             try {
@@ -126,10 +130,11 @@ public class UserInfoManager {
                 isOauthFacebook = userObj.getBoolean("is_oauth_facebook");
                 isOauthMixi = userObj.getBoolean("is_oauth_mixi_check");
                 isOauthEvernote = userObj.getBoolean("is_oauth_evernote");
+                return true;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            return null;
+            return false;
         }
     }
 

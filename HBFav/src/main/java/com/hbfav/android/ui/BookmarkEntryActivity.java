@@ -4,6 +4,7 @@ package com.hbfav.android.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -25,8 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.hbfav.android.R;
+import com.hbfav.android.core.FetchBookmarkStatusTask;
 import com.hbfav.android.core.HatenaApiManager;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
@@ -94,14 +95,27 @@ public class BookmarkEntryActivity extends Activity {
             mEntry = new Entry("", getIntent().getStringExtra("entryUrl"), 0);
         }
 
-        fetchBookmarkStatus();
         mEntry.fetchRecommendTagsIfNeeded();
 
-        UserInfoManager.refreshMyTagsIfNeeded();
-        UserInfoManager.refreshShareServiceAvailability();
+        new UserInfoManager.FetchShareConfigTask() {
+            @Override
+            protected void onPostExecute(Boolean authenticad) {
+                if (!authenticad) {
+                    Intent intent = new Intent(mContext, HatenaOauthActivity.class);
+                    startActivity(intent);
+                }
+            }
+        }.execute();
 
         setContentView(R.layout.activity_bookamrk_entry);
         setUpActivity();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        fetchBookmarkStatus();
     }
 
     @Override
@@ -321,33 +335,9 @@ public class BookmarkEntryActivity extends Activity {
     }
 
     private void fetchBookmarkStatus() {
-        new AsyncTask<Void, Void, Boolean>() {
-            private HatenaBookmark hatenaBookmark;
-
+        new FetchBookmarkStatusTask() {
             @Override
-            protected Boolean doInBackground(Void... params) {
-                OAuthRequest request = new OAuthRequest(Verb.GET, HatenaApi.BOOKMARK_URL);
-                request.addQuerystringParameter("url", mEntry.getLink());
-                HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
-                org.scribe.model.Response response;
-                try {
-                    response = request.send();
-                } catch (OAuthConnectionException e) {
-                    e.printStackTrace();
-                    return false;
-                }
-
-                boolean success = (response.getCode() == 200);
-                if (!success) {
-                    return false;
-                }
-
-                Gson gson = new Gson();
-                hatenaBookmark = gson.fromJson(response.getBody(), HatenaBookmark.class);
-                return true;
-            }
-
-            protected void onPostExecute(Boolean alreadyBookmarked) {
+            protected void onPostExecute(HatenaBookmark bookmark) {
                 if (mMenu == null) {
                     return;
                 }
@@ -360,30 +350,30 @@ public class BookmarkEntryActivity extends Activity {
                     return;
                 }
 
-                if (alreadyBookmarked) {
-                    actionSave.setVisible(false);
-                    actionUpdate.setVisible(true);
-                    actionDelete.setVisible(true);
-                } else {
+                if (bookmark == null) {
                     actionSave.setVisible(true);
                     actionUpdate.setVisible(false);
                     actionDelete.setVisible(false);
                     return;
                 }
 
+                actionSave.setVisible(false);
+                actionUpdate.setVisible(true);
+                actionDelete.setVisible(true);
+
                 if (mCommentEditText != null) {
-                    mCommentEditText.setText(hatenaBookmark.getComment());
+                    mCommentEditText.setText(bookmark.getComment());
                 }
 
                 if (mTagsEditText != null) {
-                    mTagsEditText.setText(TextUtils.join(" ", hatenaBookmark.getTags()));
+                    mTagsEditText.setText(TextUtils.join(" ", bookmark.getTags()));
                 }
 
                 if (mCheckBoxPrivate != null) {
-                    mCheckBoxPrivate.setChecked(hatenaBookmark.isPrivate());
+                    mCheckBoxPrivate.setChecked(bookmark.isPrivate());
                 }
             }
-        }.execute();
+        }.execute(mEntry);
     }
 
     public void fetchMyShareConfig() {

@@ -25,6 +25,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.hbfav.android.Constants;
 import com.hbfav.android.R;
 import com.hbfav.android.core.UserInfoManager;
+import com.hbfav.android.model.NavigationItem;
 import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.volley.BitmapLruCache;
 
@@ -90,10 +91,18 @@ public class NavigationDrawerFragment extends Fragment {
         View headerView = inflater.inflate(R.layout.navigation_drawer_header, container, false);
         mDrawerListView.addHeaderView(headerView);
 
+        String[] menus = getResources().getStringArray(R.array.menues);
+        NavigationItem[] items = new NavigationItem[] {
+                new NavigationItem(getResources().getDrawable(R.drawable.ic_star), menus[1]),
+                new NavigationItem(getResources().getDrawable(R.drawable.ic_doc), menus[2]),
+                new NavigationItem(getResources().getDrawable(R.drawable.ic_heart), menus[3]),
+                new NavigationItem(getResources().getDrawable(R.drawable.ic_about), menus[4]),
+        };
+
         mDrawerListView.setAdapter(new NavigationDrawerListAdapter(
                 getActionBar().getThemedContext(),
                 R.layout.navigation_list_item_activated,
-                Arrays.copyOfRange(Constants.getMenus(), 1, Constants.getMenus().length)
+                items
         ));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 

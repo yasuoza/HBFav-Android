@@ -1,6 +1,7 @@
 package com.hbfav.android.model;
 
 
+import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateUtils;
@@ -13,8 +14,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.hbfav.android.Constants;
+import com.hbfav.android.core.HatenaApiManager;
+import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.IntegerMapComparator;
+
+import org.scribe.exceptions.OAuthConnectionException;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Verb;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -122,6 +129,7 @@ public class Entry implements Parcelable {
     }
 
     public void fetchRecommendTags() {
+        mFetchedRecommendTags = true;
         MainActivity.getRequestQueue().add(new StringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
                 new Response.Listener<String>() {
                     @Override
@@ -145,13 +153,11 @@ public class Entry implements Parcelable {
                         Set<String> tagsSet = tagsTreeMap.keySet();
                         int length = tagsSet.size() > Constants.MAX_TAG_COUNT ? Constants.MAX_TAG_COUNT : tagsSet.size();
                         mRecommendTags = tagsSet.toArray(new String[length]);
-                        mFetchedRecommendTags = true;
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        mFetchedRecommendTags = true;
                     }
                 }
         ));

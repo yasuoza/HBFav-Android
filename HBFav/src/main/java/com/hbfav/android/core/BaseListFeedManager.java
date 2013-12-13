@@ -54,7 +54,7 @@ public abstract class BaseListFeedManager {
 
         String endpoint = getEndPoint();
         int categoryIndex = getCategory();
-        if (categoryIndex < 0 || categoryIndex >= Constants.getCategories().length) {
+        if (categoryIndex < 0 || categoryIndex >=  Constants.getCategories().length) {
             return;
         }
         if (categoryIndex != 0) {

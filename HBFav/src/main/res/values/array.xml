@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="menues">
+        <item>Settings</item>
+        <item>Timeline</item>
+        <item>New Entries</item>
+        <item>Popular Entries</item>
+        <item>About App</item>
+    </string-array>
+
     <!-- Entrylist category param list -->
     <string-array name="params_entry_category">
         <item>general</item>

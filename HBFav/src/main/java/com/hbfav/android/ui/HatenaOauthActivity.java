@@ -44,6 +44,19 @@ public class HatenaOauthActivity extends Activity {
         startAuthorize();
     }
 
+    @Override
+    public void onDestroy() {
+        UserInfoManager.refreshMyTags();
+        UserInfoManager.refreshShareServiceAvailability();
+
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed () {
+        return;
+    }
+
     private void startAuthorize() {
         (new AsyncTask<Void, Void, String>() {
             @Override
