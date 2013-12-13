@@ -101,7 +101,7 @@ public class BookmarkEntryActivity extends Activity {
 
         mContext = this;
 
-        mEntryUrl = "https://rails-assets.org/";
+        mEntryUrl = getIntent().getStringExtra("entryUrl");
 
         needShowControllPanel = false;
         isKeyboardShown = false;

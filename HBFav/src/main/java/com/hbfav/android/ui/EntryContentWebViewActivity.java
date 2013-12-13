@@ -3,6 +3,7 @@ package com.hbfav.android.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -146,29 +147,8 @@ public class EntryContentWebViewActivity extends Activity {
     }
 
     private void registerBookmark(final Entry entry) {
-        (new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                String endpoint = "http://api.b.hatena.ne.jp/1/my";
-
-                OAuthRequest request = new OAuthRequest(Verb.GET, endpoint);
-                HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
-
-                Log.e("com.hbfav.android", "request = " + UserInfoManager.getAccessToken());
-
-                Log.e("com.hbfav.android", "request = " + request.getCompleteUrl());
-                Log.e("com.hbfav.android", "request = " + request.getOauthParameters());
-
-                Response response = request.send();
-                Log.e("com.hbfav.android", "response = " + response.getBody());
-
-                Gson gson = new Gson();
-                User user = gson.fromJson(response.getBody(), User.class);
-
-                Log.e("com.hbfav.android", "twitter = " + user.isOauthTwitter());
-
-                return null;
-            }
-        }).execute();
+        Intent intent = new Intent(this, BookmarkEntryActivity.class);
+        intent.putExtra("entryUrl", entry.getLink());
+        startActivity(intent);
     }
 }

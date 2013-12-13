@@ -181,11 +181,14 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/text_size_nomark"
                     android:orientation="horizontal">
                     <TextView
                         android:id="@+id/activity_bookmark_entry_title"
                         android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -202,6 +205,8 @@
                     android:id="@+id/activity_bookmark_entry_url"
                     android:textColor="@color/light_gray_color"
                     android:layout_width="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
