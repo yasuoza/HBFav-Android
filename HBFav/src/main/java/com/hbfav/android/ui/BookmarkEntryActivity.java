@@ -35,10 +35,8 @@ import com.hbfav.android.R;
 import com.hbfav.android.core.HatenaApiManager;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.HatenaApi;
-import com.hbfav.android.model.HatenaEntry;
+import com.hbfav.android.model.HatenaBookmark;
 import com.hbfav.android.model.ResultEntry;
-import com.hbfav.android.model.ResultMyTags;
-import com.hbfav.android.model.Tag;
 import com.hbfav.android.util.HBFavUtils;
 import com.hbfav.android.util.IntegerMapComparator;
 
@@ -331,7 +329,7 @@ public class BookmarkEntryActivity extends Activity {
 
     private void fetchBookmarkStatus() {
         new AsyncTask<Void, Void, Boolean>() {
-            private HatenaEntry hatenaEntry;
+            private HatenaBookmark hatenaBookmark;
 
             @Override
             protected Boolean doInBackground(Void... params) {
@@ -352,7 +350,7 @@ public class BookmarkEntryActivity extends Activity {
                 }
 
                 Gson gson = new Gson();
-                hatenaEntry = gson.fromJson(response.getBody(), HatenaEntry.class);
+                hatenaBookmark = gson.fromJson(response.getBody(), HatenaBookmark.class);
                 return true;
             }
 
@@ -381,15 +379,15 @@ public class BookmarkEntryActivity extends Activity {
                 }
 
                 if (mCommentEditText != null) {
-                    mCommentEditText.setText(hatenaEntry.getComment());
+                    mCommentEditText.setText(hatenaBookmark.getComment());
                 }
 
                 if (mTagsEditText != null) {
-                    mTagsEditText.setText(TextUtils.join(" ", hatenaEntry.getTags()));
+                    mTagsEditText.setText(TextUtils.join(" ", hatenaBookmark.getTags()));
                 }
 
                 if (mCheckBoxPrivate != null) {
-                    mCheckBoxPrivate.setChecked(hatenaEntry.isPrivate());
+                    mCheckBoxPrivate.setChecked(hatenaBookmark.isPrivate());
                 }
             }
         }.execute();
@@ -409,8 +407,8 @@ public class BookmarkEntryActivity extends Activity {
                         mEntryUrlTextView.setText(entryDetail.getUrl());
                         mEntryBookmarkCountTextView.setText(HBFavUtils.usersToString(entryDetail.getCount()));
 
-                        HatenaEntry[] hatenaEntries = entryDetail.getEntries();
-                        for (HatenaEntry entry : hatenaEntries) {
+                        HatenaBookmark[] hatenaBookmarks = entryDetail.getBookmarks();
+                        for (HatenaBookmark entry : hatenaBookmarks) {
                             for (String tag : entry.getTags()) {
                                 int count = tagsMap.containsKey(tag) ? tagsMap.get(tag) + 1 : 1;
                                 tagsMap.put(tag, count);

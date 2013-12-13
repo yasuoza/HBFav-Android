@@ -4,7 +4,7 @@ public class ResultEntry {
     private String title;
     private String url;
     private int count;
-    private HatenaEntry[] bookmarks;
+    private HatenaBookmark[] bookmarks;
 
     public String getTitle() {
         return title;
@@ -18,7 +18,7 @@ public class ResultEntry {
         return count;
     }
 
-    public HatenaEntry[] getEntries() {
+    public HatenaBookmark[] getBookmarks() {
         return bookmarks;
     }
 }

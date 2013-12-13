@@ -2,8 +2,8 @@ package com.hbfav.android.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class HatenaEntry {
-    private HatenaEntry[] favorites;
+public class HatenaBookmark {
+    private HatenaBookmark[] favorites;
     private String comment;
     @SerializedName("private") private boolean isPrivate;
     @SerializedName("user") private String userName;
