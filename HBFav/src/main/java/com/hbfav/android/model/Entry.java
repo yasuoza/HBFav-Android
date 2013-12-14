@@ -24,6 +24,7 @@ import org.scribe.model.OAuthRequest;
 import org.scribe.model.Verb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
@@ -152,7 +153,7 @@ public class Entry implements Parcelable {
 
                         Set<String> tagsSet = tagsTreeMap.keySet();
                         int length = tagsSet.size() > Constants.MAX_TAG_COUNT ? Constants.MAX_TAG_COUNT : tagsSet.size();
-                        mRecommendTags = tagsSet.toArray(new String[length]);
+                        mRecommendTags = Arrays.copyOfRange(tagsSet.toArray(new String[length]), 0, length);
                     }
                 },
                 new Response.ErrorListener() {
