@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -166,24 +165,33 @@ public class BookmarkEntryActivity extends Activity {
 
             protected Boolean doInBackground(Void... params) {
                 OAuthRequest request = new OAuthRequest(requestMethod, HatenaApi.BOOKMARK_URL);
-                request.addQuerystringParameter("url", Uri.decode(mEntry.getLink()));
-                request.addQuerystringParameter("comment", mCommentEditText.getText().toString());
-                for (String tag : mSelectedTags) {
-                    if (tag == null || tag.isEmpty()) {
-                        continue;
+                request.addQuerystringParameter("url", mEntry.getLink());
+                if (requestMethod != Verb.DELETE) {
+                    request.addQuerystringParameter("comment", mCommentEditText.getText().toString());
+                    for (String tag : mSelectedTags) {
+                        if (tag == null || tag.isEmpty()) {
+                            continue;
+                        }
+                        request.addQuerystringParameter("tags", tag);
                     }
-                    request.addQuerystringParameter("tags", tag);
+                    request.addQuerystringParameter("post_twitter", HBFavUtils.boolToString(UserInfoManager.isPostTwitter()));
+                    request.addQuerystringParameter("post_facebook", HBFavUtils.boolToString(UserInfoManager.isPostFacebook()));
+                    request.addQuerystringParameter("post_mixi", HBFavUtils.boolToString(UserInfoManager.isPostMixi()));
+                    request.addQuerystringParameter("post_evernote", HBFavUtils.boolToString(UserInfoManager.isPostEvernote()));
+                    request.addQuerystringParameter("private", HBFavUtils.boolToString(UserInfoManager.isPostPrivate()));
                 }
-                request.addQuerystringParameter("post_twitter", HBFavUtils.boolToString(UserInfoManager.isPostTwitter()));
-                request.addQuerystringParameter("post_facebook", HBFavUtils.boolToString(UserInfoManager.isPostFacebook()));
-                request.addQuerystringParameter("post_mixi", HBFavUtils.boolToString(UserInfoManager.isPostMixi()));
-                request.addQuerystringParameter("post_evernote", HBFavUtils.boolToString(UserInfoManager.isPostEvernote()));
-                request.addQuerystringParameter("private", HBFavUtils.boolToString(UserInfoManager.isPostPrivate()));
                 HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
                 org.scribe.model.Response response;
                 try {
                     response = request.send();
-                    return response.getCode() == 200;
+                    switch (requestMethod) {
+                        case POST:
+                            return response.getCode() == 200;
+                        case DELETE:
+                            return response.getCode() == 204;
+                        default:
+                            return false;
+                    }
                 } catch (OAuthConnectionException e) {
                     e.printStackTrace();
                 }
