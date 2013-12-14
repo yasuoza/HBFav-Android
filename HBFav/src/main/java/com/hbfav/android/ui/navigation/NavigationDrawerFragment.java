@@ -25,6 +25,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.hbfav.android.Constants;
 import com.hbfav.android.R;
 import com.hbfav.android.core.UserInfoManager;
+import com.hbfav.android.model.HatenaApi;
 import com.hbfav.android.model.NavigationItem;
 import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.volley.BitmapLruCache;
@@ -265,7 +266,7 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.drawable.screen_background_light_transparent,
                 android.R.drawable.screen_background_light_transparent
         );
-        mImageLoader.get(UserInfoManager.getThumbUrl(), listener);
+        mImageLoader.get(HatenaApi.getThumbUrl(), listener);
     }
 
     /**

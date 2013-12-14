@@ -3,9 +3,6 @@ package com.hbfav.android.core;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.gson.Gson;
 import com.hbfav.android.Constants;
@@ -22,19 +19,25 @@ import org.scribe.model.OAuthRequest;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
 
 public class UserInfoManager {
     private static final String ACCESS_TOKEN = "access_token";
     private static final String ACCESS_TOKEN_SECRET = "access_token_secret";
+
+    private static boolean postTwitter = false;
+    private static boolean postFacebook = false;
+    private static boolean postMixi = false;
+    private static boolean postEvernote = false;
+    private static boolean postPrivate = false;
+
     private static boolean isOauthTwitter = false;
     private static boolean isOauthFacebook = false;
     private static boolean isOauthMixi = false;
     private static boolean isOauthEvernote = false;
+
     private static String[] myTags = new String[]{};
 
     public static void setUserName(final String userName) {
@@ -63,8 +66,48 @@ public class UserInfoManager {
         return new Token(token, secret);
     }
 
-    public static String getThumbUrl() {
-        return Constants.BASE_THUMBNAIL_URL + getUserName() + "/profile.gif";
+    public static boolean isPostTwitter() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(MainActivity.getContextOfApplication())
+                .getBoolean("post_twitter", false);
+    }
+
+    public static void setPostTwitter(boolean postTwitter) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
+        sp.edit().putBoolean("post_twitter", postTwitter).apply();
+    }
+
+    public static boolean isPostFacebook() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(MainActivity.getContextOfApplication())
+                .getBoolean("post_facebook", false);
+    }
+
+    public static void setPostFacebook(boolean postFacebook) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
+        sp.edit().putBoolean("post_facebook", postFacebook).apply();
+    }
+
+    public static boolean isPostMixi() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(MainActivity.getContextOfApplication())
+                .getBoolean("post_mixi", false);
+    }
+
+    public static void setPostMixi(boolean postMixi) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
+        sp.edit().putBoolean("post_mixi", postMixi).apply();
+    }
+
+    public static boolean isPostEvernote() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(MainActivity.getContextOfApplication())
+                .getBoolean("post_evernote", false);
+    }
+
+    public static void setPostEvernote(boolean postEvernote) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
+        sp.edit().putBoolean("post_evernote", postEvernote).apply();
     }
 
     public static void refreshShareServiceAvailability() {
@@ -97,12 +140,23 @@ public class UserInfoManager {
         return isOauthEvernote;
     }
 
+    public static boolean isPostPrivate() {
+        return PreferenceManager
+                .getDefaultSharedPreferences(MainActivity.getContextOfApplication())
+                .getBoolean("post_private", false);
+    }
+
+    public static void setPostPrivate(boolean postPrivate) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
+        sp.edit().putBoolean("post_private", postPrivate).apply();
+    }
+
     public static String[] getMyTags() {
         return myTags;
     }
 
 
-    /** Async tasks **/
+    /** Async tasks */
 
     public static class FetchShareConfigTask extends AsyncTask<Void, Void, Boolean> {
         final String endpoint = HatenaApi.MY_URL;

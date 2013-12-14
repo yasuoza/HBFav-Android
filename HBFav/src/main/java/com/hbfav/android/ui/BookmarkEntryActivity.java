@@ -21,6 +21,7 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -173,11 +174,11 @@ public class BookmarkEntryActivity extends Activity {
                     }
                     request.addQuerystringParameter("tags", tag);
                 }
-                request.addQuerystringParameter("post_twitter", HBFavUtils.boolToString(mCheckBoxTwitter.isChecked()));
-                request.addQuerystringParameter("post_facebook", HBFavUtils.boolToString(mCheckBoxFacebook.isChecked()));
-                request.addQuerystringParameter("post_mixi", HBFavUtils.boolToString(mCheckBoxMixi.isChecked()));
-                request.addQuerystringParameter("post_evernote", HBFavUtils.boolToString(mCheckBoxEvernote.isChecked()));
-                request.addQuerystringParameter("private", HBFavUtils.boolToString(mCheckBoxPrivate.isChecked()));
+                request.addQuerystringParameter("post_twitter", HBFavUtils.boolToString(UserInfoManager.isPostTwitter()));
+                request.addQuerystringParameter("post_facebook", HBFavUtils.boolToString(UserInfoManager.isPostFacebook()));
+                request.addQuerystringParameter("post_mixi", HBFavUtils.boolToString(UserInfoManager.isPostMixi()));
+                request.addQuerystringParameter("post_evernote", HBFavUtils.boolToString(UserInfoManager.isPostEvernote()));
+                request.addQuerystringParameter("private", HBFavUtils.boolToString(UserInfoManager.isPostPrivate()));
                 HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
                 org.scribe.model.Response response;
                 try {
@@ -329,10 +330,49 @@ public class BookmarkEntryActivity extends Activity {
         mShareConfigView = (LinearLayout) findViewById(R.id.share_config_area);
 
         mCheckBoxTwitter = (CheckBox) findViewById(R.id.checkbox_twitter);
+        mCheckBoxTwitter.setChecked(UserInfoManager.isPostTwitter());
+        mCheckBoxTwitter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserInfoManager.setPostTwitter(isChecked);
+            }
+        });
+
         mCheckBoxFacebook = (CheckBox) findViewById(R.id.checkbox_facebook);
+        mCheckBoxFacebook.setChecked(UserInfoManager.isPostFacebook());
+        mCheckBoxFacebook.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserInfoManager.setPostFacebook(isChecked);
+            }
+        });
+
         mCheckBoxMixi = (CheckBox) findViewById(R.id.checkbox_mixi);
+        mCheckBoxMixi.setChecked(UserInfoManager.isPostMixi());
+        mCheckBoxMixi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserInfoManager.setPostMixi(isChecked);
+            }
+        });
+
         mCheckBoxEvernote = (CheckBox) findViewById(R.id.checkbox_evernote);
+        mCheckBoxEvernote.setChecked(UserInfoManager.isPostEvernote());
+        mCheckBoxEvernote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserInfoManager.setPostEvernote(isChecked);
+            }
+        });
+
         mCheckBoxPrivate = (CheckBox) findViewById(R.id.checkbox_private);
+        mCheckBoxPrivate.setChecked(UserInfoManager.isPostPrivate());
+        mCheckBoxPrivate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                UserInfoManager.setPostPrivate(isChecked);
+            }
+        });
 
         layoutRecommendTagButtons();
     }
@@ -387,7 +427,7 @@ public class BookmarkEntryActivity extends Activity {
     }
 
 
-    /** UI **/
+    /** UI */
 
     private void layoutRecommendTagButtons() {
         setVisibleControllPanelOnly(mRecommendTagsArea);
