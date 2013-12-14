@@ -19,6 +19,9 @@
     <!-- HotEntry -->
     <string name="users">users</string>
 
+    <!-- Web view -->
+    <string name="processing">Processing...</string>
+
     <!-- Setting -->
     <string name="setting_settings">SETTINGS</string>
     <string name="setting_accounts">ACCOUNTS</string>

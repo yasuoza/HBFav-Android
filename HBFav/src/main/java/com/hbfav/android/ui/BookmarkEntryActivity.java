@@ -99,8 +99,8 @@ public class BookmarkEntryActivity extends Activity {
 
         new UserInfoManager.FetchShareConfigTask() {
             @Override
-            protected void onPostExecute(Boolean authenticad) {
-                if (!authenticad) {
+            protected void onPostExecute(Boolean authenticated) {
+                if (!authenticated) {
                     Intent intent = new Intent(mContext, HatenaOauthActivity.class);
                     startActivity(intent);
                 }
@@ -157,7 +157,7 @@ public class BookmarkEntryActivity extends Activity {
         new AsyncTask<Void, Void, Boolean>() {
             protected void onPreExecute() {
                 mProgressDialog = new ProgressDialog(mContext);
-                mProgressDialog.setMessage("Please wait.");
+                mProgressDialog.setMessage(getString(R.string.processing));
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.setIndeterminate(true);
                 mProgressDialog.show();
@@ -168,6 +168,9 @@ public class BookmarkEntryActivity extends Activity {
                 request.addQuerystringParameter("url", Uri.decode(mEntry.getLink()));
                 request.addQuerystringParameter("comment", mCommentEditText.getText().toString());
                 for (String tag : mSelectedTags) {
+                    if (tag == null || tag.isEmpty()) {
+                        continue;
+                    }
                     request.addQuerystringParameter("tags", tag);
                 }
                 request.addQuerystringParameter("post_twitter", HBFavUtils.boolToString(mCheckBoxTwitter.isChecked()));
