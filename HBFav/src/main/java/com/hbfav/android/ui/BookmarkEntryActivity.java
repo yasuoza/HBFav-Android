@@ -2,8 +2,10 @@ package com.hbfav.android.ui;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -37,6 +39,7 @@ import com.hbfav.android.util.HBFavUtils;
 
 import org.scribe.exceptions.OAuthConnectionException;
 import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
 import org.scribe.model.Verb;
 
 import java.util.ArrayList;
@@ -181,7 +184,8 @@ public class BookmarkEntryActivity extends Activity {
                     request.addQuerystringParameter("private", HBFavUtils.boolToString(UserInfoManager.isPostPrivate()));
                 }
                 HatenaApiManager.getService().signRequest(UserInfoManager.getAccessToken(), request);
-                org.scribe.model.Response response;
+
+                Response response;
                 try {
                     response = request.send();
                     switch (requestMethod) {
@@ -203,7 +207,16 @@ public class BookmarkEntryActivity extends Activity {
                 if (success) {
                     finish();
                 } else {
-                    // operation failed!
+                    new AlertDialog.Builder(mContext)
+                            .setTitle(R.string.failed_add_bookmark_title)
+                            .setMessage(R.string.failed_add_bookmark_message)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    highlightSelectedRecommendButtons();
+                                    highlightSelectedMyTagButtons();
+                                }
+                            })
+                            .show();
                 }
             }
         }.execute();
@@ -440,12 +453,8 @@ public class BookmarkEntryActivity extends Activity {
     private void layoutRecommendTagButtons() {
         setVisibleControllPanelOnly(mRecommendTagsArea);
 
-        int areaChildCount = mRecommendTagsArea.getChildCount();
-        if (areaChildCount > 0) {
-            for (int i = 0; i < areaChildCount; i++) {
-                Button button = (Button) mRecommendTagsArea.getChildAt(i);
-                button.setPressed(mSelectedTags.indexOf(button.getText()) != -1);
-            }
+        if (mRecommendTagsArea.getChildCount() > 0) {
+            highlightSelectedRecommendButtons();
             return;
         }
 
@@ -466,12 +475,8 @@ public class BookmarkEntryActivity extends Activity {
     private void layoutAllTagButtons() {
         setVisibleControllPanelOnly(mMyTagsArea);
 
-        int areaChildCount = mMyTagsArea.getChildCount();
-        if (areaChildCount > 0) {
-            for (int i = 0; i < areaChildCount; i++) {
-                Button button = (Button) mMyTagsArea.getChildAt(i);
-                button.setPressed(mSelectedTags.indexOf(button.getText()) != -1);
-            }
+        if (mMyTagsArea.getChildCount() > 0) {
+            highlightSelectedMyTagButtons();
             return;
         }
 
@@ -486,6 +491,26 @@ public class BookmarkEntryActivity extends Activity {
                 }
             });
             mMyTagsArea.addView(button);
+        }
+    }
+
+    private void highlightSelectedRecommendButtons() {
+        int areaChildCount = mRecommendTagsArea.getChildCount();
+        if (areaChildCount > 0) {
+            for (int i = 0; i < areaChildCount; i++) {
+                Button button = (Button) mRecommendTagsArea.getChildAt(i);
+                button.setPressed(mSelectedTags.indexOf(button.getText()) != -1);
+            }
+        }
+    }
+
+    private void highlightSelectedMyTagButtons() {
+        int areaChildCount = mMyTagsArea.getChildCount();
+        if (areaChildCount > 0) {
+            for (int i = 0; i < areaChildCount; i++) {
+                Button button = (Button) mMyTagsArea.getChildAt(i);
+                button.setPressed(mSelectedTags.indexOf(button.getText()) != -1);
+            }
         }
     }
 

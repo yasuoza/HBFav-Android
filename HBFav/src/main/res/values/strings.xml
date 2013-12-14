@@ -22,6 +22,10 @@
     <!-- Web view -->
     <string name="processing">Processing...</string>
 
+    <!-- BookmarkEntryActivity -->
+    <string name="failed_add_bookmark_title">Failed to add bookmark...</string>
+    <string name="failed_add_bookmark_message">Please change tags or try later.</string>
+
     <!-- Setting -->
     <string name="setting_settings">SETTINGS</string>
     <string name="setting_accounts">ACCOUNTS</string>
