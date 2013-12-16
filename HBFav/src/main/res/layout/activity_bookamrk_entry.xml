@@ -42,15 +42,18 @@
                 android:textSize="12sp"
                 android:text="All Tags"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/share_config_button"
+                android:src="@drawable/share_config_btn_00000"
                 android:background="@android:color/transparent"
                 android:textColor="@color/hatena_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="12sp"
-                android:text="Share"/>
+                android:textSize="12sp"/>
+
         </LinearLayout>
 
         <ScrollView

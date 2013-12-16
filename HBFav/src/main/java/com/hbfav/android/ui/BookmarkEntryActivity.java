@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -65,7 +66,7 @@ public class BookmarkEntryActivity extends Activity {
 
     private Button mRecommendTagsButton;
     private Button mAllTagsButton;
-    private Button mShareConfigButton;
+    private ImageButton mShareConfigButton;
 
     private ScrollView mControlScrollView;
     private FlowLayout mRecommendTagsArea;
@@ -246,8 +247,6 @@ public class BookmarkEntryActivity extends Activity {
                                     highlightToolbarButtonOnly(mRecommendTagsButton);
                                 } else if (mMyTagsArea.isShown()) {
                                     highlightToolbarButtonOnly(mAllTagsButton);
-                                } else {
-                                    highlightToolbarButtonOnly(mShareConfigButton);
                                 }
                             }
                             isKeyboardShown = (heightDiff > 200);
@@ -327,7 +326,7 @@ public class BookmarkEntryActivity extends Activity {
             }
         });
 
-        mShareConfigButton = (Button) findViewById(R.id.share_config_button);
+        mShareConfigButton = (ImageButton) findViewById(R.id.share_config_button);
         mShareConfigButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -340,7 +339,6 @@ public class BookmarkEntryActivity extends Activity {
                 }
 
                 fetchMyShareConfig();
-                highlightToolbarButtonOnly(mShareConfigButton);
                 setVisibleControllPanelOnly(mShareConfigView);
             }
         });
@@ -356,6 +354,7 @@ public class BookmarkEntryActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserInfoManager.setPostTwitter(isChecked);
+                highlightShareConfigButton();
             }
         });
 
@@ -365,6 +364,7 @@ public class BookmarkEntryActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserInfoManager.setPostFacebook(isChecked);
+                highlightShareConfigButton();
             }
         });
 
@@ -374,6 +374,7 @@ public class BookmarkEntryActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserInfoManager.setPostMixi(isChecked);
+                highlightShareConfigButton();
             }
         });
 
@@ -383,6 +384,7 @@ public class BookmarkEntryActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserInfoManager.setPostEvernote(isChecked);
+                highlightShareConfigButton();
             }
         });
 
@@ -392,10 +394,12 @@ public class BookmarkEntryActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserInfoManager.setPostPrivate(isChecked);
+                highlightShareConfigButton();
             }
         });
 
         layoutRecommendTagButtons();
+        highlightShareConfigButton();
     }
 
     private void fetchBookmarkStatus() {
@@ -547,7 +551,7 @@ public class BookmarkEntryActivity extends Activity {
     }
 
     private void highlightToolbarButtonOnly(Button button) {
-        for (Button btn : new Button[]{mRecommendTagsButton, mAllTagsButton, mShareConfigButton}) {
+        for (Button btn : new Button[]{mRecommendTagsButton, mAllTagsButton}) {
             if (btn.equals(button)) {
                 btn.setTypeface(Typeface.DEFAULT_BOLD);
             } else {
@@ -556,8 +560,12 @@ public class BookmarkEntryActivity extends Activity {
         }
     }
 
+    private void highlightShareConfigButton() {
+        mShareConfigButton.setImageDrawable(getResources().getDrawable(getShareConfigButtonDrawableId()));
+    }
+
     private void resetToolbarButtonColor() {
-        for (Button btn : new Button[]{mRecommendTagsButton, mAllTagsButton, mShareConfigButton}) {
+        for (Button btn : new Button[]{mRecommendTagsButton, mAllTagsButton}) {
             btn.setTypeface(Typeface.DEFAULT);
         }
     }
@@ -570,5 +578,14 @@ public class BookmarkEntryActivity extends Activity {
                 v.setVisibility(View.GONE);
             }
         }
+    }
+
+    private int getShareConfigButtonDrawableId() {
+        String numberStr = HBFavUtils.boolToString(UserInfoManager.isPostTwitter())
+                + HBFavUtils.boolToString(UserInfoManager.isPostFacebook())
+                + HBFavUtils.boolToString(UserInfoManager.isPostMixi())
+                + HBFavUtils.boolToString(UserInfoManager.isPostEvernote())
+                + HBFavUtils.boolToString(UserInfoManager.isPostPrivate());
+        return getResources().getIdentifier("share_config_btn_" + numberStr, "drawable", getPackageName());
     }
 }
