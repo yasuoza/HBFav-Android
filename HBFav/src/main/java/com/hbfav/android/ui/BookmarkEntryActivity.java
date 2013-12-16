@@ -338,7 +338,7 @@ public class BookmarkEntryActivity extends Activity {
                     mControlScrollView.setVisibility(View.VISIBLE);
                 }
 
-                fetchMyShareConfig();
+                layoutShareConfigCheckbox();
                 setVisibleControllPanelOnly(mShareConfigView);
             }
         });
@@ -349,7 +349,6 @@ public class BookmarkEntryActivity extends Activity {
         mShareConfigView = (LinearLayout) findViewById(R.id.share_config_area);
 
         mCheckBoxTwitter = (CheckBox) findViewById(R.id.checkbox_twitter);
-        mCheckBoxTwitter.setChecked(UserInfoManager.isPostTwitter());
         mCheckBoxTwitter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -359,7 +358,6 @@ public class BookmarkEntryActivity extends Activity {
         });
 
         mCheckBoxFacebook = (CheckBox) findViewById(R.id.checkbox_facebook);
-        mCheckBoxFacebook.setChecked(UserInfoManager.isPostFacebook());
         mCheckBoxFacebook.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -369,7 +367,6 @@ public class BookmarkEntryActivity extends Activity {
         });
 
         mCheckBoxMixi = (CheckBox) findViewById(R.id.checkbox_mixi);
-        mCheckBoxMixi.setChecked(UserInfoManager.isPostMixi());
         mCheckBoxMixi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -379,7 +376,6 @@ public class BookmarkEntryActivity extends Activity {
         });
 
         mCheckBoxEvernote = (CheckBox) findViewById(R.id.checkbox_evernote);
-        mCheckBoxEvernote.setChecked(UserInfoManager.isPostEvernote());
         mCheckBoxEvernote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -389,17 +385,27 @@ public class BookmarkEntryActivity extends Activity {
         });
 
         mCheckBoxPrivate = (CheckBox) findViewById(R.id.checkbox_private);
-        mCheckBoxPrivate.setChecked(UserInfoManager.isPostPrivate());
         mCheckBoxPrivate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UserInfoManager.setPostPrivate(isChecked);
+                mCheckBoxTwitter.setChecked(false);
+                mCheckBoxFacebook.setChecked(false);
+                mCheckBoxMixi.setChecked(false);
+                if (isChecked) {
+                    mCheckBoxTwitter.setEnabled(false);
+                    mCheckBoxFacebook.setEnabled(false);
+                    mCheckBoxMixi.setEnabled(false);
+                } else {
+                    layoutShareConfigCheckbox();
+                }
                 highlightShareConfigButton();
             }
         });
 
         layoutRecommendTagButtons();
         highlightShareConfigButton();
+        layoutShareConfigCheckbox();
     }
 
     private void fetchBookmarkStatus() {
@@ -444,11 +450,20 @@ public class BookmarkEntryActivity extends Activity {
         }.execute(mEntry);
     }
 
-    public void fetchMyShareConfig() {
+    public void layoutShareConfigCheckbox() {
         mCheckBoxTwitter.setEnabled(UserInfoManager.isOauthTwitter());
+        mCheckBoxTwitter.setChecked(UserInfoManager.isPostTwitter());
+
         mCheckBoxFacebook.setEnabled(UserInfoManager.isOauthFacebook());
+        mCheckBoxFacebook.setChecked(UserInfoManager.isPostFacebook());
+
         mCheckBoxMixi.setEnabled(UserInfoManager.isOauthMixi());
+        mCheckBoxMixi.setChecked(UserInfoManager.isPostMixi());
+
         mCheckBoxEvernote.setEnabled(UserInfoManager.isOauthEvernote());
+        mCheckBoxEvernote.setChecked(UserInfoManager.isPostEvernote());
+
+        mCheckBoxPrivate.setChecked(UserInfoManager.isPostPrivate());
     }
 
 
