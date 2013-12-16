@@ -21,11 +21,16 @@ Android版 [HBFav](https://github.com/naoya/HBFav2)
 
 ## クレジット
 
+Code
 * [ActionBar-PullToRefresh](https://github.com/chrisbanes/ActionBar-PullToRefresh)
 * [volley](https://android.googlesource.com/platform/frameworks/volley)
 * [google-gson](https://code.google.com/p/google-gson/)
 * [RoundedImageView](https://github.com/vinc3m1/RoundedImageView)
+* [scribe-java](https://github.com/fernandezpablo85/scribe-java)
+
+icons
 * [insignia](http://medialoot.com/insignia/)
+* [mini_social_icons](http://wolfrosch.com/works/webdesign/socialicons)
 
 ## ビルド
 
