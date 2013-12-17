@@ -30,7 +30,8 @@ Code
 
 icons
 * [insignia](http://medialoot.com/insignia/)
-* [mini_social_icons](http://wolfrosch.com/works/webdesign/socialicons)
+* [ICONSDB](http://www.iconsdb.com)
+* [FIND ICONS](http://findicons.com/)
 
 ## ビルド
 
