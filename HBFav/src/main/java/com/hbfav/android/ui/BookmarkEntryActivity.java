@@ -171,13 +171,15 @@ public class BookmarkEntryActivity extends Activity {
                 OAuthRequest request = new OAuthRequest(requestMethod, HatenaApi.BOOKMARK_URL);
                 request.addQuerystringParameter("url", mEntry.getLink());
                 if (requestMethod != Verb.DELETE) {
-                    request.addQuerystringParameter("comment", mCommentEditText.getText().toString());
+                    String comment = "";
                     for (String tag : mSelectedTags) {
                         if (tag == null || tag.isEmpty()) {
                             continue;
                         }
-                        request.addQuerystringParameter("tags", tag);
+                        comment += "[" + tag + "]";
                     }
+                    comment += mCommentEditText.getText().toString();
+                    request.addQuerystringParameter("comment", comment);
                     request.addQuerystringParameter("post_twitter", HBFavUtils.boolToString(UserInfoManager.isPostTwitter()));
                     request.addQuerystringParameter("post_facebook", HBFavUtils.boolToString(UserInfoManager.isPostFacebook()));
                     request.addQuerystringParameter("post_mixi", HBFavUtils.boolToString(UserInfoManager.isPostMixi()));
