@@ -4,9 +4,7 @@ package com.hbfav.android.ui;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
@@ -16,18 +14,15 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.google.gson.Gson;
 import com.hbfav.android.R;
-import com.hbfav.android.core.HatenaApiManager;
+import com.hbfav.android.core.FetchBookmarkStatusTask;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
-import com.hbfav.android.model.User;
-
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Response;
-import org.scribe.model.Verb;
+import com.hbfav.android.model.HatenaBookmark;
 
 public class EntryContentWebViewActivity extends Activity {
+
+    private Entry mEntry;
 
     private ProgressBar mProgressBar;
     private WebView mWebView;
@@ -41,7 +36,7 @@ public class EntryContentWebViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
 
-        final Entry entry = getIntent().getParcelableExtra("entry");
+        mEntry = getIntent().getParcelableExtra("entry");
 
         setContentView(R.layout.entry_webview);
 
@@ -54,7 +49,7 @@ public class EntryContentWebViewActivity extends Activity {
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(entry.getTitle());
+        actionBar.setTitle(mEntry.getTitle());
 
         setHistoryBackButtonClickable(false);
         mHistoryBackButton.setOnClickListener(new View.OnClickListener() {
@@ -75,16 +70,34 @@ public class EntryContentWebViewActivity extends Activity {
         mBookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerBookmark(entry);
+                registerBookmark(mEntry);
             }
         });
 
-        mBookmarkCountButton.setText(entry.getCount() + "\nusers");
+        mBookmarkCountButton.setText(mEntry.getCount() + "\nusers");
 
-        startWebView(entry);
+        startWebView(mEntry);
 
         UserInfoManager.refreshMyTagsIfNeeded();
-        entry.fetchRecommendTagsIfNeeded();
+        mEntry.fetchRecommendTagsIfNeeded();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        updateBookmarkButton();
+
+        updateEntryDetail();
+    }
+
+    private void updateEntryDetail() {
+        mEntry.fetchLatestDetail(new Entry.EntryDetailFetchListener() {
+            @Override
+            public void onDetailFetched() {
+                mBookmarkCountButton.setText(mEntry.getCount() + "\nusers");
+            }
+        });
     }
 
     private void startWebView(Entry entry) {
@@ -122,6 +135,19 @@ public class EntryContentWebViewActivity extends Activity {
             }
         }
     };
+
+    private void updateBookmarkButton() {
+        new FetchBookmarkStatusTask() {
+            @Override
+            protected void onPostExecute(HatenaBookmark bookmark) {
+                super.onPostExecute(bookmark);
+
+                if (bookmark != null) {
+                    mBookmarkButton.setText("Bed!");
+                }
+            }
+        }.execute(mEntry);
+    }
 
     private void goBackHistory() {
         if (mWebView.canGoBack()) {

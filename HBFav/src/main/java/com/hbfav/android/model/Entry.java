@@ -1,7 +1,6 @@
 package com.hbfav.android.model;
 
 
-import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateUtils;
@@ -14,14 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.hbfav.android.Constants;
-import com.hbfav.android.core.HatenaApiManager;
-import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.IntegerMapComparator;
-
-import org.scribe.exceptions.OAuthConnectionException;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Verb;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +41,10 @@ public class Entry implements Parcelable {
 
     private String[] mRecommendTags = new String[]{};
     private boolean mFetchedRecommendTags;
+
+    public interface EntryDetailFetchListener {
+        abstract void onDetailFetched();
+    }
 
     public Entry() { }
 
@@ -130,15 +127,24 @@ public class Entry implements Parcelable {
     }
 
     public void fetchRecommendTags() {
+        fetchLatestDetail(null);
+    }
+
+
+    public void fetchLatestDetail(final EntryDetailFetchListener fetchListener) {
         mFetchedRecommendTags = true;
-        MainActivity.getRequestQueue().add(new StringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
+
+        MainActivity.getRequestQueue().add(latestDetailRequest(fetchListener));
+    }
+
+    private StringRequest latestDetailRequest(final EntryDetailFetchListener fetchListener) {
+        StringRequest request = new StringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
                         Gson gson = new Gson();
                         ResultPage entryDetail = gson.fromJson(response, ResultPage.class);
-
                         HatenaBookmark[] hatenaBookmarks = entryDetail.getBookmarks();
                         for (HatenaBookmark entry : hatenaBookmarks) {
                             for (String tag : entry.getTags()) {
@@ -154,6 +160,13 @@ public class Entry implements Parcelable {
                         Set<String> tagsSet = tagsTreeMap.keySet();
                         int length = tagsSet.size() > Constants.MAX_TAG_COUNT ? Constants.MAX_TAG_COUNT : tagsSet.size();
                         mRecommendTags = Arrays.copyOfRange(tagsSet.toArray(new String[length]), 0, length);
+
+                        if (fetchListener != null) {
+                            title = entryDetail.getTitle();
+                            count = entryDetail.getCount();
+                            link = entryDetail.getUrl();
+                            fetchListener.onDetailFetched();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -161,7 +174,9 @@ public class Entry implements Parcelable {
                     public void onErrorResponse(VolleyError error) {
                     }
                 }
-        ));
+        );
+        request.setShouldCache(false);
+        return request;
     }
 
 
