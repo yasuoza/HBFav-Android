@@ -48,6 +48,12 @@
             android:hardwareAccelerated="true">
         </activity>
         <activity
+            android:name=".ui.CommonWebViewActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="keyboardHidden|screenSize"
+            android:hardwareAccelerated="true">
+        </activity>
+        <activity
             android:name=".ui.setting.SettingActivity"
             android:configChanges="keyboardHidden|screenSize"
             android:hardwareAccelerated="true">

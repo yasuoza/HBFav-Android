@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -53,6 +55,19 @@ public class BookmarkCommentListActivity extends ListActivity {
 
         fetchComments();
     }
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        super.onListItemClick(listView, view, position, id);
+
+        HatenaBookmark bookmark = mBookmarks[position];
+
+        Intent intent = new Intent(this, CommonWebViewActivity.class);
+        intent.putExtra("url", "http://b.hatena.ne.jp/" + bookmark.getUserName());
+        intent.putExtra("title", bookmark.getUserName());
+        startActivity(intent);
+    }
+
 
     private void fetchComments() {
         MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(mEntry.getLink()),
