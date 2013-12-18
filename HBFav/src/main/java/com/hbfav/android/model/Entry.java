@@ -8,11 +8,11 @@ import android.text.format.DateUtils;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.hbfav.android.Constants;
+import com.hbfav.android.core.HBFavAPIStringRequest;
 import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.IntegerMapComparator;
 
@@ -120,25 +120,8 @@ public class Entry implements Parcelable {
         return mRecommendTags;
     }
 
-    public void fetchRecommendTagsIfNeeded() {
-        if (!mFetchedRecommendTags) {
-            fetchRecommendTags();
-        }
-    }
-
-    public void fetchRecommendTags() {
-        fetchLatestDetail(null);
-    }
-
-
     public void fetchLatestDetail(final EntryDetailFetchListener fetchListener) {
-        mFetchedRecommendTags = true;
-
-        MainActivity.getRequestQueue().add(latestDetailRequest(fetchListener));
-    }
-
-    private StringRequest latestDetailRequest(final EntryDetailFetchListener fetchListener) {
-        StringRequest request = new StringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
+        MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -159,12 +142,13 @@ public class Entry implements Parcelable {
 
                         Set<String> tagsSet = tagsTreeMap.keySet();
                         int length = tagsSet.size() > Constants.MAX_TAG_COUNT ? Constants.MAX_TAG_COUNT : tagsSet.size();
+
+                        title = entryDetail.getTitle();
+                        count = entryDetail.getCount();
+                        link = entryDetail.getUrl();
                         mRecommendTags = Arrays.copyOfRange(tagsSet.toArray(new String[length]), 0, length);
 
                         if (fetchListener != null) {
-                            title = entryDetail.getTitle();
-                            count = entryDetail.getCount();
-                            link = entryDetail.getUrl();
                             fetchListener.onDetailFetched();
                         }
                     }
@@ -174,9 +158,7 @@ public class Entry implements Parcelable {
                     public void onErrorResponse(VolleyError error) {
                     }
                 }
-        );
-        request.setShouldCache(false);
-        return request;
+        ));
     }
 
 

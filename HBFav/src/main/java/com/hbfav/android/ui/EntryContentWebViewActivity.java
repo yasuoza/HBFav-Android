@@ -79,7 +79,6 @@ public class EntryContentWebViewActivity extends Activity {
         startWebView(mEntry);
 
         UserInfoManager.refreshMyTagsIfNeeded();
-        mEntry.fetchRecommendTagsIfNeeded();
     }
 
     @Override

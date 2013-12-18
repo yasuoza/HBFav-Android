@@ -99,7 +99,7 @@ public class BookmarkEntryActivity extends Activity {
             mEntry = new Entry("", getIntent().getStringExtra("entryUrl"), 0);
         }
 
-        mEntry.fetchRecommendTagsIfNeeded();
+        mEntry.fetchLatestDetail(null);
 
         new UserInfoManager.FetchShareConfigTask() {
             @Override

@@ -15,6 +15,7 @@ public class HBFavAPIStringRequest extends StringRequest {
                                  Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
         setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_MS, 1, 1.0f));
+        setShouldCache(false);
         mListener = listener;
     }
 
@@ -23,6 +24,7 @@ public class HBFavAPIStringRequest extends StringRequest {
         super(method, url, listener, errorListener);
         setRetryPolicy(new DefaultRetryPolicy(TIMEOUT_MS, 1, 1.0f));
         setTag(tag);
+        setShouldCache(false);
         mListener = listener;
     }
 }
