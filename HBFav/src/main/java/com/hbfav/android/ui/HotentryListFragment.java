@@ -13,7 +13,7 @@ public class HotentryListFragment extends BaseEntryListFragment {
     protected void initAdapter() {
         mAdapter = new EntryListAdapter(
                 getActivity(),
-                R.layout.common_entry_item,
+                R.layout.common_entry_row,
                 getManager().getList()
         );
     }

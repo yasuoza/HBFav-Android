@@ -52,4 +52,8 @@ public class HatenaApi extends DefaultApi10a {
         return BASE_THUMBNAIL_URL + UserInfoManager.getUserName() + "/profile.gif";
     }
 
+    public static String getThumbUrl(String userName) {
+        return BASE_THUMBNAIL_URL + userName + "/profile.gif";
+    }
+
 }

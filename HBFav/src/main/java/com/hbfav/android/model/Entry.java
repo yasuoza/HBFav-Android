@@ -126,8 +126,7 @@ public class Entry implements Parcelable {
                     @Override
                     public void onResponse(String response) {
                         HashMap<String, Integer> tagsMap = new HashMap<String, Integer>();
-                        Gson gson = new Gson();
-                        ResultPage entryDetail = gson.fromJson(response, ResultPage.class);
+                        ResultPage entryDetail = ResultPage.gson.fromJson(response, ResultPage.class);
                         HatenaBookmark[] hatenaBookmarks = entryDetail.getBookmarks();
                         for (HatenaBookmark entry : hatenaBookmarks) {
                             for (String tag : entry.getTags()) {

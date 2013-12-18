@@ -75,6 +75,12 @@ public class EntryContentWebViewActivity extends Activity {
         });
 
         mBookmarkCountButton.setText(mEntry.getCount() + "\nusers");
+        mBookmarkCountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCommentActivity(mEntry);
+            }
+        });
 
         startWebView(mEntry);
 
@@ -180,6 +186,12 @@ public class EntryContentWebViewActivity extends Activity {
 
     private void registerBookmark(final Entry entry) {
         Intent intent = new Intent(this, BookmarkEntryActivity.class);
+        intent.putExtra("entry", entry);
+        startActivity(intent);
+    }
+
+    private void startCommentActivity(final Entry entry) {
+        Intent intent = new Intent(this, BookmarkCommentListActivity.class);
         intent.putExtra("entry", entry);
         startActivity(intent);
     }
