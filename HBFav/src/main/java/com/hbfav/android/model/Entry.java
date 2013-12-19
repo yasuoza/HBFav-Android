@@ -120,6 +120,12 @@ public class Entry implements Parcelable {
         return mRecommendTags;
     }
 
+    public void fetchLatestDetailIfNeeded() {
+        if (mRecommendTags == null || mRecommendTags.length == 0) {
+            fetchLatestDetail(null);
+        }
+    }
+
     public void fetchLatestDetail(final EntryDetailFetchListener fetchListener) {
         MainActivity.getRequestQueue().add(new HBFavAPIStringRequest(Request.Method.GET, HatenaApi.entryDetialUrl(link),
                 new Response.Listener<String>() {

@@ -52,11 +52,6 @@ public class HatenaOauthActivity extends Activity {
         super.onDestroy();
     }
 
-    @Override
-    public void onBackPressed () {
-        return;
-    }
-
     private void startAuthorize() {
         (new AsyncTask<Void, Void, String>() {
             @Override

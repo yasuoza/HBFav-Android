@@ -99,7 +99,15 @@ public class BookmarkEntryActivity extends Activity {
             mEntry = new Entry("", getIntent().getStringExtra("entryUrl"), 0);
         }
 
-        mEntry.fetchLatestDetail(null);
+        mEntry.fetchLatestDetailIfNeeded();
+
+        setContentView(R.layout.activity_bookamrk_entry);
+        setUpActivity();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         new UserInfoManager.FetchShareConfigTask() {
             @Override
@@ -111,13 +119,6 @@ public class BookmarkEntryActivity extends Activity {
             }
         }.execute();
 
-        setContentView(R.layout.activity_bookamrk_entry);
-        setUpActivity();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         fetchBookmarkStatus();
     }

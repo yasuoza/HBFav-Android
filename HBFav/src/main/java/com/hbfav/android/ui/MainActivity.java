@@ -77,6 +77,11 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         if (UserInfoManager.getAccessToken() == null) {
             Intent intent = new Intent(this, HatenaOauthActivity.class);
