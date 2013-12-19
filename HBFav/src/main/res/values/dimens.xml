@@ -10,4 +10,6 @@
 
     <dimen name="text_size_nomark">15sp</dimen>
     <dimen name="extra_line_space">3.5sp</dimen>
+
+    <dimen name="entry_webview_toolbar_height">50dp</dimen>
 </resources>

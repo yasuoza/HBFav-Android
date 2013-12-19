@@ -12,6 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.hbfav.android.R;
@@ -20,12 +21,14 @@ import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.HatenaBookmark;
 
-public class EntryContentWebViewActivity extends Activity {
+public class EntryContentWebViewActivity extends Activity implements ObservableWebView.OnScrollChangedCallback {
 
     private Entry mEntry;
+    private Boolean loading = true;
 
     private ProgressBar mProgressBar;
-    private WebView mWebView;
+    private ObservableWebView mWebView;
+    private LinearLayout mToolbarContainer;
     private Button mHistoryBackButton;
     private Button mHistoryForwardButton;
     private Button mBookmarkButton;
@@ -40,16 +43,23 @@ public class EntryContentWebViewActivity extends Activity {
 
         setContentView(R.layout.entry_webview);
 
-        mWebView = (WebView) findViewById(R.id.webView);
+        mWebView = (ObservableWebView) findViewById(R.id.webView);
+        mWebView.setOnScrollChangedCallback(this);
+
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        mToolbarContainer = (LinearLayout) findViewById(R.id.entry_webview_toolbar);
+
         mHistoryBackButton = (Button) findViewById(R.id.historyBackButton);
         mHistoryForwardButton = (Button) findViewById(R.id.historyForwardButton);
+
         mBookmarkButton = (Button) findViewById(R.id.bookmarkButton);
         mBookmarkCountButton = (Button) findViewById(R.id.entry_webview_bookmark_count_button);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mEntry.getTitle());
+        actionBar.hide();
 
         setHistoryBackButtonClickable(false);
         mHistoryBackButton.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +106,16 @@ public class EntryContentWebViewActivity extends Activity {
         updateEntryDetail();
     }
 
+    @Override
+    public void onScroll(int l, int t, int oldl, int oldt) {
+        if (oldt + 5 < t) {
+            mToolbarContainer.animate().translationY(getResources().getDimension(R.dimen.entry_webview_toolbar_height));
+        }
+        if (t + 3 < oldt || t == oldt) {
+            mToolbarContainer.animate().translationY(0);
+        }
+    }
+
     private void updateEntryDetail() {
         mEntry.fetchLatestDetail(new Entry.EntryDetailFetchListener() {
             @Override
@@ -133,6 +153,7 @@ public class EntryContentWebViewActivity extends Activity {
             super.onProgressChanged(view, newProgress);
 
             if (newProgress == 100) {
+                loading = false;
                 EntryContentWebViewActivity.this.mProgressBar.setVisibility(View.GONE);
             } else {
                 EntryContentWebViewActivity.this.mProgressBar.setVisibility(View.VISIBLE);

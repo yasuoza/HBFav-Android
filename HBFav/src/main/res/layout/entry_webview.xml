@@ -6,6 +6,7 @@
               android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/container_webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -14,11 +15,12 @@
             layout="@layout/general_webview"/>
 
         <LinearLayout
+            android:id="@+id/entry_webview_toolbar"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/entry_webview_toolbar_height"
             android:layout_gravity="bottom"
             android:layout_alignBottom="@+id/webViewContainer"
-            android:background="#9999"
+            android:background="#B3000000"
             android:clickable="false"
             android:orientation="vertical">
 
