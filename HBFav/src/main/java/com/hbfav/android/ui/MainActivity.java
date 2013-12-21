@@ -16,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.hbfav.android.BuildConfig;
-import com.hbfav.android.Constants;
 import com.hbfav.android.R;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.about.AboutAppFragment;

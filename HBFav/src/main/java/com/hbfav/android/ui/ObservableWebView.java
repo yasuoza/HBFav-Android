@@ -22,7 +22,7 @@ public class ObservableWebView extends WebView {
     @Override
     protected void onScrollChanged(final int l, final int t, final int oldl, final int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-        if(mOnScrollChangedCallback != null) mOnScrollChangedCallback.onScroll(l, t, oldl, oldt);
+        if (mOnScrollChangedCallback != null) mOnScrollChangedCallback.onScroll(l, t, oldl, oldt);
     }
 
     public OnScrollChangedCallback getOnScrollChangedCallback() {

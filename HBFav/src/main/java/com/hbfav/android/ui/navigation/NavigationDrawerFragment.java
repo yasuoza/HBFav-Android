@@ -22,15 +22,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.hbfav.android.Constants;
 import com.hbfav.android.R;
 import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.HatenaApi;
 import com.hbfav.android.model.NavigationItem;
 import com.hbfav.android.ui.MainActivity;
 import com.hbfav.android.util.volley.BitmapLruCache;
-
-import java.util.Arrays;
 
 
 /**
@@ -93,7 +90,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerListView.addHeaderView(headerView);
 
         String[] menus = getResources().getStringArray(R.array.menues);
-        NavigationItem[] items = new NavigationItem[] {
+        NavigationItem[] items = new NavigationItem[]{
                 new NavigationItem(getResources().getDrawable(R.drawable.ic_star), menus[1]),
                 new NavigationItem(getResources().getDrawable(R.drawable.ic_doc), menus[2]),
                 new NavigationItem(getResources().getDrawable(R.drawable.ic_heart), menus[3]),

@@ -2,7 +2,6 @@ package com.hbfav.android.model;
 
 import android.net.Uri;
 
-import com.hbfav.android.Constants;
 import com.hbfav.android.core.UserInfoManager;
 
 import org.scribe.builder.api.DefaultApi10a;
@@ -11,11 +10,11 @@ import org.scribe.model.Token;
 public class HatenaApi extends DefaultApi10a {
 
     public static final String CALLBACK_URL = "http://b.hatena.ne.jp/";
-    public static final String API_VERSION  = "1";
+    public static final String API_VERSION = "1";
 
-    public static final String BASE_URL    = "http://api.b.hatena.ne.jp/";
+    public static final String BASE_URL = "http://api.b.hatena.ne.jp/";
     public static final String BASE_THUMBNAIL_URL = "http://www.st-hatena.com/users/";
-    public static final String MY_URL      = BASE_URL + API_VERSION + "/my";
+    public static final String MY_URL = BASE_URL + API_VERSION + "/my";
     public static final String MY_TAGS_URL = BASE_URL + API_VERSION + "/my/tags";
     public static final String BOOKMARK_URL = BASE_URL + API_VERSION + "/my/bookmark";
 
