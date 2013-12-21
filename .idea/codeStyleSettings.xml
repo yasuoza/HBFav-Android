@@ -42,6 +42,7 @@
           <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
           <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
           <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
+          <option name="FIELD_ANNOTATION_WRAP" value="1" />
           <arrangement>
             <groups>
               <group>
