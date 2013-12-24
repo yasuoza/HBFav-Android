@@ -20,7 +20,7 @@
             android:layout_height="@dimen/entry_webview_toolbar_height"
             android:layout_gravity="bottom"
             android:layout_alignBottom="@+id/webViewContainer"
-            android:background="#B3000000"
+            android:background="#80000000"
             android:clickable="false"
             android:orientation="vertical">
 

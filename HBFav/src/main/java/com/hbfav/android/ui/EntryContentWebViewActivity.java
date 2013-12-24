@@ -21,13 +21,13 @@ import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.HatenaBookmark;
 
-public class EntryContentWebViewActivity extends Activity implements ObservableWebView.OnScrollChangedCallback {
+public class EntryContentWebViewActivity extends Activity {
 
     private Entry mEntry;
     private Boolean loading = true;
 
     private ProgressBar mProgressBar;
-    private ObservableWebView mWebView;
+    private WebView mWebView;
     private LinearLayout mToolbarContainer;
     private Button mHistoryBackButton;
     private Button mHistoryForwardButton;
@@ -43,8 +43,7 @@ public class EntryContentWebViewActivity extends Activity implements ObservableW
 
         setContentView(R.layout.entry_webview);
 
-        mWebView = (ObservableWebView) findViewById(R.id.webView);
-        mWebView.setOnScrollChangedCallback(this);
+        mWebView = (WebView) findViewById(R.id.webView);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -104,16 +103,6 @@ public class EntryContentWebViewActivity extends Activity implements ObservableW
         updateBookmarkButton();
 
         updateEntryDetail();
-    }
-
-    @Override
-    public void onScroll(int l, int t, int oldl, int oldt) {
-        if (oldt + 5 < t) {
-            mToolbarContainer.animate().translationY(getResources().getDimension(R.dimen.entry_webview_toolbar_height));
-        }
-        if (t + 3 < oldt || t == oldt) {
-            mToolbarContainer.animate().translationY(0);
-        }
     }
 
     private void updateEntryDetail() {
