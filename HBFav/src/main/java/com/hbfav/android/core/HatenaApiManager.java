@@ -25,6 +25,10 @@ public class HatenaApiManager {
         return mService;
     }
 
+    public static void refreshRequestToken() {
+        mRequestToken = getService().getRequestToken();
+    }
+
     public static Token getRequestToken() {
         if (mRequestToken == null) {
             mRequestToken = getService().getRequestToken();

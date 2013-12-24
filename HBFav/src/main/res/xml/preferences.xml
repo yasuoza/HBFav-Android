@@ -8,5 +8,9 @@
             android:key="@string/pref_hatena_user_name"
             android:title="@string/setting_account"
             android:summary="@string/pref_hatena_user_name_summary"/>
+
+        <Preference
+            android:title="@string/setting_logout_from_hatena_service"
+            android:key="@string/pref_logout_from_hatena_service"/>
     </PreferenceCategory>
 </PreferenceScreen>

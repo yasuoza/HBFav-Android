@@ -1,6 +1,9 @@
 package com.hbfav.android.ui.setting;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -12,8 +15,12 @@ import com.google.analytics.tracking.android.MapBuilder;
 import com.hbfav.android.BuildConfig;
 import com.hbfav.android.Constants;
 import com.hbfav.android.R;
+import com.hbfav.android.core.HatenaApiManager;
 import com.hbfav.android.core.UserInfoManager;
+import com.hbfav.android.ui.HatenaOauthActivity;
 import com.hbfav.android.ui.MainActivity;
+
+import org.scribe.model.Token;
 
 public class SettingFragment extends PreferenceFragment {
     /**
@@ -63,6 +70,40 @@ public class SettingFragment extends PreferenceFragment {
                         activity.finish();
                     }
 
+                    return true;
+                }
+            });
+        }
+
+        Preference logoutPreference = findPreference(getString(R.string.pref_logout_from_hatena_service));
+        if (logoutPreference != null) {
+            logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    (new AsyncTask<Void, Void, Void>() {
+                        ProgressDialog mProgressDialog;
+                        @Override
+                        protected void onPreExecute() {
+                            mProgressDialog = new ProgressDialog(getActivity());
+                            mProgressDialog.setMessage(getString(R.string.processing));
+                            mProgressDialog.setCancelable(false);
+                            mProgressDialog.setIndeterminate(true);
+                            mProgressDialog.show();
+                        }
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            HatenaApiManager.refreshRequestToken();
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void param) {
+                            mProgressDialog.dismiss();
+                            Intent intent = new Intent(getActivity(), HatenaOauthActivity.class);
+                            startActivity(intent);
+                        }
+                    }).execute();
                     return true;
                 }
             });
