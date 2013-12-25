@@ -58,7 +58,6 @@ public class EntryContentWebViewActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mEntry.getTitle());
-        actionBar.hide();
 
         setHistoryBackButtonClickable(false);
         mHistoryBackButton.setOnClickListener(new View.OnClickListener() {
