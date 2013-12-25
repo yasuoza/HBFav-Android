@@ -1,5 +1,6 @@
 package com.hbfav.android.ui;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.ProgressBar;
 
 import com.hbfav.android.R;
 
-public class CommonWebViewActivity extends Activity {
+public class CommonWebViewActivity extends BaseActivity {
 
     private ProgressBar mProgressBar;
     private WebView mWebView;
@@ -25,7 +26,8 @@ public class CommonWebViewActivity extends Activity {
         String url = getIntent().getStringExtra("url");
         String title = getIntent().getStringExtra("title");
 
-        getActionBar().setTitle(title);
+        ActionBar actionBar = getActionBar();
+        actionBar.setTitle(title);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mWebView = (WebView) findViewById(R.id.webView);

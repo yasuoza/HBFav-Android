@@ -46,7 +46,7 @@ import org.scribe.model.Verb;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BookmarkEntryActivity extends Activity {
+public class BookmarkEntryActivity extends BaseActivity {
 
     private Context mContext;
 
@@ -102,6 +102,7 @@ public class BookmarkEntryActivity extends Activity {
         mEntry.fetchLatestDetailIfNeeded();
 
         setContentView(R.layout.activity_bookamrk_entry);
+
         setUpActivity();
     }
 
@@ -156,7 +157,7 @@ public class BookmarkEntryActivity extends Activity {
                 break;
 
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
         final Verb requestMethod = method;
         new AsyncTask<Void, Void, Boolean>() {

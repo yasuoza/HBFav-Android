@@ -56,6 +56,7 @@ public class HatenaOauthActivity extends Activity {
         (new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
+                HatenaApiManager.refreshRequestToken();
                 return HatenaApiManager.getAuthorizationurl();
             }
 

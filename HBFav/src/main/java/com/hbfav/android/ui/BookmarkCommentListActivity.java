@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -41,11 +42,11 @@ public class BookmarkCommentListActivity extends ListActivity {
 
         mEntry = getIntent().getParcelableExtra("entry");
 
-        setContentView(R.layout.activity_bookmark_comment_list);
-
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mEntry.getTitle());
+
+        setContentView(R.layout.activity_bookmark_comment_list);
 
         mAdapter = new CommentListAdapter(
                 this,
@@ -63,9 +64,22 @@ public class BookmarkCommentListActivity extends ListActivity {
         HatenaBookmark bookmark = mBookmarks[position];
 
         Intent intent = new Intent(this, CommonWebViewActivity.class);
-        intent.putExtra("url", "http://b.hatena.ne.jp/" + bookmark.getUserName());
+        intent.putExtra("url", "http://b.hatena.ne.jp/" + bookmark.getUserName() + "/touch");
         intent.putExtra("title", bookmark.getUserName());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -144,7 +158,7 @@ public class BookmarkCommentListActivity extends ListActivity {
                         .setText(bookmark.getComment());
             }
 
-            ((TextView) view.findViewById(R.id.fragment_entry_list_title)).setVisibility(View.GONE);
+            (view.findViewById(R.id.fragment_entry_list_title)).setVisibility(View.GONE);
 
             return view;
         }

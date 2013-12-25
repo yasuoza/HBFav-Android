@@ -2,7 +2,6 @@ package com.hbfav.android.ui;
 
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +11,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.hbfav.android.R;
 import com.hbfav.android.core.FetchBookmarkStatusTask;
@@ -21,23 +21,23 @@ import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.model.Entry;
 import com.hbfav.android.model.HatenaBookmark;
 
-public class EntryContentWebViewActivity extends Activity {
+public class EntryContentWebViewActivity extends BaseActivity {
 
     private Entry mEntry;
-    private Boolean loading = true;
 
     private ProgressBar mProgressBar;
     private WebView mWebView;
-    private LinearLayout mToolbarContainer;
-    private Button mHistoryBackButton;
-    private Button mHistoryForwardButton;
-    private Button mBookmarkButton;
-    private Button mBookmarkCountButton;
+    private ImageButton mHistoryBackButton;
+    private ImageButton mHistoryForwardButton;
+    private ImageButton mBookmarkButton;
+    private ImageButton mBookmarkCountButton;
+    private TextView mBookmarkCountText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
+
+        super.onCreate(savedInstanceState);
 
         mEntry = getIntent().getParcelableExtra("entry");
 
@@ -47,16 +47,13 @@ public class EntryContentWebViewActivity extends Activity {
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        mToolbarContainer = (LinearLayout) findViewById(R.id.entry_webview_toolbar);
+        mHistoryBackButton = (ImageButton) findViewById(R.id.historyBackButton);
+        mHistoryForwardButton = (ImageButton) findViewById(R.id.historyForwardButton);
 
-        mHistoryBackButton = (Button) findViewById(R.id.historyBackButton);
-        mHistoryForwardButton = (Button) findViewById(R.id.historyForwardButton);
-
-        mBookmarkButton = (Button) findViewById(R.id.bookmarkButton);
-        mBookmarkCountButton = (Button) findViewById(R.id.entry_webview_bookmark_count_button);
+        mBookmarkButton = (ImageButton) findViewById(R.id.bookmarkButton);
+        mBookmarkCountButton = (ImageButton) findViewById(R.id.entry_webview_bookmark_count_button);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(mEntry.getTitle());
 
         setHistoryBackButtonClickable(false);
@@ -78,15 +75,16 @@ public class EntryContentWebViewActivity extends Activity {
         mBookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerBookmark(mEntry);
+                startBookmarkEntryActivity(mEntry);
             }
         });
 
-        mBookmarkCountButton.setText(mEntry.getCount() + "\nusers");
+        mBookmarkCountText = (TextView) findViewById(R.id.entry_webview_bookmark_count_text);
+        mBookmarkCountText.setText(mEntry.getCount() + "\nusers");
         mBookmarkCountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startCommentActivity(mEntry);
+                startBookmarkCommentActivity(mEntry);
             }
         });
 
@@ -108,7 +106,7 @@ public class EntryContentWebViewActivity extends Activity {
         mEntry.fetchLatestDetail(new Entry.EntryDetailFetchListener() {
             @Override
             public void onDetailFetched() {
-                mBookmarkCountButton.setText(mEntry.getCount() + "\nusers");
+                mBookmarkCountText.setText(mEntry.getCount() + "\nusers");
             }
         });
     }
@@ -141,7 +139,6 @@ public class EntryContentWebViewActivity extends Activity {
             super.onProgressChanged(view, newProgress);
 
             if (newProgress == 100) {
-                loading = false;
                 EntryContentWebViewActivity.this.mProgressBar.setVisibility(View.GONE);
             } else {
                 EntryContentWebViewActivity.this.mProgressBar.setVisibility(View.VISIBLE);
@@ -157,7 +154,7 @@ public class EntryContentWebViewActivity extends Activity {
                 super.onPostExecute(bookmark);
 
                 if (bookmark != null) {
-                    mBookmarkButton.setText("Bed!");
+                    mBookmarkButton.setImageDrawable(getResources().getDrawable(R.drawable.btn_bookmark_checked));
                 }
             }
         }.execute(mEntry);
@@ -178,28 +175,28 @@ public class EntryContentWebViewActivity extends Activity {
     private void setHistoryBackButtonClickable(boolean clickable) {
         mHistoryBackButton.setClickable(clickable);
         if (clickable) {
-            mHistoryBackButton.setTextColor(getResources().getColor(R.color.hatena_color));
+            mHistoryBackButton.setImageDrawable(getResources().getDrawable(R.drawable.btn_navigation_back_on));
         } else {
-            mHistoryBackButton.setTextColor(getResources().getColor(R.color.light_gray_color));
+            mHistoryBackButton.setImageDrawable(getResources().getDrawable(R.drawable.btn_navigation_back_off));
         }
     }
 
     private void setHistoryForwardButtonClickable(boolean clickable) {
         mHistoryForwardButton.setClickable(clickable);
         if (clickable) {
-            mHistoryForwardButton.setTextColor(getResources().getColor(R.color.hatena_color));
+            mHistoryForwardButton.setImageDrawable(getResources().getDrawable(R.drawable.btn_navigation_forward_on));
         } else {
-            mHistoryForwardButton.setTextColor(getResources().getColor(R.color.light_gray_color));
+            mHistoryForwardButton.setImageDrawable(getResources().getDrawable(R.drawable.btn_navigation_forward_off));
         }
     }
 
-    private void registerBookmark(final Entry entry) {
+    private void startBookmarkEntryActivity(final Entry entry) {
         Intent intent = new Intent(this, BookmarkEntryActivity.class);
         intent.putExtra("entry", entry);
         startActivity(intent);
     }
 
-    private void startCommentActivity(final Entry entry) {
+    private void startBookmarkCommentActivity(final Entry entry) {
         Intent intent = new Intent(this, BookmarkCommentListActivity.class);
         intent.putExtra("entry", entry);
         startActivity(intent);

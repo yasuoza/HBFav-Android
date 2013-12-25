@@ -35,50 +35,63 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/historyBackButton"
                     android:clickable="false"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="&lt;"
-                    android:textSize="35sp"
+                    android:src="@drawable/btn_navigation_back_off"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/hatena_color"
+                    android:textColor="@color/white"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="30dp"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/historyForwardButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
-                    android:text="&gt;"
-                    android:textSize="35sp"
+                    android:src="@drawable/btn_navigation_forward_off"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/hatena_color"
+                    android:textColor="@color/white"
                     android:layout_toRightOf="@+id/historyBackButton"
                     android:layout_centerVertical="true"/>
 
-                <Button
+                <ImageButton
                     android:id="@+id/bookmarkButton"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="B!"
-                    android:padding="10dp"
-                    android:background="@color/hatena_color"
-                    android:textStyle="bold"
+                    android:scaleType="fitCenter"
+                    android:padding="0dp"
+                    android:src="@drawable/btn_bookmark_plain"
                     android:layout_centerInParent="true"/>
 
-                <Button
-                    android:id="@+id/entry_webview_bookmark_count_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:textSize="12sp"
-                    android:background="@color/hatena_color"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"/>
+
+                <FrameLayout android:layout_height="40dp"
+                             android:layout_width="50dp"
+                             android:layout_centerVertical="true"
+                             android:layout_alignParentRight="true"
+                             android:layout_marginRight="40dp">
+                    <ImageButton
+                        android:id="@+id/entry_webview_bookmark_count_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@null"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/btn_bookmark_count"/>
+                    <TextView
+                        android:id="@+id/entry_webview_bookmark_count_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|top"
+                        android:gravity="center|top"
+                        android:textSize="12sp"
+                        android:lineSpacingMultiplier="0.8"
+                        android:textColor="@android:color/black"
+                        android:clickable="false"/>
+                </FrameLayout>
+
             </RelativeLayout>
         </LinearLayout>
 
