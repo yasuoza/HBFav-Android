@@ -85,79 +85,87 @@
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <HorizontalScrollView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_height="fill_parent"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <CheckBox
-                                android:id="@+id/checkbox_twitter"
-                                android:text="@string/post_twitter"
-                                android:textColor="@color/white"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="40dp"/>
-
-                            <CheckBox
-                                android:text="@string/post_facebook"
-                                android:id="@+id/checkbox_facebook"
-                                android:textColor="@color/white"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginLeft="20dp">
-
-                            <CheckBox
-                                android:text="@string/post_mixi"
-                                android:id="@+id/checkbox_mixi"
-                                android:textColor="@color/white"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="40dp"/>
-
-                            <CheckBox
-                                android:text="@string/post_evernote"
-                                android:id="@+id/checkbox_evernote"
-                                android:textColor="@color/white"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:layout_marginLeft="20dp">
-                            <CheckBox
-                                android:text="@string/post_private"
-                                android:id="@+id/checkbox_private"
-                                android:textColor="@color/white"
-                                android:paddingTop="10dp"
-                                android:paddingBottom="10dp"
+                            android:gravity="center_horizontal"
+                            android:layout_gravity="center">
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <CheckBox
+                                    android:id="@+id/checkbox_twitter"
+                                    android:text="@string/post_twitter"
+                                    android:textColor="@color/white"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="40dp"/>
+
+                                <CheckBox
+                                    android:text="@string/post_facebook"
+                                    android:id="@+id/checkbox_facebook"
+                                    android:textColor="@color/white"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="20dp">
+
+                                <CheckBox
+                                    android:text="@string/post_mixi"
+                                    android:id="@+id/checkbox_mixi"
+                                    android:textColor="@color/white"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="40dp"/>
+
+                                <CheckBox
+                                    android:text="@string/post_evernote"
+                                    android:id="@+id/checkbox_evernote"
+                                    android:textColor="@color/white"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginLeft="20dp">
+
+                                <CheckBox
+                                    android:text="@string/post_private"
+                                    android:id="@+id/checkbox_private"
+                                    android:textColor="@color/white"
+                                    android:paddingTop="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
+                    </HorizontalScrollView>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -185,6 +193,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/activity_bookmark_entry_title"
                         android:textStyle="bold"
@@ -193,6 +202,7 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
+
                     <TextView
                         android:id="@+id/activity_bookmark_bookmark_count"
                         android:textStyle="bold"
@@ -203,7 +213,8 @@
                         android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/activity_bookmark_entry_url"
                     android:textColor="@color/light_gray_color"
