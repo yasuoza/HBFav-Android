@@ -23,12 +23,25 @@
     <string name="processing">Processing...</string>
 
     <!-- BookmarkEntryActivity -->
+    <string name="comment">Comment</string>
+    <string name="tags">Tags(Split by spaces)</string>
+    <string name="recommend_tags">Recommend tags</string>
+    <string name="all_tags">All tags</string>
+    <string name="post_twitter">Twitter</string>
+    <string name="post_facebook">Facebook</string>
+    <string name="post_mixi">mixi check</string>
+    <string name="post_evernote">Evernote</string>
+    <string name="post_private">Private</string>
+    <string name="save_entry">Save</string>
+    <string name="update_entry">Update</string>
+    <string name="delete_entry">Delete</string>
     <string name="failed_add_bookmark_title">Failed to add bookmark...</string>
     <string name="failed_add_bookmark_message">Please change tags or try later.</string>
 
     <!-- Setting -->
     <string name="setting_settings">SETTINGS</string>
     <string name="setting_accounts">ACCOUNTS</string>
+    <string name="setting_outer_service">SERVICES</string>
     <string name="setting_configs">CONFIGS</string>
     <string name="setting_account">Hatena account</string>
     <string name="pref_hatena_user_name">pref_user_name</string>

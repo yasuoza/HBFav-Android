@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="12sp"
-                android:text="Recommend Tags"/>
+                android:text="@string/recommend_tags"/>
 
             <Button
                 android:id="@+id/all_button"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="12sp"
-                android:text="All Tags"/>
+                android:text="@string/all_tags"/>
 
             <ImageButton
                 android:id="@+id/share_config_button"
@@ -99,7 +99,7 @@
 
                             <CheckBox
                                 android:id="@+id/checkbox_twitter"
-                                android:text="Twitter"
+                                android:text="@string/post_twitter"
                                 android:textColor="@color/white"
                                 android:paddingTop="10dp"
                                 android:paddingBottom="10dp"
@@ -108,7 +108,7 @@
                                 android:layout_marginBottom="40dp"/>
 
                             <CheckBox
-                                android:text="Facebook"
+                                android:text="@string/post_facebook"
                                 android:id="@+id/checkbox_facebook"
                                 android:textColor="@color/white"
                                 android:paddingTop="10dp"
@@ -124,7 +124,7 @@
                             android:layout_marginLeft="20dp">
 
                             <CheckBox
-                                android:text="mixi"
+                                android:text="@string/post_mixi"
                                 android:id="@+id/checkbox_mixi"
                                 android:textColor="@color/white"
                                 android:paddingTop="10dp"
@@ -134,7 +134,7 @@
                                 android:layout_marginBottom="40dp"/>
 
                             <CheckBox
-                                android:text="Evernote"
+                                android:text="@string/post_evernote"
                                 android:id="@+id/checkbox_evernote"
                                 android:textColor="@color/white"
                                 android:paddingTop="10dp"
@@ -149,7 +149,7 @@
                             android:orientation="horizontal"
                             android:layout_marginLeft="20dp">
                             <CheckBox
-                                android:text="Private"
+                                android:text="@string/post_private"
                                 android:id="@+id/checkbox_private"
                                 android:textColor="@color/white"
                                 android:paddingTop="10dp"
@@ -176,7 +176,6 @@
 
             <LinearLayout
                 android:id="@+id/title_area"
-                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -226,7 +225,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:hint="Comment"
+                    android:hint="@string/comment"
                     android:gravity="left|top"
                     android:inputType="textMultiLine">
 
@@ -238,7 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:hint="Tags"
+                    android:hint="@string/tags"
                     android:textSize="13sp"
                     android:gravity="left|top"
                     android:inputType="text"/>

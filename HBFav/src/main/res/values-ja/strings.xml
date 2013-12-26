@@ -7,10 +7,25 @@
     <string name="title_section3">人気エントリー</string>
     <string name="title_section4">アプリについて</string>
 
+    <!-- BookmarkEntryActivity -->
+    <string name="comment">コメント</string>
+    <string name="tags">タグ(スペース区切り)</string>
+    <string name="recommend_tags">おすすめのタグ</string>
+    <string name="all_tags">すべてのタグ</string>
+    <string name="save_entry">保存</string>
+    <string name="update_entry">更新</string>
+    <string name="delete_entry">削除</string>
+    <string name="failed_add_bookmark_title">ブックマーク登録に失敗しました</string>
+    <string name="failed_add_bookmark_message">時間を置いて再度登録して下さい</string>
+
     <!-- Setting -->
     <string name="setting_settings">設定</string>
+    <string name="setting_accounts">アカウント</string>
+    <string name="setting_outer_service">連携</string>
     <string name="setting_account">はてなアカウント</string>
     <string name="pref_hatena_user_name_summary">ここをタップしてはてなユーザ名を登録</string>
+    <string name="setting_logout_from_hatena_service">はてなブックマークとの連携解除</string>
+    <string name="setting_login_to_hatena_service">はてなブックマークと連携</string>
 
     <!-- About App -->
     <string name="about_issues_demands">バグ・要望(GitHub)</string>

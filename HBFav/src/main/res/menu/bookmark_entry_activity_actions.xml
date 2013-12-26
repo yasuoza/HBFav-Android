@@ -2,18 +2,18 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_delete"
-          android:title="Delete"
+          android:title="@string/delete_entry"
           android:visible="false"
           android:showAsAction="always"/>
 
     <item android:id="@+id/action_update"
-          android:title="Update"
+          android:title="@string/update_entry"
           android:visible="false"
           android:showAsAction="always"/>
 
 
     <item android:id="@+id/action_save"
-          android:title="Save"
+          android:title="@string/save_entry"
           android:visible="false"
           android:showAsAction="always"/>
 </menu>

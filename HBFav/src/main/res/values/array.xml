@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="menues">
-        <item>Settings</item>
-        <item>Timeline</item>
-        <item>New Entries</item>
-        <item>Popular Entries</item>
-        <item>About App</item>
+        <item>@string/title_section0</item>
+        <item>@string/title_section1</item>
+        <item>@string/title_section2</item>
+        <item>@string/title_section3</item>
+        <item>@string/title_section4</item>
     </string-array>
 
     <!-- Entrylist category param list -->
