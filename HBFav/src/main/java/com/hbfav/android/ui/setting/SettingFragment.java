@@ -65,13 +65,6 @@ public class SettingFragment extends PreferenceFragment {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     preference.setSummary(newValue.toString());
-
-                    // Close view if opened in SettingActivity
-                    Activity activity = getActivity();
-                    if (activity instanceof SettingActivity && UserInfoManager.isAuthenticated()) {
-                        activity.finish();
-                    }
-
                     return true;
                 }
             });
