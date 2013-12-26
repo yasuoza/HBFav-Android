@@ -5,12 +5,9 @@
 -keepattributes Signature
 -keep class sun.misc.Unsafe { *; }
 
-# Crittersicm
--keep public class com.crittercism.**
--keepclassmembers public class com.crittercism.*
-{
-    *;
-}
+# scribe-java
+-dontwarn org.apache.commons.codec.binary.Base64
+-dontwarn javax.xml.bind.DatatypeConverter
 
 # My models
 -keep class com.hbfav.android.model.** { *; }
