@@ -27,12 +27,6 @@ public class UserInfoManager {
     private static final String ACCESS_TOKEN = "access_token";
     private static final String ACCESS_TOKEN_SECRET = "access_token_secret";
 
-    private static boolean postTwitter = false;
-    private static boolean postFacebook = false;
-    private static boolean postMixi = false;
-    private static boolean postEvernote = false;
-    private static boolean postPrivate = false;
-
     private static boolean isOauthTwitter = false;
     private static boolean isOauthFacebook = false;
     private static boolean isOauthMixi = false;
