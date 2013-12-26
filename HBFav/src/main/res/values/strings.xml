@@ -24,7 +24,7 @@
 
     <!-- BookmarkEntryActivity -->
     <string name="comment">Comment</string>
-    <string name="tags">Tags(Split by spaces)</string>
+    <string name="tags">Tags(Split by space)</string>
     <string name="recommend_tags">Recommend tags</string>
     <string name="all_tags">All tags</string>
     <string name="post_twitter">Twitter</string>

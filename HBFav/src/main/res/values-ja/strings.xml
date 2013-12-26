@@ -15,6 +15,7 @@
     <string name="save_entry">保存</string>
     <string name="update_entry">更新</string>
     <string name="delete_entry">削除</string>
+    <string name="post_mixi">mixiチェック</string>
     <string name="failed_add_bookmark_title">ブックマーク登録に失敗しました</string>
     <string name="failed_add_bookmark_message">時間を置いて再度登録して下さい</string>
 

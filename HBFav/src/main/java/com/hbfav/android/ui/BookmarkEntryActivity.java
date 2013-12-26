@@ -342,7 +342,9 @@ public class BookmarkEntryActivity extends BaseActivity {
                     mControlScrollView.setVisibility(View.VISIBLE);
                 }
 
+                highlightToolbarButtonOnly(null);
                 setVisibleControllPanelOnly(mShareConfigView);
+                layoutShareConfigCheckbox();
             }
         });
 
