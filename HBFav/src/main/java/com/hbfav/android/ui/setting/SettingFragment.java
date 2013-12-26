@@ -23,6 +23,8 @@ import com.hbfav.android.ui.MainActivity;
 import org.scribe.model.Token;
 
 public class SettingFragment extends PreferenceFragment {
+    Preference mLoginOrLogoutPreference;
+
     /**
      * Returns a new instance of this fragment for the given section
      * number.
@@ -66,7 +68,7 @@ public class SettingFragment extends PreferenceFragment {
 
                     // Close view if opened in SettingActivity
                     Activity activity = getActivity();
-                    if (activity instanceof SettingActivity) {
+                    if (activity instanceof SettingActivity && UserInfoManager.isAuthenticated()) {
                         activity.finish();
                     }
 
@@ -75,15 +77,18 @@ public class SettingFragment extends PreferenceFragment {
             });
         }
 
-        Preference logoutPreference = findPreference(getString(R.string.pref_logout_from_hatena_service));
-        if (logoutPreference != null) {
-            logoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        mLoginOrLogoutPreference = findPreference(getString(R.string.pref_logout_from_hatena_service));
+        if (mLoginOrLogoutPreference != null) {
+            mLoginOrLogoutPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     (new AsyncTask<Void, Void, Void>() {
                         ProgressDialog mProgressDialog;
+
                         @Override
                         protected void onPreExecute() {
+                            UserInfoManager.resetAccessToken();
+
                             mProgressDialog = new ProgressDialog(getActivity());
                             mProgressDialog.setMessage(getString(R.string.processing));
                             mProgressDialog.setCancelable(false);
@@ -120,6 +125,13 @@ public class SettingFragment extends PreferenceFragment {
             tracker.set(Fields.SCREEN_NAME, getString(R.string.page_setting));
             tracker.send(MapBuilder.createAppView().build());
         }
+
+        if (!UserInfoManager.isAuthenticated()) {
+            mLoginOrLogoutPreference.setTitle(R.string.setting_login_to_hatena_service);
+        } else {
+            mLoginOrLogoutPreference.setTitle(R.string.setting_logout_from_hatena_service);
+        }
+
     }
 
     @Override

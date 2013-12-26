@@ -40,7 +40,6 @@ public class Entry implements Parcelable {
     private User user;
 
     private String[] mRecommendTags = new String[]{};
-    private boolean mFetchedRecommendTags;
 
     public interface EntryDetailFetchListener {
         abstract void onDetailFetched();

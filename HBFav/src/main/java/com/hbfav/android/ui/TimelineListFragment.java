@@ -90,6 +90,10 @@ public class TimelineListFragment extends BaseListFragment implements AbsListVie
             startActivity(new Intent(getActivity(), SettingActivity.class));
             return;
         }
+        if (!UserInfoManager.isAuthenticated()) {
+            startActivity(new Intent(getActivity(), SettingActivity.class));
+            return;
+        }
         if (getListView() != null && TimelineFeedManager.getInstance().getList().isEmpty()) {
             getListView().invalidateViews();
         }

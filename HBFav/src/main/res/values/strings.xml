@@ -34,6 +34,7 @@
     <string name="pref_hatena_user_name">pref_user_name</string>
     <string name="pref_hatena_user_name_summary">Tap here to register hatena user name.</string>
     <string name="setting_logout_from_hatena_service">Logout from hatena service</string>
+    <string name="setting_login_to_hatena_service">Login to hatena service</string>
     <string name="pref_logout_from_hatena_service">pref_logout_from_hatena_service</string>
     <string name="pref_send_crash_log">pref_send_crash_log</string>
     <string name="pref_send_crash_log_title">Send crash log</string>

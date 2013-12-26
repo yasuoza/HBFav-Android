@@ -66,6 +66,19 @@ public class UserInfoManager {
         return new Token(token, secret);
     }
 
+    public static void resetAccessToken() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication());
+        sp.edit().putString(ACCESS_TOKEN, "").apply();
+        sp.edit().putString(ACCESS_TOKEN_SECRET, "").apply();
+    }
+
+    public static boolean isAuthenticated() {
+        String token = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString(ACCESS_TOKEN, "");
+        String secret = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContextOfApplication()).getString(ACCESS_TOKEN_SECRET, "");
+
+        return !token.isEmpty() && !secret.isEmpty();
+    }
+
     public static boolean isPostTwitter() {
         return PreferenceManager
                 .getDefaultSharedPreferences(MainActivity.getContextOfApplication())
@@ -174,7 +187,7 @@ public class UserInfoManager {
             }
 
             String res = response.getBody();
-            if (res == null || res.isEmpty()) {
+            if (res == null || res.isEmpty() || response.getCode() != 200) {
                 return false;
             }
 
