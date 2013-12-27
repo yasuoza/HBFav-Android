@@ -1,7 +1,6 @@
 package com.hbfav.android.ui;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -239,10 +238,11 @@ public class BookmarkEntryActivity extends BaseActivity {
                     new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
-                            // if heightDiff is more than 200 pixels, its probably a keyboard...
-                            int heightDiff
-                                    = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
-                            if (heightDiff > 200 || !needShowControllPanel) {
+                            int keyboardOffset = 250;
+                            // if heightDiff is more than $keyboardOffset dip, its probably a keyboard...
+                            float heightDiff
+                                    = (activityRootView.getRootView().getHeight() - activityRootView.getHeight()) / getResources().getDisplayMetrics().density;
+                            if (heightDiff > keyboardOffset || !needShowControllPanel) {
                                 resetToolbarButtonColor();
                                 mControlScrollView.setVisibility(View.GONE);
                             } else {
@@ -253,7 +253,7 @@ public class BookmarkEntryActivity extends BaseActivity {
                                     highlightToolbarButtonOnly(mAllTagsButton);
                                 }
                             }
-                            isKeyboardShown = (heightDiff > 200);
+                            isKeyboardShown = (heightDiff > keyboardOffset);
                         }
                     });
         }
