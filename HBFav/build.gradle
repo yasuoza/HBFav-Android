@@ -44,7 +44,7 @@ android {
 dependencies {
     compile project(':vendor:modules:volley')
     compile 'com.android.support:support-v4:19.0.+'
-    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.9.1'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:0.9.3'
     compile 'com.makeramen:roundedimageview:1.1.0@aar'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.crashlytics.android:crashlytics:1.+'
