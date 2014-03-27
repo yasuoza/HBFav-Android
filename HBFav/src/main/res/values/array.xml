@@ -9,7 +9,7 @@
     </string-array>
 
     <!-- Entrylist category param list -->
-    <string-array name="params_entry_category">
+    <string-array name="params_entry_category" translatable="false">
         <item>general</item>
         <item>social</item>
         <item>it</item>
