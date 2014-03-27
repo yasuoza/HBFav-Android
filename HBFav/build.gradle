@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 18
+        targetSdkVersion 19
         testPackageName "com.hbfav.android"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
