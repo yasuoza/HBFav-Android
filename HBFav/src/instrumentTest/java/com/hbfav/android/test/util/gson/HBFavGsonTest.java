@@ -1,4 +1,4 @@
-package com.hbfav.android.util.gson;
+package com.hbfav.android.test.util.gson;
 
 import android.test.AndroidTestCase;
 

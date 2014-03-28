@@ -1,7 +1,6 @@
 package com.hbfav.android;
 
 
-import com.hbfav.android.model.NavigationItem;
 import com.hbfav.android.ui.MainActivity;
 
 public class Constants {

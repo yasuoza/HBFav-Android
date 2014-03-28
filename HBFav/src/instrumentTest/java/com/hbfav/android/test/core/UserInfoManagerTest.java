@@ -1,8 +1,8 @@
-package com.hbfav.android.core;
+package com.hbfav.android.test.core;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.hbfav.android.Constants;
+import com.hbfav.android.core.UserInfoManager;
 import com.hbfav.android.ui.MainActivity;
 
 import junit.framework.Assert;
@@ -31,6 +31,5 @@ public class UserInfoManagerTest extends ActivityInstrumentationTestCase2<MainAc
         String name = "dankogai";
         UserInfoManager.setUserName(name);
         Assert.assertEquals(UserInfoManager.getUserName(), name);
-        assertEquals(UserInfoManager.getThumbUrl(), Constants.BASE_THUMBNAIL_URL + name + "/profile.gif");
     }
 }
