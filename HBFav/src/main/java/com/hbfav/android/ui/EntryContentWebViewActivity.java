@@ -4,6 +4,8 @@ package com.hbfav.android.ui;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
@@ -13,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.hbfav.android.R;
@@ -32,6 +35,7 @@ public class EntryContentWebViewActivity extends BaseActivity {
     private ImageButton mBookmarkButton;
     private ImageButton mBookmarkCountButton;
     private TextView mBookmarkCountText;
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,35 @@ public class EntryContentWebViewActivity extends BaseActivity {
         updateBookmarkButton();
 
         updateEntryDetail();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate menu resource file.
+        getMenuInflater().inflate(R.menu.share_menu, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        // Fetch and store ShareActionProvider
+        mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, mEntry.getLink());
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, mEntry.getTitle());
+        sendIntent.setType("text/plain");
+        setShareIntent(Intent.createChooser(sendIntent, "Share '" +mEntry.getTitle()+ "' via"));
+
+        // Return true to display menu
+        return true;
+    }
+
+    // Call to update the share_menu intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     private void updateEntryDetail() {
